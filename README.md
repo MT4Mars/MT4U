@@ -3,7 +3,11 @@ MT4U Reaper Scripts
 
 Cockos Reaper Scripts, developed to enhance the use of CSI (Control Surface Integrator)
 
-The different folders contain the necessary scripts for each functionality.
+Installation:
+-------------
+    Different folders contain the necessary scripts for each functionality and a CSI.txt file.
+    Copy the scripts to your Reaper Scripts directory and check the CSI.txt file to find the
+    changes needed in your CSI Zone files to make things work.
 
 MT4U_View (Show/Hide tracks with button feedback)
 -------------------------------------------------
