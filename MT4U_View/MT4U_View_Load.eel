@@ -1,0 +1,77 @@
+// MT4U_Rec_Mode_GMem.eel Reaper EEL2 script by MT4U.
+// Marcel Lettier Ribikauskas (mars_l@hotmail.com)
+//namespace
+//@gmem=MT4UViewMode
+
+// Check Enabled/Disabled
+GetProjExtState(0, "MT4U_Globals", "TrackUpdate", #upd_dis);
+(strcmp(#upd_dis, "1") != 0) ?
+(
+  intTracks = CountTracks();
+  intCurTrack = 0;
+  done_M = 0; // MIDI
+  done_A = 0; // Audio
+  done_I = 0; // Instruments
+  done_V = 0; // Virtual Instruments
+  done_F = 0; // FX
+  done_B = 0; // Buses
+  while (intCurTrack < intTracks) 
+  (
+    CurTrack = GetTrack(0, intCurTrack);
+    GetSetMediaTrackInfo_String(CurTrack, "P_EXT:MT4U_View", #strType, 0);
+    (strcmp(#strType, "MIDI") == 0 && done_M == 0) ?
+      (
+        isVis = GetMediaTrackInfo_Value(CurTrack, "B_SHOWINTCP");
+        gmem[1] = isVis; // MIDI
+        done_M = 1;
+      ) :
+    (strcmp(#strType, "Audio") == 0 && done_M == 0) ?
+      (
+        isVis = GetMediaTrackInfo_Value(CurTrack, "B_SHOWINTCP");
+        gmem[2] = isVis; // Audio
+        done_A = 1;
+      ) :
+    (strcmp(#strType, "AudioInst") == 0 && done_A == 0) ?
+      (
+        isVis = GetMediaTrackInfo_Value(CurTrack, "B_SHOWINTCP");
+        gmem[3] = isVis; // Instruments
+        done_I = 1;
+      ) :
+    (strcmp(#strType, "User") == 0 && done_A == 0) ?
+      (
+        isVis = GetMediaTrackInfo_Value(CurTrack, "B_SHOWINTCP");
+        gmem[4] = isVis; // Virtual Instruments
+        done_V = 1;
+      ) :
+    (strcmp(#strType, "Aux") == 0 && done_A == 0) ?
+      (
+        isVis = GetMediaTrackInfo_Value(CurTrack, "B_SHOWINTCP");
+        gmem[5] = isVis; // FX
+        done_F = 1;
+      ) :
+    (strcmp(#strType, "Buses") == 0 && done_A == 0) ? // Buses
+      (
+        isVis = GetMediaTrackInfo_Value(CurTrack, "B_SHOWINTCP");
+        gmem[6] = isVis; // Buses
+        done_B = 1;
+      );
+    intCurTrack +=1;
+  );
+  (!done_M) ? gmem[1] = 1;
+  (!done_A) ? gmem[2] = 1;
+  (!done_I) ? gmem[3] = 1;
+  (!done_V) ? gmem[4] = 1;
+  (!done_F) ? gmem[5] = 1;
+  (!done_B) ? gmem[6] = 1;
+  // Read value to memory
+  gmem[0] = 1;
+  intCMD = NamedCommandLookup("_RS5a2067725514143a373b553d823981d307cb8189"); Main_OnCommand(intCMD, 0); // MIDI
+  intCMD = NamedCommandLookup("_RS46d6544aa131ae44e70f0d478eb502556063a2b5"); Main_OnCommand(intCMD, 0); // Audio
+  intCMD = NamedCommandLookup("_RScd5cd8161e003eb8bb15dc7db0e2f2741c8755bc"); Main_OnCommand(intCMD, 0); // Instruments
+  intCMD = NamedCommandLookup("_RS39d9747dd017e8332892f15d88c4961c17554311"); Main_OnCommand(intCMD, 0); // Virtual Instruments
+  intCMD = NamedCommandLookup("_RS1df96e86e7c504fb0b38b9b46e6584d65847a0ec"); Main_OnCommand(intCMD, 0); // FX
+  intCMD = NamedCommandLookup("_RS26090204e94a2519d353d6c0df3a65c676febbe6"); Main_OnCommand(intCMD, 0); // Buses
+  TrackList_AdjustWindows(true);
+  gmem[0] = 0;
+);
+//intCMD = NamedCommandLookup("_RSda09c594637536c51afdb75721d17694321472f3"); Main_OnCommand(intCMD, 0); // MT4U_Track_Update_Enable.eel

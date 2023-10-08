@@ -1,0 +1,40 @@
+@import MT4U_View_Update.eel
+
+get_action_context(#fn, sec, cmd);
+strThis = "Aux";
+state = GetToggleCommandStateEx(sec, cmd);
+newstate = state;
+
+GetProjExtState(0, "MT4U_Globals", "FROM_BUTTON", #from_button);
+
+trkCurrent = GetSelectedTrack(0, 0);
+strBut = "1";
+(!strcmp(#from_button, strBut)) ? 
+(
+  newstate = 1;
+  // Button Press
+  #str_type = strThis;
+  GetSetMediaTrackInfo_String(trkCurrent, "P_EXT:MT4U_View", #str_prev, 0); 
+  GetSetMediaTrackInfo_String(trkCurrent, "P_EXT:MT4U_View", #str_type, 1); 
+  SetProjExtState(0, "MT4U_Globals", "FROM_BUTTON", "0"); 
+  (strcmp(#str_type, #str_prev)) ? 
+  (
+    View_Update(#str_prev);
+  );  
+) : 
+(
+  #str_type = strThis;
+  GetSetMediaTrackInfo_String(trkCurrent, "P_EXT:MT4U_View", #str_type, 0); 
+//  ShowMessageBox(sprintf(#, "%s - %s", #str_type, strThis);, "CSI_FX", 0);
+  (!strcmp(#str_type, strThis)) ? 
+  (
+    newstate = 1;
+  ) :
+  (
+    newstate = 0;
+  );
+);
+//(state != newstate) ? 
+//(
+  SetToggleCommandState(sec, cmd, newstate);
+//);

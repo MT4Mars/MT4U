@@ -1,0 +1,6 @@
+trkCurrent = GetSelectedTrack(0, 0);
+intR = 0;
+intG = 0;
+intB = 255;
+colSet = ColorToNative(intR, intG, intB);
+SetTrackColor(trkCurrent, colSet);

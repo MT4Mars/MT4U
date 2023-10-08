@@ -1,0 +1,45 @@
+//namespace
+//@gmem=MT4UViewMode
+get_action_context(#fn, sec, cmd);
+
+state = GetToggleCommandStateEx(sec, cmd);
+state = state==1?0:1;
+
+function ShowHide()
+(
+  intTracks = CountTracks();
+  intCurTrack = 0;
+  intSetValue = 0;
+
+  while (intCurTrack < intTracks) 
+  (
+    CurTrack = GetTrack(0, intCurTrack);
+    GetSetMediaTrackInfo_String(CurTrack, "P_EXT:MT4U_View", #str_type, 0);
+    (strcmp(#str_type, "User") == 0) ?
+    (
+      intSetValue = 1;
+      SetMediaTrackInfo_Value(CurTrack, "B_SHOWINTCP", state);
+      SetMediaTrackInfo_Value(CurTrack, "B_SHOWINMIXER", state);
+    );
+    intCurTrack +=1;
+  );
+  TrackList_AdjustWindows(true);
+);
+
+(gmem[0] == 1) ? 
+(
+  state = gmem[4];
+  SetMediaTrackInfo_Value(CurTrack, "B_SHOWINTCP", state);
+  SetMediaTrackInfo_Value(CurTrack, "B_SHOWINMIXER", state);
+):
+(
+  ShowHide();
+  // Default to true. If you add any, we are set already. :-D
+  (intSetValue == 0) ? 
+  (
+   state = 1;
+  );  
+  gmem[4] = state;
+);
+
+SetToggleCommandState(sec, cmd, state);
