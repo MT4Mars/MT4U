@@ -1,7 +1,11 @@
 1 - To use these scripts in CSI, first add them to your Actions in Reaper
+
 2 - In your Track.zon, add these lines
+
     OnZoneActivation            Reaper _RS240e9e2732dbeed30d7b4f1d92037facddb4a7fe    // MT4U_View_Load.eel
+
 3 - Add to your Buttons.zon (these buttons are for MCU, modify them to fit your surface)
+
     MidiTracks                  Reaper _RS5a2067725514143a373b553d823981d307cb8189               // MT4U_View_MIDI.eel
     Alt+MidiTracks              Reaper _RSa7f5dd54e48617648ceca0af3a8af795d990707c Feedback=No   // MT4U_FromButton_On.eel
     Alt+MidiTracks              Reaper _RS38019f78052857cc8df3657e030ea78020d70a79 Feedback=Yes  // MT4U_View_Assign_MIDI.eel
@@ -14,13 +18,15 @@
     Aux                         Reaper _RSed643b5d8f3b46d3c09575e5d275c0b8690a0b4e               // MT4U_View_Aux.eel
     Alt+Aux                     Reaper _RSa7f5dd54e48617648ceca0af3a8af795d990707c Feedback=No   // MT4U_FromButton_On.eel
     Alt+Aux                     Reaper _RSe92fd7a0a8a84f8584585a32d5a56070ca9c1b01 Feedback=Yes  // MT4U_View_Assign_Aux.eel
-    Busses                      Reaper _RS26090204e94a2519d353d6c0df3a65c676febbe6               // MT4U_View_Buses.eel
+    Busses                      Reaper _RS0168239eb5f1a61c9c01c22721a24454dee18fef               // MT4U_View_Busses.eel
     Alt+Busses                  Reaper _RSa7f5dd54e48617648ceca0af3a8af795d990707c Feedback=No   // MT4U_FromButton_On.eel
-    Alt+Busses                  Reaper _RS499a4a5944e48e9af92f7003b3228b59aa1e3d7c Feedback=Yes  // MT4U_View_Assign_Buses.eel
+    Alt+Busses                  Reaper _RSa3db09c0cf8183838dfd6e531232d200920bf06f Feedback=Yes  // MT4U_View_Assign_Busses.eel
     User                        Reaper _RSd77df4d66ecdf92968cd3dd6fdc14a08e4023f94               // MT4U_View_User.eel
     Alt+User                    Reaper _RSa7f5dd54e48617648ceca0af3a8af795d990707c Feedback=No   // MT4U_FromButton_On.eel
     Alt+User                    Reaper _RSdd4ea857c72f36b0b38e9f7951583229affb42f7 Feedback=Yes  // MT4U_View_Assign_User.eel
+
 4 - Add to your Home.zon as needed. (These update Feedback on the buttons whenever you change the selected track)
+
     OnTrackSelection Reaper _RS38019f78052857cc8df3657e030ea78020d70a79 // Script: MT4U_View_Assign_MIDI.eel
     OnTrackSelection Reaper _RS5d7f8a1ef9f2b144e44fef9928b9477877d6f4b0 // Script: MT4U_View_Assign_Audio.eel
     OnTrackSelection Reaper _RS5b0f20b5e13ea335a371eed21e033beed9b69d06 // Script: MT4U_View_Assign_AudioInst.eel
