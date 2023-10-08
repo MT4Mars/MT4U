@@ -5,8 +5,8 @@ Cockos Reaper Scripts, developed to enhance the use of CSI (Control Surface Inte
 
 The different folders contain the necessary scripts for each functionality.
 
-MT4U_View (to toggle show/hide custom groups of tracks with button feedback)
----------
+MT4U_View (Show/Hide tracks with button feedback)
+-------------------------------------------------
     These scripts are for setting a tracks "category" and then use surface buttons to
     show/hide tracks depending on their category.
 
