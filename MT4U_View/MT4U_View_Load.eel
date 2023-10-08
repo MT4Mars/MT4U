@@ -1,4 +1,4 @@
-// MT4U_Rec_Mode_GMem.eel Reaper EEL2 script by MT4U.
+// MT4U_View_Load.eel Reaper EEL2 script by MT4U.
 // Marcel Lettier Ribikauskas (mars_l@hotmail.com)
 //namespace
 //@gmem=MT4UViewMode
@@ -12,9 +12,9 @@ GetProjExtState(0, "MT4U_Globals", "TrackUpdate", #upd_dis);
   done_M = 0; // MIDI
   done_A = 0; // Audio
   done_I = 0; // Instruments
-  done_V = 0; // Virtual Instruments
-  done_F = 0; // FX
-  done_B = 0; // Buses
+  done_V = 0; // Virtual Instruments (User)
+  done_F = 0; // FX (Aux)
+  done_B = 0; // Busses
   while (intCurTrack < intTracks) 
   (
     CurTrack = GetTrack(0, intCurTrack);
@@ -25,53 +25,54 @@ GetProjExtState(0, "MT4U_Globals", "TrackUpdate", #upd_dis);
         gmem[1] = isVis; // MIDI
         done_M = 1;
       ) :
-    (strcmp(#strType, "Audio") == 0 && done_M == 0) ?
+    (strcmp(#strType, "Audio") == 0 && done_A == 0) ?
       (
         isVis = GetMediaTrackInfo_Value(CurTrack, "B_SHOWINTCP");
         gmem[2] = isVis; // Audio
         done_A = 1;
       ) :
-    (strcmp(#strType, "AudioInst") == 0 && done_A == 0) ?
+    (strcmp(#strType, "AudioInst") == 0 && done_I == 0) ?
       (
         isVis = GetMediaTrackInfo_Value(CurTrack, "B_SHOWINTCP");
         gmem[3] = isVis; // Instruments
         done_I = 1;
       ) :
-    (strcmp(#strType, "User") == 0 && done_A == 0) ?
+    (strcmp(#strType, "User") == 0 && done_V == 0) ?
       (
         isVis = GetMediaTrackInfo_Value(CurTrack, "B_SHOWINTCP");
-        gmem[4] = isVis; // Virtual Instruments
+        gmem[4] = isVis; // Virtual Instruments (User)
         done_V = 1;
       ) :
-    (strcmp(#strType, "Aux") == 0 && done_A == 0) ?
+    (strcmp(#strType, "Aux") == 0 && done_F == 0) ?
       (
         isVis = GetMediaTrackInfo_Value(CurTrack, "B_SHOWINTCP");
-        gmem[5] = isVis; // FX
+        gmem[5] = isVis; // FX (Aux)
         done_F = 1;
       ) :
-    (strcmp(#strType, "Buses") == 0 && done_A == 0) ? // Buses
+    (strcmp(#strType, "Busses") == 0 && done_B == 0) ? // Buses
       (
         isVis = GetMediaTrackInfo_Value(CurTrack, "B_SHOWINTCP");
-        gmem[6] = isVis; // Buses
+        gmem[6] = isVis; // Busses
         done_B = 1;
       );
     intCurTrack +=1;
   );
+  // If there are no tracks on the category, LED is to be ON
   (!done_M) ? gmem[1] = 1;
   (!done_A) ? gmem[2] = 1;
   (!done_I) ? gmem[3] = 1;
   (!done_V) ? gmem[4] = 1;
   (!done_F) ? gmem[5] = 1;
   (!done_B) ? gmem[6] = 1;
-  // Read value to memory
+  
+  // Read value to memory and call Button actions
   gmem[0] = 1;
-  intCMD = NamedCommandLookup("_RS5a2067725514143a373b553d823981d307cb8189"); Main_OnCommand(intCMD, 0); // MIDI
-  intCMD = NamedCommandLookup("_RS46d6544aa131ae44e70f0d478eb502556063a2b5"); Main_OnCommand(intCMD, 0); // Audio
-  intCMD = NamedCommandLookup("_RScd5cd8161e003eb8bb15dc7db0e2f2741c8755bc"); Main_OnCommand(intCMD, 0); // Instruments
-  intCMD = NamedCommandLookup("_RS39d9747dd017e8332892f15d88c4961c17554311"); Main_OnCommand(intCMD, 0); // Virtual Instruments
-  intCMD = NamedCommandLookup("_RS1df96e86e7c504fb0b38b9b46e6584d65847a0ec"); Main_OnCommand(intCMD, 0); // FX
-  intCMD = NamedCommandLookup("_RS26090204e94a2519d353d6c0df3a65c676febbe6"); Main_OnCommand(intCMD, 0); // Buses
+  intCMD = NamedCommandLookup("_RS5a2067725514143a373b553d823981d307cb8189"); Main_OnCommand(intCMD, 0); // MT4U_View_MIDI.eel
+  intCMD = NamedCommandLookup("_RS46d6544aa131ae44e70f0d478eb502556063a2b5"); Main_OnCommand(intCMD, 0); // MT4U_View_Audio.eel
+  intCMD = NamedCommandLookup("_RS775fdf204741dec4d1fbc2a2c349ef2ca6b24283"); Main_OnCommand(intCMD, 0); // MT4U_View_AudioInst.eel
+  intCMD = NamedCommandLookup("_RSd77df4d66ecdf92968cd3dd6fdc14a08e4023f94"); Main_OnCommand(intCMD, 0); // MT4U_View_User.eel (Virtual Instruments)
+  intCMD = NamedCommandLookup("_RSed643b5d8f3b46d3c09575e5d275c0b8690a0b4e"); Main_OnCommand(intCMD, 0); // MT4U_View_Aux.eel (FX)
+  intCMD = NamedCommandLookup("_RS0168239eb5f1a61c9c01c22721a24454dee18fef"); Main_OnCommand(intCMD, 0); // MT4U_View_Busses.eel
   TrackList_AdjustWindows(true);
   gmem[0] = 0;
 );
-//intCMD = NamedCommandLookup("_RSda09c594637536c51afdb75721d17694321472f3"); Main_OnCommand(intCMD, 0); // MT4U_Track_Update_Enable.eel
