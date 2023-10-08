@@ -15,7 +15,7 @@ MT4U_View (Show/Hide tracks with button feedback)
     show/hide tracks depending on their category.
 
     You can configure your buttons however you want. The provided configuration works out of the
-    box with the View buttons on an MCU:
+    box with the View buttons on an MCU and the "Option+" modifier:
         MIDI Tracks - Audio Tracks - Audio Inst. - Aux - Busses - User
    
     The buttons will show/hide tracks depending on their category.
