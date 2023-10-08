@@ -16,7 +16,7 @@ MT4U_View
    
     The buttons will show/hide tracks depending on their category.
 
-    Pressing the "Alt" modifier will provide feedback on the category assciated with the selected
+    Pressing the "Alt" modifier will provide feedback on the category associated with the selected
     track. Pressing one of the buttons will change the category.
 
     
