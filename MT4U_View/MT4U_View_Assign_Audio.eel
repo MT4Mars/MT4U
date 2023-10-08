@@ -1,7 +1,12 @@
+// MT4U_View_Assign by MT4U 
+// Coded by Marcel Lettier Ribikauskas <mars_l@hotmail.com>
+// Assigns the selected track to a Named Category in order to be hidden/shown 
+// using the VIEW buttons on an MCU like surface, or any chosen buttons on any surface.
+
 @import MT4U_View_Update.eel
 
-get_action_context(#fn, sec, cmd);
 strThis = "Audio";
+get_action_context(#fn, sec, cmd);
 state = GetToggleCommandStateEx(sec, cmd);
 newstate = state;
 
@@ -19,7 +24,7 @@ strBut = "1";
   SetProjExtState(0, "MT4U_Globals", "FROM_BUTTON", "0"); 
   (strcmp(#str_type, #str_prev)) ? 
   (
-    View_Update(#str_prev);
+    View_Update(#str_prev); // Update feedback on the button for the previous Category
   );  
 ) : 
 (
