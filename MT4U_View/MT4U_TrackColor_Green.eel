@@ -1,3 +1,7 @@
+// SetTrackColor by MT4U 
+// Coded by Marcel Lettier Ribikauskas <mars_l@hotmail.com>
+// Sets track color to one of the 8 colors supported by the Behirnger X-Touch
+
 trkCurrent = GetSelectedTrack(0, 0);
 intR = 0;
 intG = 255;
