@@ -1,5 +1,7 @@
-// MT4U_Insert_Track_Mic1.eel Reaper EEL2 script by MT4U.
+// MT4U_View_Update.eel Reaper EEL2 script by MT4U.
 // Marcel Lettier Ribikauskas (mars_l@hotmail.com)
+// Updates the State of the MT4U_View_* Reaper Actions to provide feedback to 
+// the mapped buttons on your surface.
 
 function View_Update(pType) 
 (
