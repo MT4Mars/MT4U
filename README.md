@@ -11,7 +11,7 @@ Installation:
 
 MT4U_View (Show/Hide tracks with button feedback)
 -------------------------------------------------
-    These scripts are for setting a tracks "category" and then use surface buttons to
+    These scripts are for setting a track's "category" and then use surface buttons to
     show/hide tracks depending on their category.
 
     You can configure your buttons however you want. The provided configuration works out of the
