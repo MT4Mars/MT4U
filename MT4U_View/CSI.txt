@@ -1,6 +1,7 @@
 1 - To use these scripts in CSI, first add them to your Actions in Reaper
 
-2 - In your Track.zon, add these lines
+2 - In your Track.zon, add this line. It provides button feedback depending on the visibility 
+    of the different categories of tracks (MIDI/Audio/AudioInst/User...)
 
     OnZoneActivation            Reaper _RS240e9e2732dbeed30d7b4f1d92037facddb4a7fe    // MT4U_View_Load.eel
 
@@ -33,3 +34,6 @@
     OnTrackSelection Reaper _RSe92fd7a0a8a84f8584585a32d5a56070ca9c1b01 // Script: MT4U_View_Assign_Aux.eel
     OnTrackSelection Reaper _RSa3db09c0cf8183838dfd6e531232d200920bf06f // Script: MT4U_View_Assign_Busses.eel
     OnTrackSelection Reaper _RSdd4ea857c72f36b0b38e9f7951583229affb42f7 // Script: MT4U_View_Assign_User.eel
+
+Always keep in mind that every script(s) you run using the OnZoneActivation or OnTrackSelection virtual
+widgets might add a little latency to your surface's feedback response if your CPU is too outdated.
