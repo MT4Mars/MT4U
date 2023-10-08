@@ -25,5 +25,5 @@
     OnTrackSelection Reaper _RS5d7f8a1ef9f2b144e44fef9928b9477877d6f4b0 // Script: MT4U_View_Assign_Audio.eel
     OnTrackSelection Reaper _RS5b0f20b5e13ea335a371eed21e033beed9b69d06 // Script: MT4U_View_Assign_AudioInst.eel
     OnTrackSelection Reaper _RSe92fd7a0a8a84f8584585a32d5a56070ca9c1b01 // Script: MT4U_View_Assign_Aux.eel
-    OnTrackSelection Reaper _RS499a4a5944e48e9af92f7003b3228b59aa1e3d7c // Script: MT4U_View_Assign_Buses.eel
+    OnTrackSelection Reaper _RSa3db09c0cf8183838dfd6e531232d200920bf06f // Script: MT4U_View_Assign_Busses.eel
     OnTrackSelection Reaper _RSdd4ea857c72f36b0b38e9f7951583229affb42f7 // Script: MT4U_View_Assign_User.eel
