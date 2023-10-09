@@ -1,10 +1,20 @@
-// SetTrackColor by MT4U 
-// Coded by Marcel Lettier Ribikauskas <mars_l@hotmail.com>
-// Sets track color to one of the 8 colors supported by the Behirnger X-Touch
+// MT4U_TrackColor_Red Reaper EEL2 script by MT4U.
+// Marcel Lettier Ribikauskas (mars_l@hotmail.com)
+// Sets the color for selected tracks.
 
-trkCurrent = GetSelectedTrack(0, 0);
 intR = 255;
 intG = 0;
 intB = 0;
-colSet = ColorToNative(intR, intG, intB);
-SetTrackColor(trkCurrent, colSet);
+
+intSelected = CountSelectedTracks(0);
+(intSelected > 0) ? 
+(
+  x=0;
+  while (x <= intSelected) 
+  (
+    trkCurrent = GetSelectedTrack(0, x);
+    colSet = ColorToNative(intR, intG, intB);
+    SetTrackColor(trkCurrent, colSet);
+    x++;
+  );  
+);
