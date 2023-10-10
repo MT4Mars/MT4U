@@ -20,8 +20,8 @@ MT4U_View (Show/Hide tracks with button feedback)
     The buttons will show/hide tracks depending on their category.
 
     Holding the "Alt" modifier will provide feedback on the category associated with the 
-    selected track, while pressing the View buttons will change the category to that associated 
-    with the button.
+    selected track, while pressing the View buttons will change the category for all selected 
+    tracks to that associated with the button.
 
 MT4U_Colours (Track Colouring)
 ------------
