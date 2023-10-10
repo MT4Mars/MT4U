@@ -1,5 +1,8 @@
+// MT4U_View_MIDI.eel Reaper EEL2 script by MT4U.
+// Marcel Lettier Ribikauskas (mars_l@hotmail.com)
 //namespace
 //@gmem=MT4UViewMode
+
 get_action_context(#fn, sec, cmd);
 
 state = GetToggleCommandStateEx(sec, cmd);
