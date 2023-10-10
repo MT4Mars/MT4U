@@ -5,7 +5,7 @@
     just copy any of the scripts, rename it and edit the values for intR, intG, intB to set 
     the RGB color you want.
 
-3 - In an X-Touch you can add a SubZone. Add something this at the beginning of your Buttons.zon.
+3 - In an X-Touch you can add a SubZone. Add something like this at the beginning of your Buttons.zon.
     In this example Alt+Marker is the button used.
 
     Zone "Buttons"
