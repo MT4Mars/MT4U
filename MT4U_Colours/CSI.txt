@@ -1,0 +1,110 @@
+1 - To use these scripts in CSI, first add them to your Actions in Reaper
+
+2 - The included scripts will set the colour for all selected tracks. The scripts included 
+    cover the basic colours supported by the Behringer X-Touch. If you need more colours,
+    just copy any of the scripts, rename it and edit the values for intR, intG, intB to set 
+    the RGB color you want.
+
+3 - In an X-Touch you can add a SubZone. Add something this at the beginning of your Buttons.zon.
+    In this example Alt+Marker is the button used.
+
+    Zone "Buttons"
+        SubZones
+            "MT4U_Track_Colors"
+        SubZonesEnd
+        ...
+        ...
+        ...
+        Alt+Marker                  GoSubZone MT4U_Track_Colors Feedback=Yes
+        ...
+
+4 - Add the SubZone file to your Zone files.
+
+    Zone "MT4U_Track_Colors"
+    // Virtual
+    OnZoneActivation        SetXTouchDisplayColors "Blue Red Magenta Cyan Green Yellow White White"
+    OnZoneActivation        ClearModifiers
+    OnZoneDeactivation      RestoreXTouchDisplayColors
+    //
+    RotaryPush1 NoAction
+    Rotary1 NoAction
+    Rotary1 WidgetMode Dot
+    DisplayUpper1 FixedTextDisplay " Drums"
+    DisplayLower1 FixedTextDisplay "& Perc."
+    RecordArm1 NoAction
+    Solo1 NoAction
+    Mute1 NoAction
+    Fader1 NoAction
+    InvertFB+Select1 Reaper _RS8853d18fb7cfd681146d051cc6af2e57e60bc0de Feedback=Yes  // MT4U_TrackColor_Blue.eel
+    RotaryPush2 NoAction
+    Rotary2 NoAction
+    Rotary2 WidgetMode Dot
+    DisplayUpper2 FixedTextDisplay " Bass"
+    DisplayLower2 FixedTextDisplay " Bass"
+    RecordArm2 NoAction
+    Solo2 NoAction
+    Mute2 NoAction
+    Fader2 NoAction
+    Select2 Reaper _RSf7c8a6db5e5571dbee70d8d9ff17190c8bef014a Feedback=Yes  // MT4U_TrackColor_Red.eel
+    RotaryPush3 NoAction
+    Rotary3 NoAction
+    Rotary3 WidgetMode Dot
+    DisplayUpper3 FixedTextDisplay "Pads &"
+    DisplayLower3 FixedTextDisplay "Strings"
+    RecordArm3 NoAction
+    Solo3 NoAction
+    Mute3 NoAction
+    Fader3 NoAction
+    Select3 Reaper _RSae3619c7912b124e354ea4acfb3beac04e097868 Feedback=Yes  // MT4U_TrackColor_Magenta.eel
+    RotaryPush4 NoAction
+    Rotary4 NoAction
+    Rotary4 WidgetMode Dot
+    DisplayUpper4 FixedTextDisplay " Piano"
+    DisplayLower4 FixedTextDisplay "& Keys"
+    RecordArm4 NoAction
+    Solo4 NoAction
+    Mute4 NoAction
+    Fader4 NoAction
+    Select4 Reaper _RS780ab97a0ff9f4748916701c3e2c3f02a77f4273 Feedback=Yes  // MT4U_TrackColor_Cyan.eel
+    RotaryPush5 NoAction
+    Rotary5 NoAction
+    Rotary5 WidgetMode Dot
+    DisplayUpper5 FixedTextDisplay "Synths"
+    DisplayLower5 FixedTextDisplay "& Seq."
+    RecordArm5 NoAction
+    Solo5 NoAction
+    Mute5 NoAction
+    Fader5 NoAction
+    Select5 Reaper _RS754ba8f936ec366c42cc9f7e64f3d2755d63b985 Feedback=Yes  // MT4U_TrackColor_Green.eel
+    RotaryPush6 NoAction
+    Rotary6 NoAction
+    Rotary6 WidgetMode Dot
+    DisplayUpper6 FixedTextDisplay "Guitars"
+    DisplayLower6 FixedTextDisplay "& Other"
+    RecordArm6 NoAction
+    Solo6 NoAction
+    Mute6 NoAction
+    Fader6 NoAction
+    Select6 Reaper _RS4b267a32fdaf9014aadc3f414f34ed258684fd87 Feedback=Yes  // MT4U_TrackColor_Yellow.eel
+    RotaryPush7 NoAction
+    Rotary7 NoAction
+    Rotary7 WidgetMode Dot
+    DisplayUpper7 FixedTextDisplay "  FX"
+    DisplayLower7 FixedTextDisplay " "
+    RecordArm7 NoAction
+    Solo7 NoAction
+    Mute7 NoAction
+    Fader7 NoAction
+    Select7 Reaper _RS33004e53c32d5fadfb30da8139966b1a03982f9d Feedback=Yes  // MT4U_TrackColor_White.eel
+    RotaryPush8 NoAction
+    Rotary8 NoAction
+    Rotary8 WidgetMode Dot
+    DisplayUpper8 FixedTextDisplay "/Select"
+    DisplayLower8 FixedTextDisplay "\\Colour"
+    RecordArm8 NoAction
+    Solo8 NoAction
+    Mute8 NoAction
+    Fader8 NoAction
+    Select8 Reaper _RSbebba596d067062cfff99672ce1f0f1512806ef2 Feedback=Yes  // MT4U_TrackColor_Black.eel
+    Marker LeaveSubZone Feedback=Yes
+    ZoneEnd
