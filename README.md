@@ -24,4 +24,6 @@ MT4U_View (Show/Hide tracks with button feedback)
     selected track, while pressing the View buttons will change the category to that associated 
     with the button.
 
-    
+MT4U_Colours (Track Colouring)
+------------
+    A set of scripts to batch set the color for all selected tracks.

@@ -1,3 +1,1 @@
-// MT4U_Insert_Track_Mic1.eel Reaper EEL2 script by MT4U.
-// Marcel Lettier Ribikauskas (mars_l@hotmail.com)
 SetProjExtState(0, "MT4U_Globals", "FROM_BUTTON", "0");

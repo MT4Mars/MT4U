@@ -15,7 +15,7 @@ function ShowHide()
   (
     CurTrack = GetTrack(0, intCurTrack);
     GetSetMediaTrackInfo_String(CurTrack, "P_EXT:MT4U_View", #str_type, 0);
-    (strcmp(#str_type, "Buses") == 0) ?
+    (strcmp(#str_type, "Busses") == 0) ?
     (
       intSetValue = 1;
       SetMediaTrackInfo_Value(CurTrack, "B_SHOWINTCP", state);
