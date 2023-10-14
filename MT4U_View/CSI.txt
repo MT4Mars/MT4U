@@ -3,7 +3,7 @@
 2 - In your Track.zon, add this line. It provides button feedback depending on the visibility 
     of the different categories of tracks (MIDI/Audio/AudioInst/User...)
 
-    OnZoneActivation            Reaper _RS240e9e2732dbeed30d7b4f1d92037facddb4a7fe    // MT4U_View_Load.eel
+    OnTrackSelection            Reaper _RScec81f481708a8d38148c41ed941bb0f21d52844    // MT4U_View_OnTrackSelection.eel
 
 3 - Add to your Buttons.zon (these buttons are for MCU, modify them to fit your surface)
 
@@ -28,7 +28,8 @@
 
 4 - Add this line to your Home.zon (Thise updates Feedback on the buttons whenever you change the selected track)
 
-    OnTrackSelection Reaper _RScec81f481708a8d38148c41ed941bb0f21d52844 // MT4U_View_OnTrackSelection.eel
+    OnInitialization Reaper _RS240e9e2732dbeed30d7b4f1d92037facddb4a7fe // MT4U_View_Load.eel    
+
 
 Always keep in mind that every script(s) you run using the OnZoneActivation or OnTrackSelection virtual
 widgets might add a little latency to your surface's feedback response if your CPU is too outdated.
