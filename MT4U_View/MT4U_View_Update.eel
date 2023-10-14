@@ -7,26 +7,26 @@ function View_Update(pType)
 (
   (!strcmp(pType, "MIDI")) ? 
   (
-    intCMD = NamedCommandLookup("_RS38019f78052857cc8df3657e030ea78020d70a79"); Main_OnCommand(intCMD, 0); // MT4U_View_MIDI.eel
+    intCMD = NamedCommandLookup("_RS38019f78052857cc8df3657e030ea78020d70a79"); Main_OnCommand(intCMD, 0); // MT4U_View_Assign_MIDI.eel
   );
   (!strcmp(pType, "Audio")) ? 
   (
-    intCMD = NamedCommandLookup("_RS5d7f8a1ef9f2b144e44fef9928b9477877d6f4b0"); Main_OnCommand(intCMD, 0); // MT4U_View_MIDI.eel
+    intCMD = NamedCommandLookup("_RS5d7f8a1ef9f2b144e44fef9928b9477877d6f4b0"); Main_OnCommand(intCMD, 0); // MT4U_View_Assign_Audio.eel
   );
-  (!strcmp(pType, "AudioInstr")) ? 
+  (!strcmp(pType, "AudioInst")) ? 
   (
-    intCMD = NamedCommandLookup("_RS5b0f20b5e13ea335a371eed21e033beed9b69d06"); Main_OnCommand(intCMD, 0); // MT4U_View_MIDI.eel
+    intCMD = NamedCommandLookup("_RS5b0f20b5e13ea335a371eed21e033beed9b69d06"); Main_OnCommand(intCMD, 0); // MT4U_View_Assign_AudioInst.eel
   );
   (!strcmp(pType, "Aux")) ? 
   (
-    intCMD = NamedCommandLookup("_RSed643b5d8f3b46d3c09575e5d275c0b8690a0b4e"); Main_OnCommand(intCMD, 0); // MT4U_View_MIDI.eel
+    intCMD = NamedCommandLookup("_RSe92fd7a0a8a84f8584585a32d5a56070ca9c1b01"); Main_OnCommand(intCMD, 0); // MT4U_View_Assign_Aux.eel
   );
-  (!strcmp(pType, "Buses")) ? 
+  (!strcmp(pType, "Busses")) ? 
   (
-    intCMD = NamedCommandLookup("_RS26090204e94a2519d353d6c0df3a65c676febbe6"); Main_OnCommand(intCMD, 0); // MT4U_View_MIDI.eel
+    intCMD = NamedCommandLookup("_RSa3db09c0cf8183838dfd6e531232d200920bf06f"); Main_OnCommand(intCMD, 0); // MT4U_View_Assign_Busses.eel
   );
   (!strcmp(pType, "User")) ? 
   (
-    intCMD = NamedCommandLookup("_RS5a2067725514143a373b553d823981d307cb8189"); Main_OnCommand(intCMD, 0); // MT4U_View_MIDI.eel
+    intCMD = NamedCommandLookup("_RSdd4ea857c72f36b0b38e9f7951583229affb42f7"); Main_OnCommand(intCMD, 0); // MT4U_View_Assign_User.eel
   );
 );

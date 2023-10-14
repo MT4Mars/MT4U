@@ -23,7 +23,7 @@ strBut = "1";
   (intSelected > 0) ? 
   (
     x=0;
-    while (x <= intSelected) 
+    while (x < intSelected) 
     (
       trkCurrent = GetSelectedTrack(0, x);
       GetSetMediaTrackInfo_String(trkCurrent, "P_EXT:MT4U_View", #str_prev, 0); 
