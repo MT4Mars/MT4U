@@ -34,11 +34,11 @@ intResponse = GetFocusedFX2(intTrackNumber, #intItem, intFXNumber);
       strAddName = CleanFXName(myNext);
       // Set FX to Next of Kin ;-)
       PreventUIRefresh(2);
-      TrackFX_Delete(myTrack, pSlot);
-      newSlot = -1000 - pSlot;
+      TrackFX_Delete(myTrack, intFXNumber);
+      newSlot = -1000 - intFXNumber;
       PreventUIRefresh(-2);
       TrackFX_AddByName(myTrack, strAddName, 0, newSlot);
-      TrackFX_Show(myTrack, pSlot, 3);
+      TrackFX_Show(myTrack, intFXNumber, 3);
     );
   );
 );
