@@ -10,7 +10,6 @@ Installation:
 
 MT4U_FX_Rack (Virtual FX Rack for CSI)
 --------------------------------------
-
 These set of scripts allow you to configure an FX Rack with your favourite plug-ins.
 
 It can be configured however you see fit, the example uses the F1-F8 buttons on an MCU like this:
