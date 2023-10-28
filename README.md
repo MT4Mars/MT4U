@@ -32,11 +32,11 @@ MT4U_FX_Rack (Virtual FX Rack for CSI)
     
     If an FX of the type is found in the track's chain, the LED will turn on, and pressing the
     button will bring the FX GUI on screen. With FocusedFXMapping enabled in CSI, your surface 
-    will map the plugin. The Cancel button on the MCU will unmap and close the plug-in, returning
-    to the previous zone.
+    will map the plugin. The Cancel button on the MCU will unmap and close the plug-in, 
+    returning to the previous zone.
     
-    Selecting a different track, the LEDs will show what plug-in types are already in the track's 
-    FX chain, giving you a swift overview.
+    Selecting a different track, the LEDs will show what plug-in types are already in the 
+    track's FX chain, giving you a swift overview.
     
     There is a list of plug-ins that you can edit to enter your favourites for each type.
     
@@ -49,8 +49,8 @@ MT4U_FX_Rack (Virtual FX Rack for CSI)
     every effect in the FX chain can be replaced with the next/prev on your list using the 
     encoders.
     
-    In the example configuration, holding the RecordArm button for an FX in the chain will delete 
-    it.
+    In the example configuration, holding the RecordArm button for an FX in the chain will 
+    delete it.
     
     To install, add the MT4U_F_FUNCTIONS and MT4U_FX_MENU folders to your Reaper scripts directory 
     and the MT4U_FX_List.eel file to the root scripts directory. This file contains the list of 
