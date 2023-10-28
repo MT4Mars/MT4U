@@ -1,0 +1,16 @@
+// Get selected FX Slot from ProjExtState
+GetProjExtState(0, "MT4U_Globals", "FX_Slot", #my_slot_str);
+// Conver to integer
+match("%i", #my_slot_str, my_slot_int);
+// Get selected track
+cur_track = GetSelectedTrack(0, 0);
+// Get number of plug-in
+intFXCount = TrackFX_GetCount(cur_track);
+// Delete per se
+(my_slot_int < intFXCount) 
+?
+(
+   TrackFX_Delete(cur_track, my_slot_int);
+   intCMD = NamedCommandLookup("_RS0ba5f5e3f4af1e074a1360949aec74db2559023d"); Main_OnCommand(intCMD, 0);  // MT4U_FX_MENU_Sel_Load.eel
+);
+

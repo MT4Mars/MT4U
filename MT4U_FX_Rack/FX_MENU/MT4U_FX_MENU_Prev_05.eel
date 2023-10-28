@@ -1,0 +1,8 @@
+//namespace
+//@gmem=MT4UFXSelect
+
+@import MT4U_FX_MENU_Prev.eel
+
+intMySlot = 4;
+
+FX_Prev(intMySlot);

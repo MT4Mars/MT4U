@@ -1,0 +1,14 @@
+// MT4U_FX_MENU_Sel.eel Reaper EEL2 script by MT4U.
+// Marcel Lettier Ribikauskas (mars_l@hotmail.com)
+//namespace
+//@gmem=MT4UFXSelect
+
+@import MT4U_FX_MENU_Sel_LEDs.eel
+
+GetProjExtState(0, "MT4U_Globals", "FXMenuUpdate", #upd_dis);
+(strcmp(#upd_dis, "1") != 0) ?
+// Check Enabled/Disabled
+(
+  gmem[1] = 0; // Selected FX
+  LEDs(-1);
+);

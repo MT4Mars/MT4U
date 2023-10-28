@@ -1,0 +1,43 @@
+// MT4U_FX_MENU_Next.eel Reaper EEL2 script by MT4U.
+// Marcel Lettier Ribikauskas (mars_l@hotmail.com)
+//namespace
+//@gmem=MT4UFXSelect
+
+@import ..\MT4U_FX_List.eel
+//@import MT4U_FX_MENU_Sel.eel
+
+function FX_Next(pSlot)
+(
+  // Get selected track
+  cur_track = GetSelectedTrack(0, 0);
+  // Get number of plug-ins
+  intFXCount = TrackFX_GetCount(cur_track);
+  myNext = "";
+  // Get FX Name
+  (pSlot < intFXCount) ?
+  (
+    myName =  TrackFX_GetFXName(cur_track, pSlot, #buf);
+    myNext = NextFX("EQ1", #buf);
+    (myNext == "") ? (myNext = NextFX("FX1", #buf));
+    (myNext == "") ? (myNext = NextFX("FX2", #buf));
+    (myNext == "") ? (myNext = NextFX("FX3", #buf));
+    (myNext == "") ? (myNext = NextFX("FX4", #buf));
+    (myNext == "") ? (myNext = NextFX("FX5", #buf));
+    (myNext == "") ? (myNext = NextFX("FX6", #buf));
+    (myNext == "") ? (myNext = NextFX("FX7", #buf));
+    (myNext == "") ? (myNext = NextFX("FX8", #buf));
+    (myNext == "") ? (myNext = NextFX("FX9", #buf));
+    
+    (myNext != "") ?
+    (
+      // Clean
+      strAdd = CleanFXName(myNext);  
+      // Set FX to Next of Kin ;-)
+      PreventUIRefresh(2);
+      TrackFX_Delete(cur_track, pSlot);
+      newSlot = -1000 - pSlot;
+      TrackFX_AddByName(cur_track, strAdd, 0, newSlot);
+      PreventUIRefresh(-2);
+    );
+  );
+);

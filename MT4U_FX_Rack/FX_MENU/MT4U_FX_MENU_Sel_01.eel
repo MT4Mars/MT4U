@@ -1,0 +1,25 @@
+//namespace
+//@gmem=MT4UFXSelect
+
+@import MT4U_FX_MENU_Sel_LEDs.eel
+
+intMySlot = 0;
+
+get_action_context(#fn, sec, cmd);
+state = 0;
+(gmem[0] == 1) ?
+(
+  (gmem[1] == intMySlot) ? 
+  (
+    state = 1;
+  );
+)
+:
+(
+  gmem[1] = intMySlot;
+  #setTemp = sprintf(#, "%i", intMySlot);
+  SetProjExtState(0, "MT4U_Globals", "FX_Slot", #setTemp);
+  state = 1;
+  LEDs(intMySlot);
+);
+SetToggleCommandState(sec, cmd, state);
