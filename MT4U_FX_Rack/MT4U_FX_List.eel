@@ -2,7 +2,25 @@ function CleanFXName(pFXName)
 (
   (match("VST3: *", pFXName)) ? strcpy_from(strClean, pFXName, 6);
   (match("VST: *", pFXName)) ? strcpy_from(strClean, pFXName, 5);
-  (match("JS: *", pFXName)) ? strcpy_from(strClean, pFXName, 4);
+  (match("JS: *", pFXName)) ?
+  (
+    strcpy_from(strClean, pFXName, 4);
+    xLen = strlen(strClean);
+    xCop = 0;
+    xEnd = 0;
+    boolDone = 0;
+    while (xCop < xLen && boolDone == 0) 
+    (
+      strcpy_substr(#res, strClean, xCop, 1);
+      (!strcmp(#res, "[") && xCop > 0) ? 
+      (
+        xEnd = xCop -1;
+        boolDone = 1;
+      );
+      xCop += 1;
+    );
+    (boolDone) ? strcpy_substr(strClean, strClean, 0, xEnd); 
+  );
   strClean;
 );
 
