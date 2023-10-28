@@ -1,0 +1,44 @@
+// MT4U_FX_FOCUSED_Next.eel Reaper EEL2 script by MT4U.
+// Marcel Lettier Ribikauskas (mars_l@hotmail.com)
+//namespace
+//@gmem=MT4UFXSelect
+
+@import ..\MT4U_FX_List.eel
+
+intTrackNumber = 0;
+intFXNumber = 0;
+intResponse = GetFocusedFX2(intTrackNumber, #intItem, intFXNumber);
+(intResponse == 1) ?
+(
+  // Check if the next 8 bits are not 01 (Record FX) in case we want to disable things
+  intRec = 0;
+  intRec = (intFXNumber >> 24) & 0xFF;
+  (intRec != 1) ? 
+  (
+    myTrack = GetTrack(0, intTrackNumber-1);
+    myName =  TrackFX_GetFXName(myTrack, intFXNumber, #buf);
+    myNext = PrevFX("EQ1", #buf);
+    (myNext == "") ? (myNext = PrevFX("FX1", #buf));
+    (myNext == "") ? (myNext = PrevFX("FX2", #buf));
+    (myNext == "") ? (myNext = PrevFX("FX3", #buf));
+    (myNext == "") ? (myNext = PrevFX("FX4", #buf));
+    (myNext == "") ? (myNext = PrevFX("FX5", #buf));
+    (myNext == "") ? (myNext = PrevFX("FX6", #buf));
+    (myNext == "") ? (myNext = PrevFX("FX7", #buf));
+    (myNext == "") ? (myNext = PrevFX("FX8", #buf));
+    (myNext == "") ? (myNext = PrevFX("FX9", #buf));
+
+    (myNext != "") ?
+    (
+      // Clean
+      strAddName = CleanFXName(myNext);
+      // Set FX to Prev of Kin ;-)
+      PreventUIRefresh(2);
+      TrackFX_Delete(myTrack, pSlot);
+      newSlot = -1000 - pSlot;
+      PreventUIRefresh(-2);
+      TrackFX_AddByName(myTrack, strAddName, 0, newSlot);
+      TrackFX_Show(myTrack, pSlot, 3);
+    );
+  );
+);

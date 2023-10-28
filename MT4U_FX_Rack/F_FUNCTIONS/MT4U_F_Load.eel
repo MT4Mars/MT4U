@@ -1,0 +1,87 @@
+// MT4U_F_Load.eel Reaper EEL2 script by MT4U.
+// Marcel Lettier Ribikauskas (mars_l@hotmail.com)
+//namespace
+//@gmem=MT4UF
+
+@import ..\MT4U_FX_List.eel
+@import MT4U_F_LEDs.eel
+
+function CheckFX(pMemSlot, pTypeName, parrFX, strThisName)
+(
+  intNum = 0;
+  intSlot = 0;
+  GetList(pTypeName, parrFX, intNum, intSlot);
+  x = 0;
+  boolDone = 0;
+  while (arrFX[x] != nil && x < intNum && boolDone == 0)
+  (
+    (!strcmp(arrFX[x], strThisName)) ?
+    (
+      gmem[pMemSlot] = 1;
+      boolDone = 1;
+    );
+    x+=1;
+  );
+);
+
+// Check Enabled/Disabled
+GetProjExtState(0, "MT4U_Globals", "TrackUpdate", #upd_dis);
+(strcmp(#upd_dis, "1") != 0) ?
+(
+  gmem[1] = 0; // EQ1
+  gmem[2] = 0; // EQ2
+  gmem[3] = 0; // FX1
+  gmem[4] = 0; // FX2
+  gmem[5] = 0; // FX3
+  gmem[6] = 0; // FX4
+  gmem[7] = 0; // FX5
+  gmem[8] = 0; // FX6
+  gmem[9] = 0; // FX7
+  gmem[10] = 0; // FX8
+  gmem[11] = 0; // FX9
+  gmem[12] = 0; // FX9
+  gmem[13] = 0; // FX10
+    
+  cur_track = GetSelectedTrack(0, 0);
+  GetTrackName(cur_track, #trkName);
+  (strcmp(#trkName, "")) ? 
+  (
+    intFXCount = TrackFX_GetCount(cur_track);         // Number of Plug-ins in the Chain
+    (intFXCount != 0) 
+    ?
+    (
+      xFind = 0;
+      while (xFind < intFXCount) 
+      (
+        // Get this slot's FX Name into #buf
+        arrFX = 0;
+        TrackFX_GetFXName(cur_track, xFind, #buf); 
+        // EQ
+        intNum = 0;
+        intSlot = 0;
+        GetList("EQ1", arrFX, intNum, intSlot);
+        x=0;
+        while (arrFX[x] != nil && x < intNum)
+        (
+          (!strcmp(arrFX[x], #buf)) ?
+          (
+            (xFind<=1) ? (gmem[1]=1) : (gmem[2]=1);
+          );
+          x+=1;
+        );
+        CheckFX(3, "FX1", arrFX, #buf); // Compressor
+        CheckFX(4, "FX2", arrFX, #buf); // Chorus
+        CheckFX(5, "FX3", arrFX, #buf); // Stereo_Imaging
+        CheckFX(6, "FX4", arrFX, #buf); // Delay
+        CheckFX(7, "FX5", arrFX, #buf); // Reverb
+        CheckFX(8, "FX6", arrFX, #buf); // AutoPan
+        CheckFX(9, "FX7", arrFX, #buf); // Flanger
+        CheckFX(10, "FX8", arrFX, #buf); // Phaser
+        CheckFX(11, "FX9", arrFX, #buf); // Tremolo
+        CheckFX(12, "FX10", arrFX, #buf); // Other 
+        xFind+=1;
+      );
+    );
+   LEDs();    
+  );
+);

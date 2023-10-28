@@ -1,0 +1,4 @@
+// MT4U_IN_FX_Menu_True.eel Reaper EEL2 script by MT4U.
+// Marcel Lettier Ribikauskas (mars_l@hotmail.com)
+
+SetProjExtState(0, "MT4U_Globals", "IN_FX_MENU", "1");

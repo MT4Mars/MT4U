@@ -1,0 +1,112 @@
+// MT4U_F_AddShowHide.eel Reaper EEL2 script by MT4U.
+// Marcel Lettier Ribikauskas (mars_l@hotmail.com)
+//namespace
+//@gmem=MT4UF
+
+function AddShowHide(pTrack, pMemSlot, arrFXList, strDefault, pShow, pPlace, pCloseForeign)
+//Vars: pluginSlot is the fxSlot where (if) it was already in the chain.
+local(pluginSlot)
+(
+  arrFXList = 0;
+
+  pluginSlot = -1;                               // Slot where some FX has been found or -1 if not found
+  intFXCount = TrackFX_GetCount(pTrack);         // Number of Plug-ins in the Chain
+  fxFound = 0;                                   // AUX: Flag used to exit the while loop
+  (intFXCount != 0) ?
+  (
+    xFind = 0;                                   // AUX: FX Slot var to go through the chain
+    intCount = 0;
+    while (xFind < intFXCount && fxFound == 0) 
+    (
+      // Get this slot's FX Name into #buf
+      TrackFX_GetFXName(pTrack, xFind, #buf); 
+      //Look for FX in array
+      x = 0;                                     // AUX: var to go through the FX Array List
+      fxFound = 0;                               // AUX: Flag used to exit the while loop
+      while (arrFXList[x] != nil && fxFound == 0) 
+      (
+        (!strcmp(#buf, arrFXList[x]))            // Compare #buf with current FX in the Array List
+        ? // strcmp returns 0 => FX Names match
+        (
+          intCount += 1;
+          ((pPlace == 0) || (pPlace == intCount) || (pMemSlot == 1 && pPlace == 1 && x <= 2)) ? 
+          (
+            boolOpen = TrackFX_GetOpen(pTrack, xFind);
+            gmem[pMemSlot] = 1;                  // FX Found. LED is ON
+            (boolOpen == 1) ? 
+            ( // FX Was Open. Close Window
+              pluginSlot = xFind;
+              TrackFX_Show(pTrack, xFind, 2);
+              fxFound = 1;
+            ):
+            (
+              pluginSlot = xFind;
+              gmem[pMemSlot] = 1;
+              TrackFX_Show(pTrack, xFind, 3);
+              fxFound = 1;
+            );
+          );
+          // If so indicated, close FX Window of same FX in other tracks
+          (pCloseForeign == 1) ?
+          (
+            intTracks = CountTracks();
+            intCurTrack = 0;
+            while (intCurTrack < intTracks) 
+            (
+              CurTrack = GetTrack(0, intCurTrack);
+              intCheckCount = TrackFX_GetCount(CurTrack);
+              (intCheckCount != 0) ?
+              (
+                xFind2 = intCheckCount-1;
+                boolDone2 = 0;
+                while (xFind2 >= 0 && boolDone2 == 0)
+                (
+                  TrackFX_GetFXName(CurTrack, xFind2, #buf2);
+                  y=0;
+                  while (arrFXList[y] != nil && fxFound == 0) 
+                  (
+                    (!strcmp(#buf2, arrFXList[y])) ?  // Compare #buf2 with current FX in the Array List
+                    (
+                      ((pFirst == 0 && pSecond == 0) || (pFirst == 1 && xFind2 == 0) || (pSecond == 1 && xFind2 > 0)) ?
+                      (
+                        (CurTrack != pTrack) ?
+                        (
+                          boolOpen = TrackFX_GetOpen(pTrack, xFind2);
+                          (boolOpen == 1) ? 
+                          (  // From another track. Close FX Window
+                            TrackFX_Show(CurTrack, xFind2, 2);
+                          );
+                        );
+                      );
+                    );
+                    y+=1;
+                  );
+                  xFind2 -=1;
+                );
+              );
+              intCurTrack +=1;
+            );              
+          );
+        );
+        x += 1;
+      );
+      xFind += 1;        
+    );
+  );
+  (pluginSlot == -1) ? // No Plug-in has been found. Add the default.
+  (
+    gmem[pMemSlot] = 1;
+    (pFirst == 1) ?
+    (
+      pluginSlot = TrackFX_AddByName(pTrack, strDefault, 0, -1000);
+    ) :
+    (
+      pluginSlot = TrackFX_AddByName(pTrack, strDefault, 0, -1);
+    );
+    // Float the UI
+    (pShow == 1) ? 
+    (
+      TrackFX_Show(pTrack, pluginSlot, 3);
+    );
+  );
+);
