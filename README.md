@@ -12,7 +12,8 @@ MT4U_FX_Rack (Virtual FX Rack for CSI)
 --------------------------------------
     These set of scripts allow you to configure an FX Rack with your favourite plug-ins.
 
-    It can be configured however you see fit, the example uses the F1-F8 buttons on an MCU like this:
+    It can be configured however you see fit, the example uses the F1-F8 buttons on an MCU 
+    like this:
     
       F1 - EQ1 (Sustractive EQ)  
       F2 - Compressor   
@@ -45,9 +46,11 @@ MT4U_FX_Rack (Virtual FX Rack for CSI)
     
     If, on the other hand, you are inside CSI's FX Menu, the plug-in will be added but not 
     displayed, since it's not necessary to take advantage of FocusedFXMapping. In this case 
-    every effect in the FX chain can be replaced with the next/prev on your list using the encoders.
+    every effect in the FX chain can be replaced with the next/prev on your list using the 
+    encoders.
     
-    In the example configuration, holding the RecordArm button for an FX in the chain will delete it.
+    In the example configuration, holding the RecordArm button for an FX in the chain will delete 
+    it.
     
     To install, add the MT4U_F_FUNCTIONS and MT4U_FX_MENU folders to your Reaper scripts directory 
     and the MT4U_FX_List.eel file to the root scripts directory. This file contains the list of 
@@ -55,8 +58,8 @@ MT4U_FX_Rack (Virtual FX Rack for CSI)
     for easy editing in case you don't feel comfortable with EEL scripting, just open it and you 
     will see.
     
-    The CSI.txt file in each directory contains the necessary mappings required inside your CSI zone 
-    files to achieve this behaviour in their default configuration.
+    The CSI.txt file in each directory contains the necessary mappings required inside your CSI 
+    zone files to achieve this behaviour in their default configuration.
 
 MT4U_View (Show/Hide tracks with button feedback)
 -------------------------------------------------
