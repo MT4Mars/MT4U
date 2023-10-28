@@ -15,16 +15,16 @@ These set of scripts allow you to configure an FX Rack with your favourite plug-
 
 It can be configured however you see fit, the example uses the F1-F8 buttons on an MCU like this:
 
-  F1 - EQ1 (Sustractive EQ)
-  F2 - Compressor 
-  F3 - Chorus 
-  F4 - Stereo Imaging 
-  F5 - Delay 
-  F6 - Reverb 
-  F7 - Flanger 
-  F8 - Phaser
-  Shift+F1 - Tremolo
-  Shift+F2 - AutoPan
+  F1 - EQ1 (Sustractive EQ)  
+  F2 - Compressor   
+  F3 - Chorus   
+  F4 - Stereo Imaging   
+  F5 - Delay   
+  F6 - Reverb   
+  F7 - Flanger   
+  F8 - Phaser  
+  Shift+F1 - Tremolo  
+  Shift+F2 - AutoPan  
 
 and the MCU EQ button to manage a second EQ:
 
