@@ -1,9 +1,16 @@
-cur_track = GetSelectedTrack(0, 0);
 intTrack = -1;
 intItem = -1;
 intSlot = -1;
 intWhere = GetFocusedFX2(intTrack, intItem, intSlot);
+(intTrack > 0) ? 
+(
+  fx_track = GetTrack(0, intTrack - 1);
+) :
+(
+  fx_track = GetMasterTrack(0);
+);
 (intSlot != -1) ?
 (
-  TrackFX_Show(cur_track, intSlot, 2);
+  //TrackFX_Show(fx_track, intSlot, 0);
+  TrackFX_Show(fx_track, intSlot, 2);
 );
