@@ -30,6 +30,8 @@ MT4U_FX_Rack (Virtual FX Rack for CSI)
     
       EQ - EQ2 (Additive EQ) 
     
+    There is a list of plug-ins that you can edit to enter your favourites for each type.
+    
     If an FX of the type is found in the track's chain, the LED will turn on, and pressing the
     button will bring the FX GUI on screen. With FocusedFXMapping enabled in CSI, your surface 
     will map the plugin. The Cancel button on the MCU will unmap and close the plug-in, 
@@ -38,10 +40,8 @@ MT4U_FX_Rack (Virtual FX Rack for CSI)
     Selecting a different track, the LEDs will show what plug-in types are already in the 
     track's FX chain, giving you a swift overview.
     
-    There is a list of plug-ins that you can edit to enter your favourites for each type.
-    
     If the FX is not found, the first in the list will be added. Once added, the Alt modifier 
-    will make the Left and Right MCU buttons go forward and backwards, replacing the current FX 
+    will make the Prev/Next Channel MCU buttons go forward and backwards, replacing the current FX 
     with the next/prev on your list for each given type.
     
     If, on the other hand, you are inside CSI's FX Menu, the plug-in will be added but not 
@@ -49,17 +49,17 @@ MT4U_FX_Rack (Virtual FX Rack for CSI)
     every effect in the FX chain can be replaced with the next/prev on your list using the 
     encoders.
     
-    In the example configuration, holding the RecordArm button for an FX in the chain will 
-    delete it.
+    In the example configuration, the RecordArm button selects an FX. With the Alt modifier, 
+    it can be moved up and down in the chain, while holding RecordArm will delete it.
     
     To install, add the MT4U_F_FUNCTIONS and MT4U_FX_MENU folders to your Reaper scripts directory 
-    and the MT4U_FX_List.eel file to the root scripts directory. This file contains the list of 
-    plug-ins for each type and is shared by the scripts in both directories. It's been prepared 
-    for easy editing in case you don't feel comfortable with EEL scripting, just open it and you 
-    will see.
+    and the MT4U_FX_List.eel file to the root scripts directory (or the parent to where the other
+    directories were copied). This file contains the list of plug-ins for each type and is shared
+    by the scripts in both directories. It's been prepared for easy editing in case you don't feel 
+    comfortable with EEL scripting, just open it and you will see.
     
-    The CSI.txt file in each directory contains the necessary mappings required inside your CSI 
-    zone files to achieve this behaviour in their default configuration.
+    The CSI.txt file contains the necessary mappings required inside your CSI zone files to achieve 
+    this behaviour in their default configuration.
 
 MT4U_View (Show/Hide tracks with button feedback)
 -------------------------------------------------
