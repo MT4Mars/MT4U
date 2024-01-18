@@ -8,68 +8,68 @@ function LEDs(pValue)
    gmem[0]=1; // Set Feedback Only
    (pValue != 0) ?
    (
-      intCMD = NamedCommandLookup("_RS5a050d77bb0db671a322ab6afeea1c473e23922b"); Main_OnCommand(intCMD, 0);
+      intCMD = NamedCommandLookup("_RS5a050d77bb0db671a322ab6afeea1c473e23922b"); Main_OnCommand(intCMD, 0); // MT4U_FX_MENU_Sel_01.eel
    );
    (pValue != 1) ?
    (
-      intCMD = NamedCommandLookup("_RS943d149b67e3955639628ad3fcba5ecb09ef0a0e"); Main_OnCommand(intCMD, 0);
+      intCMD = NamedCommandLookup("_RS943d149b67e3955639628ad3fcba5ecb09ef0a0e"); Main_OnCommand(intCMD, 0); // MT4U_FX_MENU_Sel_02.eel
    );
    (pValue != 2) ?
    (
-      intCMD = NamedCommandLookup("_RS9c174a048d6852aac1146045de404f785820876b"); Main_OnCommand(intCMD, 0);
+      intCMD = NamedCommandLookup("_RS9c174a048d6852aac1146045de404f785820876b"); Main_OnCommand(intCMD, 0); // MT4U_FX_MENU_Sel_03.eel
    );
    (pValue != 3) ?
    (
-      intCMD = NamedCommandLookup("_RSc39ebef0a88dcbbb01c9a266ca09f1086bfd06ad"); Main_OnCommand(intCMD, 0);
+      intCMD = NamedCommandLookup("_RSc39ebef0a88dcbbb01c9a266ca09f1086bfd06ad"); Main_OnCommand(intCMD, 0); // MT4U_FX_MENU_Sel_04.eel
    );
    (pValue != 4) ?
    (
-      intCMD = NamedCommandLookup("_RS50b6875f1a9ec9faec87346b6116d0a98007f32f"); Main_OnCommand(intCMD, 0);
+      intCMD = NamedCommandLookup("_RS50b6875f1a9ec9faec87346b6116d0a98007f32f"); Main_OnCommand(intCMD, 0); // MT4U_FX_MENU_Sel_05.eel
    );
    (pValue != 5) ?
    (
-      intCMD = NamedCommandLookup("_RS9cfda924b0efc46db8d57a8bd41e7375304c370e"); Main_OnCommand(intCMD, 0);
+      intCMD = NamedCommandLookup("_RS9cfda924b0efc46db8d57a8bd41e7375304c370e"); Main_OnCommand(intCMD, 0); // MT4U_FX_MENU_Sel_06.eel
    );
    (pValue != 6) ?
    (
-      intCMD = NamedCommandLookup("_RS306c3f85913dbdd73e5ad305d2d2b68d63aebad7"); Main_OnCommand(intCMD, 0);
+      intCMD = NamedCommandLookup("_RS306c3f85913dbdd73e5ad305d2d2b68d63aebad7"); Main_OnCommand(intCMD, 0); // MT4U_FX_MENU_Sel_07.eel
    );
    (pValue != 7) ?
    (
-      intCMD = NamedCommandLookup("_RS0088ef7ea422f2bb69a043a6065cb578405e4fa0"); Main_OnCommand(intCMD, 0);
+      intCMD = NamedCommandLookup("_RS0088ef7ea422f2bb69a043a6065cb578405e4fa0"); Main_OnCommand(intCMD, 0); // MT4U_FX_MENU_Sel_08.eel
    );
 /*   
    (pValue != 8) ?
    (
-      intCMD = NamedCommandLookup("_RS21c2cf2e5c1ea6ebb5114774f577c6f8a33eb847"); Main_OnCommand(intCMD, 0);
+      intCMD = NamedCommandLookup("_RS21c2cf2e5c1ea6ebb5114774f577c6f8a33eb847"); Main_OnCommand(intCMD, 0); // MT4U_FX_MENU_Sel_09.eel
    );
    (pValue != 9) ?
    (
-      intCMD = NamedCommandLookup("_RS143067a122873aa52e3391f2cbcb693daaa7c276"); Main_OnCommand(intCMD, 0);
+      intCMD = NamedCommandLookup("_RS143067a122873aa52e3391f2cbcb693daaa7c276"); Main_OnCommand(intCMD, 0); // MT4U_FX_MENU_Sel_10.eel
    );
    (pValue != 10) ?
    (
-      intCMD = NamedCommandLookup("_RS2cbc6adc536299b84c472fdc187680582c977039"); Main_OnCommand(intCMD, 0);
+      intCMD = NamedCommandLookup("_RS2cbc6adc536299b84c472fdc187680582c977039"); Main_OnCommand(intCMD, 0); // MT4U_FX_MENU_Sel_11.eel
    );
    (pValue != 11) ?
    (
-      intCMD = NamedCommandLookup("_RSe696a2c93cb7ff9267302933e55a508e6eae9f61"); Main_OnCommand(intCMD, 0);
+      intCMD = NamedCommandLookup("_RSe696a2c93cb7ff9267302933e55a508e6eae9f61"); Main_OnCommand(intCMD, 0); // MT4U_FX_MENU_Sel_12.eel
    );
    (pValue != 12) ?
    (
-      intCMD = NamedCommandLookup("_RSd2a3de503ddcc20763caa049167f1627444b3212"); Main_OnCommand(intCMD, 0);
+      intCMD = NamedCommandLookup("_RSd2a3de503ddcc20763caa049167f1627444b3212"); Main_OnCommand(intCMD, 0); // MT4U_FX_MENU_Sel_13.eel
    );
    (pValue != 13) ?
    (
-      intCMD = NamedCommandLookup("_RS928eab75ad815fc427a3cc4027420c01790f9c41"); Main_OnCommand(intCMD, 0);
+      intCMD = NamedCommandLookup("_RS928eab75ad815fc427a3cc4027420c01790f9c41"); Main_OnCommand(intCMD, 0); // MT4U_FX_MENU_Sel_14.eel
    );
    (pValue != 14) ?
    (
-      intCMD = NamedCommandLookup("_RS1824bae61d2d1080e60765878f213756e1bdd618"); Main_OnCommand(intCMD, 0);
+      intCMD = NamedCommandLookup("_RS1824bae61d2d1080e60765878f213756e1bdd618"); Main_OnCommand(intCMD, 0); // MT4U_FX_MENU_Sel_15.eel
    );
    (pValue != 15) ?
    (
-      intCMD = NamedCommandLookup("_RS88f2a59457bd419c192442300c25ac1c8df3d080"); Main_OnCommand(intCMD, 0);
+      intCMD = NamedCommandLookup("_RS88f2a59457bd419c192442300c25ac1c8df3d080"); Main_OnCommand(intCMD, 0); // MT4U_FX_MENU_Sel_16.eel
    ); 
    */  
    gmem[0]=0;
