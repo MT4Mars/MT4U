@@ -1,29 +1,3 @@
-function CleanFXName(pFXName) 
-(
-  (match("VST3: *", pFXName)) ? strcpy_from(strClean, pFXName, 6);
-  (match("VST: *", pFXName)) ? strcpy_from(strClean, pFXName, 5);
-  (match("JS: *", pFXName)) ?
-  (
-    strcpy_from(strClean, pFXName, 4);
-    xLen = strlen(strClean);
-    xCop = 0;
-    xEnd = 0;
-    boolDone = 0;
-    while (xCop < xLen && boolDone == 0) 
-    (
-      strcpy_substr(#res, strClean, xCop, 1);
-      (!strcmp(#res, "[") && xCop > 0) ? 
-      (
-        xEnd = xCop -1;
-        boolDone = 1;
-      );
-      xCop += 1;
-    );
-    (boolDone) ? strcpy_substr(strClean, strClean, 0, xEnd); 
-  );
-  strClean;
-);
-
 function GetList(pType, arrFX, pNum*, pMemSlot*)
 (
   (pType == "EQ1" || pType == "EQ2") ? ( // EQ (this allows for a Subtractive EQ and and Additive EQ in the same track)
@@ -119,8 +93,8 @@ function GetList(pType, arrFX, pNum*, pMemSlot*)
   pNum = 0;
   while (arrFX[pNum] != nil) (pNum += 1;);
 
-  // Clean first to get Default
-  strDef = CleanFXName(arrFX[0]);  
+  // Set first Plug-In as Default
+  strDef = arrFX[0];  
   strDef;
 );
 
