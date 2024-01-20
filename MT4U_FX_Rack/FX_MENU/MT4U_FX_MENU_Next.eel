@@ -31,7 +31,7 @@ function FX_Next(pSlot)
     (myNext != "") ?
     (
       // Clean
-      strAdd = CleanFXName(myNext);  
+      strAdd = myNext;  
       // Set FX to Next of Kin ;-)
       PreventUIRefresh(2);
       TrackFX_Delete(cur_track, pSlot);
