@@ -31,7 +31,7 @@ intResponse = GetFocusedFX2(intTrackNumber, #intItem, intFXNumber);
     (myNext != "") ?
     (
       // Clean
-      strAddName = CleanFXName(myNext);
+      strAddName = myNext;
       // Set FX to Prev of Kin ;-)
       PreventUIRefresh(2);
       TrackFX_Delete(myTrack, intFXNumber);
