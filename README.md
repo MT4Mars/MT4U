@@ -52,9 +52,11 @@ MT4U_FX_Rack (Virtual FX Rack for CSI)
     In the example configuration, the RecordArm button selects an FX. With the Alt modifier, 
     it can be moved up and down in the chain, while holding RecordArm will delete it.
     
-    To install, add the MT4U_F_FUNCTIONS and MT4U_FX_MENU folders to your Reaper scripts directory 
-    and the MT4U_FX_List.eel file to the root scripts directory (or the parent to where the other
-    directories were copied). This file contains the list of plug-ins for each type and is shared
+    To install, add an MT4U folder inside Reaper's root scripts directory (<resource dir>/Scripts)
+    and copy the MT4U_F_FUNCTIONS and MT4U_FX_MENU folders there, as well as the MT4U_FX_List.eel file.
+    Keeping this directory structure makes sure the Command IDs assigned to the actions will match
+    the ones in the provided scrips and Zone File addendums.
+    The MT4U_FX_List.eel file contains the list of plug-ins for each type and is shared
     by the scripts in both directories. It's been prepared for easy editing in case you don't feel 
     comfortable with EEL scripting, just open it and you will see.
     
