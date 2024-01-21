@@ -7,7 +7,7 @@ function GetList(pType, arrFX, pNum*, pMemSlot*)
     // ******************************************************************************************************    
     "VST: ReaEQ (Cockos)", "VST3: UADx Pultec EQP-1A EQ (Universal Audio (UADx))", "VST3: UADx Pultec HLF-3C EQ (Universal Audio (UADx))", "VST3: UADx Pultec MEQ-5 EQ (Universal Audio (UADx))"
     // ******************************************************************************************************
-    ); (pType == "EQ1") ? pMemSlot = 1 : pMemSlot = 2; );
+    , nil); (pType == "EQ1") ? pMemSlot = 1 : pMemSlot = 2; );
   (pType == "FX1") ? ( // Compressor (or anything you'd like to associate with the FX1 action, same for FX2, FX3, etc.)
     mem_set_values(arrFX, 
     // *******************************************************************************************************
@@ -15,7 +15,7 @@ function GetList(pType, arrFX, pNum*, pMemSlot*)
     // *******************************************************************************************************
     "VST: ReaComp (Cockos)", "VST3: UADx 1176LN Rev E Compressor (Universal Audio (UADx))", "VST3: UADx LA-2A Tube Compressor (Universal Audio (UADx))","VST3: UADx 1176 Rev A Compressor (Universal Audio (UADx))", "VST3: UADx 1176AE Compressor (Universal Audio (UADx))"
     // *******************************************************************************************************
-    ); pMemSlot = 3; );
+    , nil); pMemSlot = 3; );
   (pType == "FX2") ? ( // Chorus
     mem_set_values(arrFX, 
     // *******************************************************************************************************
@@ -23,7 +23,7 @@ function GetList(pType, arrFX, pNum*, pMemSlot*)
     // *******************************************************************************************************
     "VST3: Chorus 1", "VST3: Chorus 2", "VST3: Chorus 3"
     // *******************************************************************************************************
-    ); pMemSlot = 4; );
+    , nil); pMemSlot = 4; );
   (pType == "FX3") ? ( // Stereo_Imaging
     mem_set_values(arrFX, 
     // *******************************************************************************************************
@@ -31,7 +31,7 @@ function GetList(pType, arrFX, pNum*, pMemSlot*)
     // *******************************************************************************************************    
     "JS: RBJ Stereo Image Filter", "VST3: Stereo Imaging 2"
     // *******************************************************************************************************    
-    ); pMemSlot = 5; );
+    , nil); pMemSlot = 5; );
   (pType == "FX4") ? ( // Delay
     mem_set_values(arrFX, 
     // *******************************************************************************************************
@@ -39,7 +39,7 @@ function GetList(pType, arrFX, pNum*, pMemSlot*)
     // *******************************************************************************************************
     "VST: ReaDelay (Cockos)", "VST3: Delay 2", "VST3: Delay 3"
     // *******************************************************************************************************    
-    ); pMemSlot = 6; );
+    , nil); pMemSlot = 6; );
   (pType == "FX5") ? ( // Reverb
     mem_set_values(arrFX, 
     // *******************************************************************************************************
@@ -47,7 +47,7 @@ function GetList(pType, arrFX, pNum*, pMemSlot*)
     // *******************************************************************************************************
     "VST3: Reverb 1", "VST3: Reverb 2"
     // *******************************************************************************************************    
-    ); pMemSlot = 7; );
+    , nil); pMemSlot = 7; );
   (pType == "FX6") ? ( // Autopan
     mem_set_values(arrFX, 
     // *******************************************************************************************************
@@ -55,7 +55,7 @@ function GetList(pType, arrFX, pNum*, pMemSlot*)
     // *******************************************************************************************************
     "JS: Ping Pong Pan", "VST3: Autopan 2"
     // *******************************************************************************************************    
-    ); pMemSlot = 8; );
+    , nil); pMemSlot = 8; );
   (pType == "FX7") ? ( // Flanger
     mem_set_values(arrFX, 
     // *******************************************************************************************************
@@ -63,7 +63,7 @@ function GetList(pType, arrFX, pNum*, pMemSlot*)
     // *******************************************************************************************************
     "JS: Flanger [guitar\\flanger]", "VST3: Flanger 2"
     // *******************************************************************************************************    
-    ); pMemSlot = 9; );
+    , nil); pMemSlot = 9; );
   (pType == "FX8") ? ( // Phaser
     mem_set_values(arrFX, 
     // *******************************************************************************************************
@@ -71,7 +71,7 @@ function GetList(pType, arrFX, pNum*, pMemSlot*)
     // *******************************************************************************************************
     "JS: 4-Tap Phaser", "VST3: Phaser 2"
     // *******************************************************************************************************    
-    ); pMemSlot = 10; );
+    , nil); pMemSlot = 10; );
   (pType == "FX9") ? ( // Tremolo
     mem_set_values(arrFX, 
     // *******************************************************************************************************
@@ -79,7 +79,7 @@ function GetList(pType, arrFX, pNum*, pMemSlot*)
     // *******************************************************************************************************
     "JS: Tremolo [guitar\\tremolo]", "VST3: Tremolo 2"
     // *******************************************************************************************************    
-    ); pMemSlot = 11; );
+    , nil); pMemSlot = 11; );
   (pType == "FX10") ? ( // Other
     mem_set_values(arrFX, 
     // *******************************************************************************************************
@@ -87,25 +87,25 @@ function GetList(pType, arrFX, pNum*, pMemSlot*)
     // *******************************************************************************************************
     "VST3: Other 1", "VST3: Other 2", "VST3: Other 3"
     // *******************************************************************************************************    
-    ); pMemSlot = 12; );  
+    , nil); pMemSlot = 12; );  
 
   // Count FX
   pNum = 0;
   while (arrFX[pNum] != nil) (pNum += 1;);
 
   // Set first Plug-In as Default
-  strDef = arrFX[0];  
+  strDef = arrFX[0];
   strDef;
 );
 
 function NextFX(pTypeName, strThisName)
 (
-  arrFX = 10;
+  arrFX = 1000;
   intNum = 0;
   intSlot = 0;
   GetList(pTypeName, arrFX, intNum, intSlot);
   x = 0;
-  boolDone == 0;
+  boolDone = 0;
   strNext = "";
 
   while (arrFX[x] != nil && x < intNum && boolDone == 0)
@@ -122,22 +122,22 @@ function NextFX(pTypeName, strThisName)
 
 function PrevFX(pTypeName, strThisName)
 (
-  arrFX = 10;
+  arrFX = 1000;
   intNum = 0;
   intSlot = 0;
   GetList(pTypeName, arrFX, intNum, intSlot);
-  x = 0;
+  x = intNum-1;
   boolDone = 0;
   strPrev = "";
 
-  while (arrFX[x] != nil && x < intNum && boolDone == 0)
+  while (arrFX[x] != nil && x >= 0  && boolDone == 0)
   (
     (!strcmp(arrFX[x], strThisName)) ?
     (
       (x == 0) ? strPrev = arrFX[intNum-1] : strPrev = arrFX[x-1];
-      boolDone = 1;
+       boolDone = 1;
     );
-    x+=1;
+    x-=1;
   );
   strPrev;
 );
