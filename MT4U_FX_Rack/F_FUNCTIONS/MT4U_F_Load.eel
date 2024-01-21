@@ -24,6 +24,7 @@ function CheckFX(pMemSlot, pTypeName, parrFX, strThisName)
   );
 );
 
+// Clean variables
 gmem[1] = 0; // EQ1
 gmem[2] = 0; // EQ2
 gmem[3] = 0; // FX1
@@ -40,15 +41,17 @@ gmem[13] = 0; // FX10
   
 cur_track = GetSelectedTrack(0, 0);
 intFXCount = TrackFX_GetCount(cur_track);         // Number of Plug-ins in the Chain
-(intFXCount != 0) ?
+(intFXCount != 0) 
+?
 (
   xFind = 0;
+  bool1Done = 0;
   while (xFind < intFXCount) 
   (
     // Get this slot's FX Name into #buf
     arrFX = 0;
     TrackFX_GetFXName(cur_track, xFind, #buf); 
-    // EQ
+    // EQ1-2
     intNum = 0;
     intSlot = 0;
     GetList("EQ1", arrFX, intNum, intSlot);
@@ -57,7 +60,8 @@ intFXCount = TrackFX_GetCount(cur_track);         // Number of Plug-ins in the C
     (
       (!strcmp(arrFX[x], #buf)) ?
       (
-        (xFind<=1) ? (gmem[1]=1) : (gmem[2]=1);
+        (bool1Done == 0) ? gmem[1]=1 : gmem[2]=1;
+        bool1Done = 1;
       );
       x+=1;
     );
@@ -74,4 +78,4 @@ intFXCount = TrackFX_GetCount(cur_track);         // Number of Plug-ins in the C
     xFind+=1;
   );
 );
-LEDs();    
+LEDs();
