@@ -29,7 +29,7 @@ local(pluginSlot)
         ? // strcmp returns 0 => FX Names match
         (
           intCount += 1;
-          ((pPlace == 0) || (pPlace == intCount) || (pMemSlot == 1 && pPlace == 1 && x <= 2)) ? 
+          ((pPlace == 0) || (pPlace == intCount)) ? // || (pMemSlot == 1 && pPlace == 1 && x <= 2)) ? 
           (
             boolOpen = TrackFX_GetOpen(pTrack, xFind);
             gmem[pMemSlot] = 1;                  // FX Found. LED is ON
