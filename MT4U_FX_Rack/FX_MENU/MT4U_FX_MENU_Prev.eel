@@ -30,7 +30,7 @@ function FX_Prev(pSlot)
     (myPrev != "") ?
     (
       // Clean
-      strAdd = myNext; 
+      strAdd = myPrev; 
       // Set FX to Prev of Kin ;-)
       PreventUIRefresh(2);
       TrackFX_Delete(cur_track, pSlot);
