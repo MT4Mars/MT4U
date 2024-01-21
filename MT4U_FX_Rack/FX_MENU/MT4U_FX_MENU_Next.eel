@@ -4,7 +4,6 @@
 //@gmem=MT4UFXSelect
 
 @import ..\MT4U_FX_List.eel
-//@import MT4U_FX_MENU_Sel.eel
 
 function FX_Next(pSlot)
 (
