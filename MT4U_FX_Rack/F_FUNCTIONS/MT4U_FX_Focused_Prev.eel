@@ -17,21 +17,21 @@ intResponse = GetFocusedFX2(intTrackNumber, #intItem, intFXNumber);
   (
     myTrack = GetTrack(0, intTrackNumber-1);
     myName =  TrackFX_GetFXName(myTrack, intFXNumber, #buf);
-    myNext = PrevFX("EQ1", #buf);
-    (myNext == "") ? (myNext = PrevFX("FX1", #buf));
-    (myNext == "") ? (myNext = PrevFX("FX2", #buf));
-    (myNext == "") ? (myNext = PrevFX("FX3", #buf));
-    (myNext == "") ? (myNext = PrevFX("FX4", #buf));
-    (myNext == "") ? (myNext = PrevFX("FX5", #buf));
-    (myNext == "") ? (myNext = PrevFX("FX6", #buf));
-    (myNext == "") ? (myNext = PrevFX("FX7", #buf));
-    (myNext == "") ? (myNext = PrevFX("FX8", #buf));
-    (myNext == "") ? (myNext = PrevFX("FX9", #buf));
+    myPrev = PrevFX("EQ1", #buf);
+    (myPrev == "") ? (myPrev = PrevFX("FX1", #buf));
+    (myPrev == "") ? (myPrev = PrevFX("FX2", #buf));
+    (myPrev == "") ? (myPrev = PrevFX("FX3", #buf));
+    (myPrev == "") ? (myPrev = PrevFX("FX4", #buf));
+    (myPrev == "") ? (myPrev = PrevFX("FX5", #buf));
+    (myPrev == "") ? (myPrev = PrevFX("FX6", #buf));
+    (myPrev == "") ? (myPrev = PrevFX("FX7", #buf));
+    (myPrev == "") ? (myPrev = PrevFX("FX8", #buf));
+    (myPrev == "") ? (myPrev = PrevFX("FX9", #buf));
 
-    (myNext != "") ?
+    (myPrev != "") ?
     (
       // Clean
-      strAddName = myNext;
+      strAddName = myPrev;
       // Set FX to Prev of Kin ;-)
       PreventUIRefresh(2);
       TrackFX_Delete(myTrack, intFXNumber);
