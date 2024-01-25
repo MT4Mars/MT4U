@@ -1,6 +1,6 @@
 function GetList(pType, arrFX, pNum*, pMemSlot*)
 (
-  (pType == "EQ1" || pType == "EQ2") ? ( // EQ (this allows for a Subtractive EQ and and Additive EQ in the same track)
+  (!strcmp(pType, "EQ1") || !strcmp(pType, "EQ2")) ? ( // EQ (this allows for a Subtractive EQ and and Additive EQ in the same track)
     mem_set_values(arrFX, 
     // ******************************************************************************************************
     // ***** EDIT HERE: Next line is your EQ list, enclosed in quotation marks and separated by commas. *****
@@ -8,7 +8,7 @@ function GetList(pType, arrFX, pNum*, pMemSlot*)
     "VST: ReaEQ (Cockos)", "VST3: UADx Pultec EQP-1A EQ (Universal Audio (UADx))", "VST3: UADx Pultec HLF-3C EQ (Universal Audio (UADx))", "VST3: UADx Pultec MEQ-5 EQ (Universal Audio (UADx))"
     // ******************************************************************************************************
     , nil); (pType == "EQ1") ? pMemSlot = 1 : pMemSlot = 2; );
-  (pType == "FX1") ? ( // Compressor (or anything you'd like to associate with the FX1 action, same for FX2, FX3, etc.)
+  (!strcmp(pType, "FX1")) ? ( // Compressor (or anything you'd like to associate with the FX1 action, same for FX2, FX3, etc.)
     mem_set_values(arrFX, 
     // *******************************************************************************************************
     // ***** EDIT HERE: Next line is your FX1 list, enclosed in quotation marks and separated by commas. *****
@@ -16,7 +16,7 @@ function GetList(pType, arrFX, pNum*, pMemSlot*)
     "VST: ReaComp (Cockos)", "VST3: UADx 1176LN Rev E Compressor (Universal Audio (UADx))", "VST3: UADx LA-2A Tube Compressor (Universal Audio (UADx))","VST3: UADx 1176 Rev A Compressor (Universal Audio (UADx))", "VST3: UADx 1176AE Compressor (Universal Audio (UADx))"
     // *******************************************************************************************************
     , nil); pMemSlot = 3; );
-  (pType == "FX2") ? ( // Chorus
+  (!strcmp(pType, "FX2")) ? ( // Chorus
     mem_set_values(arrFX, 
     // *******************************************************************************************************
     // ***** EDIT HERE: Next line is your FX2 list, enclosed in quotation marks and separated by commas. *****
@@ -24,7 +24,7 @@ function GetList(pType, arrFX, pNum*, pMemSlot*)
     "VST3: Chorus 1", "VST3: Chorus 2", "VST3: Chorus 3"
     // *******************************************************************************************************
     , nil); pMemSlot = 4; );
-  (pType == "FX3") ? ( // Stereo_Imaging
+  (!strcmp(pType, "FX3")) ? ( // Stereo_Imaging
     mem_set_values(arrFX, 
     // *******************************************************************************************************
     // ***** EDIT HERE: Next line is your FX3 list, enclosed in quotation marks and separated by commas. *****
@@ -32,7 +32,7 @@ function GetList(pType, arrFX, pNum*, pMemSlot*)
     "JS: RBJ Stereo Image Filter", "VST3: Stereo Imaging 2"
     // *******************************************************************************************************    
     , nil); pMemSlot = 5; );
-  (pType == "FX4") ? ( // Delay
+  (!strcmp(pType, "FX4")) ? ( // Delay
     mem_set_values(arrFX, 
     // *******************************************************************************************************
     // ***** EDIT HERE: Next line is your FX4 list, enclosed in quotation marks and separated by commas. *****
@@ -40,7 +40,7 @@ function GetList(pType, arrFX, pNum*, pMemSlot*)
     "VST: ReaDelay (Cockos)", "VST3: Delay 2", "VST3: Delay 3"
     // *******************************************************************************************************    
     , nil); pMemSlot = 6; );
-  (pType == "FX5") ? ( // Reverb
+  (!strcmp(pType, "FX5")) ? ( // Reverb
     mem_set_values(arrFX, 
     // *******************************************************************************************************
     // ***** EDIT HERE: Next line is your FX5 list, enclosed in quotation marks and separated by commas. *****
@@ -48,7 +48,7 @@ function GetList(pType, arrFX, pNum*, pMemSlot*)
     "VST3: Reverb 1", "VST3: Reverb 2"
     // *******************************************************************************************************    
     , nil); pMemSlot = 7; );
-  (pType == "FX6") ? ( // Autopan
+  (!strcmp(pType, "FX6")) ? ( // Autopan
     mem_set_values(arrFX, 
     // *******************************************************************************************************
     // ***** EDIT HERE: Next line is your FX6 list, enclosed in quotation marks and separated by commas. *****
@@ -56,7 +56,7 @@ function GetList(pType, arrFX, pNum*, pMemSlot*)
     "JS: Ping Pong Pan", "VST3: Autopan 2"
     // *******************************************************************************************************    
     , nil); pMemSlot = 8; );
-  (pType == "FX7") ? ( // Flanger
+  (!strcmp(pType, "FX7")) ? ( // Flanger
     mem_set_values(arrFX, 
     // *******************************************************************************************************
     // ***** EDIT HERE: Next line is your FX7 list, enclosed in quotation marks and separated by commas. *****
@@ -64,7 +64,7 @@ function GetList(pType, arrFX, pNum*, pMemSlot*)
     "JS: Flanger [guitar\\flanger]", "VST3: Flanger 2"
     // *******************************************************************************************************    
     , nil); pMemSlot = 9; );
-  (pType == "FX8") ? ( // Phaser
+  (!strcmp(pType, "FX8")) ? ( // Phaser
     mem_set_values(arrFX, 
     // *******************************************************************************************************
     // ***** EDIT HERE: Next line is your FX8 list, enclosed in quotation marks and separated by commas. *****
@@ -72,7 +72,7 @@ function GetList(pType, arrFX, pNum*, pMemSlot*)
     "JS: 4-Tap Phaser", "VST3: Phaser 2"
     // *******************************************************************************************************    
     , nil); pMemSlot = 10; );
-  (pType == "FX9") ? ( // Tremolo
+  (!strcmp(pType, "FX9")) ? ( // Tremolo
     mem_set_values(arrFX, 
     // *******************************************************************************************************
     // ***** EDIT HERE: Next line is your FX9 list, enclosed in quotation marks and separated by commas. *****
@@ -80,7 +80,7 @@ function GetList(pType, arrFX, pNum*, pMemSlot*)
     "JS: Tremolo [guitar\\tremolo]", "VST3: Tremolo 2"
     // *******************************************************************************************************    
     , nil); pMemSlot = 11; );
-  (pType == "FX10") ? ( // Other
+  (!strcmp(pType, "FX10")) ? ( // Other
     mem_set_values(arrFX, 
     // *******************************************************************************************************
     // ***** EDIT HERE: Next line is your FX10 list, enclosed in quotation marks and separated by commas. *****
