@@ -36,6 +36,13 @@ Buttons.zon
   Alt+ChannelRight            ClearFocusedFX Feedback=No
   InvertFB+Alt+ChannelRight   Reaper _RS14225070f26ef670af7ca2ec077792ae9f389f05 Feedback=Yes // MT4U_FX_FOCUSED_Next.eel
 
+// When the GUI for a plug-in is opened, these actions will open the next or previous plug-in of the same category on the 
+// track. For Example: In a Track with a ReaComp and an 1176, if ReaEQ is focused, it will close the ReaEQ GUI and open 
+// the GUI for the 1176. The categories are those defined in the MT4U_FX_List.eel script.
+
+SomeButton                   Reaper _RSd9e59f8ff8cdc2fead386104aab20c1e6ba42077      // MT4U_FX_Focused_NextInCat.eel
+OtherButton                  Reaper _RS3a627b642d80553ce6ba41e73e163a20948e5088      // MT4U_FX_Focused_PrevInCat.eel
+
 // To unmap and close the focused FX returning to the previous zone. This prevents the unfocusing FX problem.
 
   Cancel                      Reaper _RSa79773b81ca82d98b618f3bc8b79e3ba8616085a     // MT4U_FX_SHOW_HIDE_CloseFocused.eel
