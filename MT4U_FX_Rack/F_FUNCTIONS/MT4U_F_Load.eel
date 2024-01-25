@@ -36,8 +36,7 @@ gmem[8] = 0; // FX6
 gmem[9] = 0; // FX7
 gmem[10] = 0; // FX8
 gmem[11] = 0; // FX9
-gmem[12] = 0; // FX9
-gmem[13] = 0; // FX10
+gmem[12] = 0; // FX10
   
 cur_track = GetSelectedTrack(0, 0);
 intFXCount = TrackFX_GetCount(cur_track);         // Number of Plug-ins in the Chain
