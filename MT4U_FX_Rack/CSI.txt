@@ -36,6 +36,8 @@ Buttons.zon
   Alt+ChannelRight            ClearFocusedFX Feedback=No
   InvertFB+Alt+ChannelRight   Reaper _RS14225070f26ef670af7ca2ec077792ae9f389f05 Feedback=Yes // MT4U_FX_FOCUSED_Next.eel
 
+// Go to Previous/Next plug-in of the same category
+//
 // When the GUI for a plug-in is opened, these actions will open the next or previous plug-in of the same category on the 
 // track. For Example: In a Track with a ReaComp and an 1176, if ReaComp is focused, it will close the ReaComp GUI and open 
 // the GUI for the 1176. The categories are those defined in the MT4U_FX_List.eel script.
