@@ -1,0 +1,48 @@
+// MT4U_FX_FOCUSED_PrevInCat.eel Reaper EEL2 script by MT4U.
+// Marcel Lettier Ribikauskas (mars_l@hotmail.com)
+//namespace
+//@gmem=MT4UFXSelect
+
+@import ..\MT4U_FX_List.eel
+
+intTrackNumber = 0;
+intFXNumber = 0;
+intResponse = GetFocusedFX2(intTrackNumber, #intItem, intFXNumber);
+(intResponse == 1) ?
+(
+  // Check if the next 8 bits are not 01 (Record FX) in case we want to disable things
+  intRec = 0;
+  intRec = (intFXNumber >> 24) & 0xFF;
+  (intRec != 1) ? 
+  (
+    myTrack = GetTrack(0, intTrackNumber-1);
+    myName =  TrackFX_GetFXName(myTrack, intFXNumber, #buf);
+    GetSetMediaTrackInfo_String(myTrack, "P_EXT:MT4U_FocusedCat", #str_type, 0);
+    arrFX = 0;
+    intNum = 0;
+    intMemSlot = 0;
+    strDef = GetList("EQ1", arrFX, intNum, intMemSlot);
+    intFXCount = TrackFX_GetCount(myTrack);         // Number of Plug-ins in the Chain
+    fxFound = 0;                                   // AUX: Flag used to exit the while loop
+    (intFXCount != 0) ?
+    (
+      xFind = intFXNumber-1;                                   // AUX: FX Slot var to go through the chain
+      while (xFind > -1 && fxFound == 0) 
+      (
+        x=0;
+        TrackFX_GetFXName(myTrack, xFind, #cur_fx);
+        while (arrFX[x] != nil && fxFound == 0) 
+        (
+          (!strcmp(#cur_fx, arrFX[x])) ? 
+          (
+            TrackFX_Show(myTrack, intFXNumber, 2);
+            TrackFX_Show(myTrack, xFind, 3); 
+            fxFound = 1;
+          );
+          x+=1;
+        );
+        xFind -= 1;
+      );
+    );
+  );
+);
