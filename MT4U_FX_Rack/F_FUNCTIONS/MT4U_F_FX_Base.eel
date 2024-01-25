@@ -24,6 +24,8 @@ function FX_Base(pFX, pState*, pPlace)
     ):
     (
       AddShowHide(cur_track, intMemSlot, arrFX, strDef, 1, pPlace, 1);
+      #str_type = pFX;
+      GetSetMediaTrackInfo_String(cur_track, "P_EXT:MT4U_FocusedCat", #str_type, 1);
     );
   );
   // Refresh LED status for this one
