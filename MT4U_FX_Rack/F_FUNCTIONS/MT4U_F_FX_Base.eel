@@ -29,11 +29,5 @@ function FX_Base(pFX, pState*, pPlace)
     );
   );
   // Refresh LED status for this one
-  (gmem[intMemSlot] == 1) ?
-  (
-    pState = 1;
-  ):
-  (
-    pState = 0;
-  );
+  (gmem[intMemSlot] == 1) ? (pState = 1) : (pState = 0);
 );
