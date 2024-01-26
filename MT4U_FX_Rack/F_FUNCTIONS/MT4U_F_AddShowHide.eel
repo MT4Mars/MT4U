@@ -16,6 +16,7 @@ local(pluginSlot)
   (
     xFind = 0;                                   // AUX: FX Slot var to go through the chain
     intCount = 0;
+    intLast = -1;
     while (xFind < intFXCount && fxFound == 0) 
     (
       // Get this slot's FX Name into #buf
@@ -28,8 +29,9 @@ local(pluginSlot)
         (!strcmp(#buf, arrFXList[x]))            // Compare #buf with current FX in the Array List
         ? // strcmp returns 0 => FX Names match
         (
+          intLast = xFind;
           intCount += 1;
-          ((pPlace == 0) || (pPlace == intCount)) ? // || (pMemSlot == 1 && pPlace == 1 && x <= 2)) ? 
+          ((pPlace != 0) || (pPlace == intCount)) ? // || (pMemSlot == 1 && pPlace == 1 && x <= 2)) ? 
           (
             boolOpen = TrackFX_GetOpen(pTrack, xFind);
             gmem[pMemSlot] = 1;                  // FX Found. LED is ON
@@ -41,13 +43,12 @@ local(pluginSlot)
             ):
             (
               pluginSlot = xFind;
-              gmem[pMemSlot] = 1;
               TrackFX_Show(pTrack, xFind, 3);
               fxFound = 1;
             );
           );
           // If so indicated, close FX Window of same FX in other tracks
-          (pCloseForeign == 1) ?
+          ((fxFound == 1) && (pCloseForeign == 1)) ?
           (
             intTracks = CountTracks();
             intCurTrack = 0;
@@ -91,6 +92,22 @@ local(pluginSlot)
         x += 1;
       );
       xFind += 1;        
+    );
+    (intLast != -1 && fxFound == 0) ?
+    (
+      boolOpen = TrackFX_GetOpen(pTrack, xFind);
+      gmem[pMemSlot] = 1;                  // FX Found. LED is ON
+      (boolOpen == 1) ? 
+      ( // FX Was Open. Close Window
+        pluginSlot = intLast;
+        TrackFX_Show(pTrack, intLast, 2);
+        fxFound = 1;
+      ):
+      (
+        pluginSlot = intLast;
+        TrackFX_Show(pTrack, intLast, 3);
+        fxFound = 1;
+      );
     );
   );
   (pluginSlot == -1) ? // No Plug-in has been found. Add the default.
