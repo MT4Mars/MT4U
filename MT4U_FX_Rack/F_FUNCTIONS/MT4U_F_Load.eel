@@ -6,75 +6,66 @@
 @import ..\MT4U_FX_List.eel
 @import MT4U_F_LEDs.eel
 
-function CheckFX(pMemSlot, pTypeName, parrFX, strThisName)
+function CountCat(pTrack, pTypeName, pCountAll)
 (
-  intNum = 0;
-  intSlot = 0;
-  GetList(pTypeName, parrFX, intNum, intSlot);
-  x = 0;
-  boolDone = 0;
-  while (arrFX[x] != nil && x < intNum && boolDone == 0)
+  intCountCat = 0;
+  intFXCount = TrackFX_GetCount(pTrack);         // Number of Plug-ins in the Chain
+  (intFXCount != 0) ?
   (
-    (!strcmp(arrFX[x], strThisName)) ?
+    intSlot = 0;
+    arrFX = 101;
+    intFXCount = 0;
+    GetList(pTypeName, arrFX, intFXCount, intSlot);
+    (intFXCount != 0) ?
     (
-      gmem[pMemSlot] = 1;
-      boolDone = 1;
+      xFX = 0;
+      boolDoneAll = 0;
+      while (xFX < intFXCount && boolDoneAll == 0)
+      (
+        TrackFX_GetFXName(pTrack, xFX, #buf);
+        x = 0;
+        boolDone = 0;
+        while (x < intFXCount && boolDone == 0)
+        (
+          (!strcmp(arrFX[x], #buf)) ?
+          (
+            intCountCat+=1;
+            (pCountAll == 0) ? (boolDoneAll = 1);
+            boolDone = 1;
+          );
+          x+=1;
+        );
+        xFX+=1;
+      );
     );
-    x+=1;
   );
+  intCountCat;
 );
 
-// Clean variables
-gmem[1] = 0; // EQ1
-gmem[2] = 0; // EQ2
-gmem[3] = 0; // FX1
-gmem[4] = 0; // FX2
-gmem[5] = 0; // FX3
-gmem[6] = 0; // FX4
-gmem[7] = 0; // FX5
-gmem[8] = 0; // FX6
-gmem[9] = 0; // FX7
-gmem[10] = 0; // FX8
-gmem[11] = 0; // FX9
-gmem[12] = 0; // FX10
-  
 cur_track = GetSelectedTrack(0, 0);
-intFXCount = TrackFX_GetCount(cur_track);         // Number of Plug-ins in the Chain
-(intFXCount != 0) 
-?
-(
-  xFind = 0;
-  bool1Done = 0;
-  while (xFind < intFXCount) 
-  (
-    // Get this slot's FX Name into #buf
-    arrFX = 0;
-    TrackFX_GetFXName(cur_track, xFind, #buf); 
-    // EQ1-2
-    intNum = 0;
-    intSlot = 0;
-    GetList("EQ1", arrFX, intNum, intSlot);
-    x=0;
-    while (arrFX[x] != nil && x < intNum)
-    (
-      (!strcmp(arrFX[x], #buf)) ?
-      (
-        (bool1Done == 0) ? gmem[1]=1 : gmem[2]=1;
-        bool1Done = 1;
-      );
-      x+=1;
-    );
-    CheckFX(3, "FX1", arrFX, #buf); // Compressor
-    CheckFX(4, "FX2", arrFX, #buf); // Chorus
-    CheckFX(5, "FX3", arrFX, #buf); // Stereo_Imaging
-    CheckFX(6, "FX4", arrFX, #buf); // Delay
-    CheckFX(7, "FX5", arrFX, #buf); // Reverb
-    CheckFX(8, "FX6", arrFX, #buf); // AutoPan
-    CheckFX(9, "FX7", arrFX, #buf); // Flanger
-    CheckFX(10, "FX8", arrFX, #buf); // Phaser
-    CheckFX(11, "FX9", arrFX, #buf); // Tremolo
-    CheckFX(12, "FX10", arrFX, #buf); // Other 
-    xFind+=1;
-  );
-);
-LEDs();
+
+intCount = CountCat(cur_track, "EQ1", 1);
+gmem[1] = (intCount > 0); // EQ1
+gmem[2] = (intCount > 1); // EQ2
+intCount = CountCat(cur_track, "FX1", 0);
+gmem[3] = (intCount > 0); // FX1
+intCount = CountCat(cur_track, "FX2", 0);
+gmem[4] = (intCount > 0); // FX2
+intCount = CountCat(cur_track, "FX3", 0);
+gmem[5] = (intCount > 0); // FX3
+intCount = CountCat(cur_track, "FX4", 0);
+gmem[6] = (intCount > 0); // FX4
+intCount = CountCat(cur_track, "FX5", 0);
+gmem[7] = (intCount > 0); // FX5
+intCount = CountCat(cur_track, "FX6", 0);
+gmem[8] = (intCount > 0); // FX6
+intCount = CountCat(cur_track, "FX7", 0);
+gmem[9] = (intCount > 0); // FX7
+intCount = CountCat(cur_track, "FX8", 0);
+gmem[10] = (intCount > 0); // FX8
+intCount = CountCat(cur_track, "FX9", 0);
+gmem[11] = (intCount > 0); // FX9
+intCount = CountCat(cur_track, "FX10", 0);
+gmem[12] = (intCount > 0); // FX10
+  
+LEDs();    
