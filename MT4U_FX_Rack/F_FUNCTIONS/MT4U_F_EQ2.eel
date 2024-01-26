@@ -7,6 +7,6 @@
 
 get_action_context(#fn, sec, cmd);
 state = 0;
-FX_Base("EQ2", state, 2);
+FX_Base("EQ2", state, 0);
 
 SetToggleCommandState(sec, cmd, state);
