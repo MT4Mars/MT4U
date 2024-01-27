@@ -152,6 +152,8 @@ function AddInstance(pType, pShow)
   );
   (pType != "") ?
   (
+    #str_type = pType;
+    GetSetMediaTrackInfo_String(cur_track, "P_EXT:MT4U_FocusedCat", #str_type, 1);
     arrFX = 0;
     intNum = 0;
     intMemSlot = 0;
