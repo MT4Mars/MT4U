@@ -141,3 +141,34 @@ function PrevFX(pTypeName, strThisName)
   );
   strPrev;
 );
+
+function AddInstance(pType, pShow)
+(
+  cur_track = GetSelectedTrack(0, 0);
+  (pType == "") ?
+  (
+    GetSetMediaTrackInfo_String(cur_track, "P_EXT:MT4U_FocusedCat", #str_type, 0);
+    (#str_type != "") ? (pType = #str_type);
+  );
+  (pType != "") ?
+  (
+    arrFX = 0;
+    intNum = 0;
+    intMemSlot = 0;
+    GetList(pType, arrFX, intNum, intMemSlot);
+    pluginSlot = TrackFX_AddByName(cur_track, arrFX[0], 0, -1);
+    gmem[intMemSlot] = 1;
+    // Float the UI
+    (pShow == 1) ? 
+    (
+      intTrackNumber = 0;
+      intFXNumber = 0;
+      intResponse = GetFocusedFX2(intTrackNumber, #intItem, intFXNumber);
+      (intResponse == 1) ?
+      (
+        TrackFX_Show(cur_track, intFXNumber, 2);    
+      );
+      TrackFX_Show(cur_track, pluginSlot, 3);
+    );    
+  );
+);
