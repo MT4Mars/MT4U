@@ -6,26 +6,36 @@
 @import ..\MT4U_FX_List.eel
 @import MT4U_F_AddShowHide.eel
 
-function FX_Base(pFX, pState*, pPlace)
+function FX_Base(pCat, pState*, pPlace)
 (
   arrFX = 0;
   intNum = 0;
   intMemSlot = 0;
-  strDef = GetList(pFX, arrFX, intNum, intMemSlot);
+  strDef = GetList(pCat, arrFX, intNum, intMemSlot);
   // Check Set/Get
   (gmem[0] != 1) ?
   (
+    pSlot = 0;
     cur_track = GetSelectedTrack(0, 0);
     GetProjExtState(0, "MT4U_Globals", "IN_FX_MENU", #fx_menu);
     (!strcmp(#fx_menu, "1")) ?
     (
-      AddShowHide(cur_track, intMemSlot, arrFX, strDef, 0, pPlace, 1);
+      AddShowHide(cur_track, intMemSlot, arrFX, strDef, 0, pPlace, 1, pSlot);
       SetProjExtState(0, "MT4U_Globals", "IN_FX_MENU", "0");
-    ):
-    (
-      AddShowHide(cur_track, intMemSlot, arrFX, strDef, 1, pPlace, 1);
-      #str_type = pFX;
-      GetSetMediaTrackInfo_String(cur_track, "P_EXT:MT4U_FocusedCat", #str_type, 1);
+    ) :
+    ( 
+      GetLastUsed(cur_track, pCat, pSlot);
+      (pSlot == -1) ? 
+      (
+        AddShowHide(cur_track, intMemSlot, arrFX, strDef, 1, pPlace, 1, pSlot);
+        #str_type = pCat;
+        GetSetMediaTrackInfo_String(cur_track, "P_EXT:MT4U_FocusedCat", #str_type, 1);
+        TrackFX_GetFXName(cur_track, pSlot, #buf);
+        SetLastUsed(cur_track, pCat, pSlot, #buf);
+      ) :
+      (
+        TrackFX_Show(cur_track, pSlot, 3);
+      );
     );
   );
   // Refresh LED status for this one

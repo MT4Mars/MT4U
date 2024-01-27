@@ -38,6 +38,8 @@ intResponse = GetFocusedFX2(intTrackNumber, #intItem, intFXNumber);
             TrackFX_Show(myTrack, intFXNumber, 2);
             TrackFX_Show(myTrack, xFind, 3); 
             fxFound = 1;
+            // Save Last Focused per Track
+            SetLastUsed(myTrack, #str_type, xFind, #cur_fx)
           );
           x+=1;
         );
