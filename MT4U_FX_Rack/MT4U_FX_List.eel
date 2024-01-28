@@ -5,89 +5,105 @@ function GetList(pType, arrFX, pNum*, pMemSlot*)
     // ******************************************************************************************************
     // ***** EDIT HERE: Next line is your EQ list, enclosed in quotation marks and separated by commas. *****
     // ******************************************************************************************************    
-    "VST: ReaEQ (Cockos)", "VST3: UADx Pultec EQP-1A EQ (Universal Audio (UADx))", "VST3: UADx Pultec HLF-3C EQ (Universal Audio (UADx))", "VST3: UADx Pultec MEQ-5 EQ (Universal Audio (UADx))"
+    "VST: ReaEQ (Cockos)", "VST3: UADx Pultec EQP-1A EQ (Universal Audio (UADx))", "VST3: UADx Pultec HLF-3C EQ (Universal Audio (UADx))", "VST3: UADx Pultec MEQ-5 EQ (Universal Audio (UADx))", "VST3: UADx Manley Massive Passive EQ (Universal Audio (UADx))", "VST3: UADx Manley Massive Passive MST (Universal Audio (UADx))"
     // ******************************************************************************************************
-    , nil); (pType == "EQ1") ? pMemSlot = 1 : pMemSlot = 2; );
-  (!strcmp(pType, "FX1")) ? ( // Compressor (or anything you'd like to associate with the FX1 action, same for FX2, FX3, etc.)
+    , nil); (pType == "EQ1") ? pMemSlot = 1 : pMemSlot = 2; ) :
+  (!strcmp(pType, "FX1")) ? ( // Channel Strip (or anything you'd like to associate with the FX1 action, same for FX2, FX3, etc.)
     mem_set_values(arrFX, 
     // *******************************************************************************************************
     // ***** EDIT HERE: Next line is your FX1 list, enclosed in quotation marks and separated by commas. *****
     // *******************************************************************************************************
-    "VST: ReaComp (Cockos)", "VST3: UADx 1176LN Rev E Compressor (Universal Audio (UADx))", "VST3: UADx LA-2A Tube Compressor (Universal Audio (UADx))","VST3: UADx 1176 Rev A Compressor (Universal Audio (UADx))", "VST3: UADx 1176AE Compressor (Universal Audio (UADx))"
+    "VST3: UADx API Vision Channel Strip (Universal Audio (UADx))", "VST3: UADx Century Tube Channel Strip (Universal Audio (UADx))", "VST3: UADx Manley Tube Preamp (Universal Audio (UADx))"
     // *******************************************************************************************************
-    , nil); pMemSlot = 3; );
-  (!strcmp(pType, "FX2")) ? ( // Chorus
+    , nil); pMemSlot = 3; ) :
+  (!strcmp(pType, "FX2")) ? ( // Compressor
     mem_set_values(arrFX, 
     // *******************************************************************************************************
     // ***** EDIT HERE: Next line is your FX2 list, enclosed in quotation marks and separated by commas. *****
     // *******************************************************************************************************
-    "VST3: Chorus 1", "VST3: Chorus 2", "VST3: Chorus 3"
+    "VST: ReaComp (Cockos)", "VST3: UADx 1176LN Rev E Compressor (Universal Audio (UADx))", "VST3: UADx LA-2A Tube Compressor (Universal Audio (UADx))", "VST3: UADx 1176 Rev A Compressor (Universal Audio (UADx))", "VST3: UADx 1176AE Compressor (Universal Audio (UADx))", "VST3: UADx Empirical Labs Distressor (Universal Audio (UADx))", "VST3: UADx Fairchild 660 Compressor (Universal Audio (UADx))", "VST3: UADx Fairchild 670 Compressor (Universal Audio (UADx))"
     // *******************************************************************************************************
-    , nil); pMemSlot = 4; );
-  (!strcmp(pType, "FX3")) ? ( // Stereo_Imaging
+    , nil); pMemSlot = 4; ) : 
+  (!strcmp(pType, "FX3")) ? ( // Chorus
     mem_set_values(arrFX, 
     // *******************************************************************************************************
     // ***** EDIT HERE: Next line is your FX3 list, enclosed in quotation marks and separated by commas. *****
     // *******************************************************************************************************    
-    "JS: RBJ Stereo Image Filter", "VST3: Stereo Imaging 2"
+    "VST3: UADx Brigade Chorus (Universal Audio (UADx))", "VST3: UADx Studio D Chorus (Universal Audio (UADx))"
     // *******************************************************************************************************    
-    , nil); pMemSlot = 5; );
-  (!strcmp(pType, "FX4")) ? ( // Delay
+    , nil); pMemSlot = 5; ) :
+  (!strcmp(pType, "FX4")) ? ( // Stereo_Imaging
     mem_set_values(arrFX, 
     // *******************************************************************************************************
     // ***** EDIT HERE: Next line is your FX4 list, enclosed in quotation marks and separated by commas. *****
     // *******************************************************************************************************
-    "VST: ReaDelay (Cockos)", "VST3: Delay 2", "VST3: Delay 3"
+    "JS: RBJ Stereo Image Filter", "JS: Stereo Enhancer"
     // *******************************************************************************************************    
-    , nil); pMemSlot = 6; );
-  (!strcmp(pType, "FX5")) ? ( // Reverb
+    , nil); pMemSlot = 6; ) :
+  (!strcmp(pType, "FX5")) ? ( // Delay
     mem_set_values(arrFX, 
     // *******************************************************************************************************
     // ***** EDIT HERE: Next line is your FX5 list, enclosed in quotation marks and separated by commas. *****
     // *******************************************************************************************************
-    "VST3: Reverb 1", "VST3: Reverb 2"
+    "VST: ReaDelay (Cockos)", "VST3: UADx Galaxy Tape Echo (Universal Audio (UADx))"
     // *******************************************************************************************************    
-    , nil); pMemSlot = 7; );
-  (!strcmp(pType, "FX6")) ? ( // Autopan
+    , nil); pMemSlot = 7; ) :
+  (!strcmp(pType, "FX6")) ? ( // Reverb
     mem_set_values(arrFX, 
     // *******************************************************************************************************
     // ***** EDIT HERE: Next line is your FX6 list, enclosed in quotation marks and separated by commas. *****
     // *******************************************************************************************************
-    "JS: Ping Pong Pan", "VST3: Autopan 2"
+    "VST3: UADx Lexicon 224 Digital Reverb (Universal Audio (UADx))", "VST3: UADx Pure Plate Reverb (Universal Audio (UADx))"
     // *******************************************************************************************************    
-    , nil); pMemSlot = 8; );
+    , nil); pMemSlot = 8; ) :
   (!strcmp(pType, "FX7")) ? ( // Flanger
     mem_set_values(arrFX, 
     // *******************************************************************************************************
-    // ***** EDIT HERE: Next line is your FX7 list, enclosed in quotation marks and separated by commas. *****
+    // ***** EDIT HERE: Next line is your FX7 list, enclosed in quotation marks and separated by commas. *****"JS: Flanger [guitar\\flanger]", "VST3: Flanger 2"
     // *******************************************************************************************************
-    "JS: Flanger [guitar\\flanger]", "VST3: Flanger 2"
+    "JS: Flanger", "JS: Flange Baby"
     // *******************************************************************************************************    
-    , nil); pMemSlot = 9; );
+    , nil); pMemSlot = 9; ) :
   (!strcmp(pType, "FX8")) ? ( // Phaser
     mem_set_values(arrFX, 
     // *******************************************************************************************************
     // ***** EDIT HERE: Next line is your FX8 list, enclosed in quotation marks and separated by commas. *****
     // *******************************************************************************************************
-    "JS: 4-Tap Phaser", "VST3: Phaser 2"
+    "JS: 4-Tap Phaser"
     // *******************************************************************************************************    
-    , nil); pMemSlot = 10; );
+    , nil); pMemSlot = 10; ) :
   (!strcmp(pType, "FX9")) ? ( // Tremolo
     mem_set_values(arrFX, 
     // *******************************************************************************************************
     // ***** EDIT HERE: Next line is your FX9 list, enclosed in quotation marks and separated by commas. *****
     // *******************************************************************************************************
-    "JS: Tremolo [guitar\\tremolo]", "VST3: Tremolo 2"
+    "JS: Tremolo"
     // *******************************************************************************************************    
-    , nil); pMemSlot = 11; );
-  (!strcmp(pType, "FX10")) ? ( // Other
+    , nil); pMemSlot = 11; ) :
+  (!strcmp(pType, "FX10")) ? ( // Autopan
     mem_set_values(arrFX, 
     // *******************************************************************************************************
     // ***** EDIT HERE: Next line is your FX10 list, enclosed in quotation marks and separated by commas. *****
     // *******************************************************************************************************
-    "VST3: Other 1", "VST3: Other 2", "VST3: Other 3"
+    "JS: Ping Pong Pan"
     // *******************************************************************************************************    
-    , nil); pMemSlot = 12; );  
+    , nil); pMemSlot = 12; ) : 
+  (!strcmp(pType, "FX11")) ? ( // Distortion
+    mem_set_values(arrFX, 
+    // *******************************************************************************************************
+    // ***** EDIT HERE: Next line is your FX10 list, enclosed in quotation marks and separated by commas. *****
+    // *******************************************************************************************************
+    "VST3: UADx Oxide Tape Recorder (Universal Audio (UADx))"
+    // *******************************************************************************************************    
+    , nil); pMemSlot = 13; ) : 
+  (!strcmp(pType, "FX12")) ? ( // Other
+    mem_set_values(arrFX, 
+    // *******************************************************************************************************
+    // ***** EDIT HERE: Next line is your FX10 list, enclosed in quotation marks and separated by commas. *****
+    // *******************************************************************************************************
+    "VST3: UADx Waterfall Rotary Speaker (Universal Audio (UADx))" 
+    // *******************************************************************************************************    
+    , nil); pMemSlot = 14; );  
 
   // Count FX
   pNum = 0;
@@ -105,7 +121,7 @@ function NextFX(pTypeName, strThisName)
   intSlot = 0;
   GetList(pTypeName, arrFX, intNum, intSlot);
   x = 0;
-  boolDone = 0;
+  boolDone =  0;
   strNext = "";
 
   while (arrFX[x] != nil && x < intNum && boolDone == 0)
@@ -140,39 +156,6 @@ function PrevFX(pTypeName, strThisName)
     x-=1;
   );
   strPrev;
-);
-
-function AddInstance(pType, pShow)
-(
-  cur_track = GetSelectedTrack(0, 0);
-  (pType == "") ?
-  (
-    GetSetMediaTrackInfo_String(cur_track, "P_EXT:MT4U_FocusedCat", #str_type, 0);
-    (#str_type != "") ? (pType = #str_type);
-  );
-  (pType != "") ?
-  (
-    #str_type = pType;
-    GetSetMediaTrackInfo_String(cur_track, "P_EXT:MT4U_FocusedCat", #str_type, 1);
-    arrFX = 0;
-    intNum = 0;
-    intMemSlot = 0;
-    GetList(pType, arrFX, intNum, intMemSlot);
-    pluginSlot = TrackFX_AddByName(cur_track, arrFX[0], 0, -1);
-    gmem[intMemSlot] = 1;
-    // Float the UI
-    (pShow == 1) ? 
-    (
-      intTrackNumber = 0;
-      intFXNumber = 0;
-      intResponse = GetFocusedFX2(intTrackNumber, #intItem, intFXNumber);
-      (intResponse == 1) ?
-      (
-        TrackFX_Show(cur_track, intFXNumber, 2);    
-      );
-      TrackFX_Show(cur_track, pluginSlot, 3);
-    );    
-  );
 );
 
 function GetLastUsed(pTrack, pType, pSlot*)
@@ -230,4 +213,40 @@ function SetLastUsed(pTrack, pType, pSlot, pName)
   #last_name = pName;
   GetSetMediaTrackInfo_String(pTrack, strLastName, #last_name, 1);
   GetSetMediaTrackInfo_String(pTrack, strLastSlot, #last_slot, 1);
+);
+
+function AddInstance(pType, pShow)
+(
+  cur_track = GetSelectedTrack(0, 0);
+  (pType == "") ?
+  (
+    GetSetMediaTrackInfo_String(cur_track, "P_EXT:MT4U_FocusedCat", #str_type, 0);
+    (#str_type != "") ? (pType = #str_type);
+  );
+  (pType != "") ?
+  (
+    #str_type = pType;
+    GetSetMediaTrackInfo_String(cur_track, "P_EXT:MT4U_FocusedCat", #str_type, 1);
+    arrFX = 0;
+    intNum = 0;
+    intMemSlot = 0;
+    GetList(pType, arrFX, intNum, intMemSlot);
+    pluginSlot = TrackFX_AddByName(cur_track, arrFX[0], 0, -1);
+    gmem[intMemSlot] = 1;
+    // Float the UI
+    (pShow == 1) ? 
+    (
+      intTrackNumber = 0;
+      intFXNumber = 0;
+      intResponse = GetFocusedFX2(intTrackNumber, #intItem, intFXNumber);
+      (intResponse == 1) ?
+      (
+        TrackFX_Show(cur_track, intFXNumber, 2);    
+      );
+      TrackFX_Show(cur_track, pluginSlot, 3);
+      // Save Last Focused per Track
+      TrackFX_GetFXName(cur_track, pluginSlot, #buf);
+      SetLastUsed(cur_track, pType, pluginSlot, #buf);
+    );    
+  );
 );
