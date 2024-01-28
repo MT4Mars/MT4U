@@ -6,8 +6,9 @@
 function LEDs()
 (
   gmem[0]=1; // Set Feedback Only
-  intCMD = NamedCommandLookup("_RS8be400ce7559b34213ec01d51965e7519e77d188"); Main_OnCommand(intCMD, 0); // MT4U_F_EQ1.eel
-  intCMD = NamedCommandLookup("_RS2867ddf785f94a8139e681abc21349dd9c152b3b"); Main_OnCommand(intCMD, 0); // MT4U_F_EQ2.eel
+  intCMD = NamedCommandLookup("_RSaf64797924604bbe143b610b88a813a9578036bf"); Main_OnCommand(intCMD, 0); // MT4U_F_EQ.eel  
+//  intCMD = NamedCommandLookup("_RSaf64797924604bbe143b610b88a813a9578036bf"); Main_OnCommand(intCMD, 0); // MT4U_F_EQ1.eel
+//  intCMD = NamedCommandLookup("_RS2867ddf785f94a8139e681abc21349dd9c152b3b"); Main_OnCommand(intCMD, 0); // MT4U_F_EQ2.eel
   intCMD = NamedCommandLookup("_RS4e6cbe8d54af7b17bb872a2012dccfec17e7647f"); Main_OnCommand(intCMD, 0); // MT4U_F_FX1.eel
   intCMD = NamedCommandLookup("_RS22fada72458a97c4ca544a226a97f86f6400e8ff"); Main_OnCommand(intCMD, 0); // MT4U_F_FX2.eel
   intCMD = NamedCommandLookup("_RS11370f8deb55aa4a0c2fc11ab98bc34c296e7c35"); Main_OnCommand(intCMD, 0); // MT4U_F_FX3.eel
@@ -17,5 +18,8 @@ function LEDs()
   intCMD = NamedCommandLookup("_RS3a001acbac4ded63ca2187d0290fce88dbc713cc"); Main_OnCommand(intCMD, 0); // MT4U_F_FX7.eel
   intCMD = NamedCommandLookup("_RS81348526f4d175fa6d40bbfcb4051dea643c6ac4"); Main_OnCommand(intCMD, 0); // MT4U_F_FX8.eel
   intCMD = NamedCommandLookup("_RSc761747e39961c41fe2919a6330954754c0dd28d"); Main_OnCommand(intCMD, 0); // MT4U_F_FX9.eel
+  intCMD = NamedCommandLookup("_RS70deecde9d1768ba2e1fc7c32dbe5e5ebffe02a3"); Main_OnCommand(intCMD, 0); // MT4U_F_FX10.eel
+  intCMD = NamedCommandLookup("_RS46fd31e460a025da8b02d46b4266ad1f4e6db9a6"); Main_OnCommand(intCMD, 0); // MT4U_F_FX11.eel
+  intCMD = NamedCommandLookup("_RSf02f06c5e53c559212827536654c9a647be5918d"); Main_OnCommand(intCMD, 0); // MT4U_F_FX12.eel
   gmem[0]=0; // Normal Mode
 );

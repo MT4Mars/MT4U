@@ -3,9 +3,9 @@
 //namespace
 //@gmem=MT4UF
 
-function AddShowHide(pTrack, pMemSlot, arrFXList, strDefault, pShow, pPlace, pCloseForeign)
+function AddShowHide(pTrack, pMemSlot, arrFXList, strDefault, pShow, pPlace, pCloseForeign, pluginSlot*)
 //Vars: pluginSlot is the fxSlot where (if) it was already in the chain.
-local(pluginSlot)
+//local(pluginSlot)
 (
   arrFXList = 0;
 
@@ -14,6 +14,7 @@ local(pluginSlot)
   fxFound = 0;                                   // AUX: Flag used to exit the while loop
   (intFXCount != 0) ?
   (
+    // Check for Stored Last Used Plug-in
     xFind = 0;                                   // AUX: FX Slot var to go through the chain
     intCount = 0;
     intLast = -1;

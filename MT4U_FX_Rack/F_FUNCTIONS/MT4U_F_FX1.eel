@@ -5,7 +5,7 @@
 
 @import MT4U_F_FX_Base.eel
 
-get_action_context(#fn, sec, cmd);
+get_action_context(#fn, sec, cmd); 
 state = 0;
 FX_Base("FX1", state, 0);
 

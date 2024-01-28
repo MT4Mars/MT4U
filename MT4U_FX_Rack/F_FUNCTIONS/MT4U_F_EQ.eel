@@ -1,4 +1,4 @@
-// MT4U_F_EQ1.eel Reaper EEL2 script by MT4U.
+// MT4U_F_EQ.eel Reaper EEL2 script by MT4U.
 // Marcel Lettier Ribikauskas (mars_l@hotmail.com)
 //namespace
 //@gmem=MT4UF
@@ -7,6 +7,6 @@
 
 get_action_context(#fn, sec, cmd);
 state = 0;
-FX_Base("EQ1", state, 1);
+FX_Base("EQ1", state, 0);
 
 SetToggleCommandState(sec, cmd, state);

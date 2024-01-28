@@ -21,7 +21,7 @@ intResponse = GetFocusedFX2(intTrackNumber, #intItem, intFXNumber);
     arrFX = 0;
     intNum = 0;
     intMemSlot = 0;
-    strDef = GetList(#str_type, arrFX, intNum, intMemSlot);
+    GetList(#str_type, arrFX, intNum, intMemSlot);
     intFXCount = TrackFX_GetCount(myTrack);         // Number of Plug-ins in the Chain
     fxFound = 0;                                   // AUX: Flag used to exit the while loop
     (intFXCount != 0) ?
@@ -39,7 +39,6 @@ intResponse = GetFocusedFX2(intTrackNumber, #intItem, intFXNumber);
             TrackFX_Show(myTrack, xFind, 3); 
             fxFound = 1;
             // Save Last Focused per Track
-            //ShowMessageBox(sprintf(#, "Type:%s Slot:%i Name:%s", #str_type, xFind, #cur_fx);, "CSI_FX", 0);
             SetLastUsed(myTrack, #str_type, xFind, #cur_fx)
           );
           x+=1;

@@ -1,0 +1,8 @@
+// MT4U_F_EQ1_Add.eel Reaper EEL2 script by MT4U.
+// Marcel Lettier Ribikauskas (mars_l@hotmail.com)
+//namespace
+//@gmem=MT4UF
+
+@import ..\MT4U_FX_List.eel
+
+AddInstance("FX10", 1); // FX Type, 1=Show UI, 0=No Show

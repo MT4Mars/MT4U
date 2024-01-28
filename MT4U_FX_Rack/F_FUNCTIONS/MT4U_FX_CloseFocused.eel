@@ -11,6 +11,6 @@ intWhere = GetFocusedFX2(intTrack, intItem, intSlot);
 );
 (intSlot != -1) ?
 (
-  //TrackFX_Show(fx_track, intSlot, 0);
+  TrackFX_Show(fx_track, intSlot, 0);
   TrackFX_Show(fx_track, intSlot, 2);
 );
