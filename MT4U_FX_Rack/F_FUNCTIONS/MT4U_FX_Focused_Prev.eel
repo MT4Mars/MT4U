@@ -27,6 +27,9 @@ intResponse = GetFocusedFX2(intTrackNumber, #intItem, intFXNumber);
     (myPrev == "") ? (myPrev = PrevFX("FX7", #buf));
     (myPrev == "") ? (myPrev = PrevFX("FX8", #buf));
     (myPrev == "") ? (myPrev = PrevFX("FX9", #buf));
+    (myPrev == "") ? (myPrev = PrevFX("FX10", #buf));
+    (myPrev == "") ? (myPrev = PrevFX("FX11", #buf));
+    (myPrev == "") ? (myPrev = PrevFX("FX12", #buf));
 
     (myPrev != "") ?
     (
