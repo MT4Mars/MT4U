@@ -27,6 +27,9 @@ intResponse = GetFocusedFX2(intTrackNumber, #intItem, intFXNumber);
     (myNext == "") ? (myNext = NextFX("FX7", #buf));
     (myNext == "") ? (myNext = NextFX("FX8", #buf));
     (myNext == "") ? (myNext = NextFX("FX9", #buf));
+    (myNext == "") ? (myNext = NextFX("FX10", #buf));
+    (myNext == "") ? (myNext = NextFX("FX11", #buf));
+    (myNext == "") ? (myNext = NextFX("FX12", #buf));
 
     (myNext != "") ?
     (
