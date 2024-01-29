@@ -5,4 +5,4 @@
 
 @import ..\MT4U_FX_List.eel
 
-AddInstance("FX9", 1); // FX Type, 1=Show UI, 0=No Show
+AddInstance("FX8", 1); // FX Type, 1=Show UI, 0=No Show
