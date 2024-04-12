@@ -1,0 +1,514 @@
+// MT4U_FX_Navigator.eel Reaper EEL2 script by MT4U.
+// Marcel Lettier Ribikauskas (mars_l@hotmail.com)
+// Plug-In Navigator (Supports Containers)
+
+function Is_Container(pTrack, pID, intContCount*)
+(
+  intContCount = 0;
+  intResult = 0;
+  TrackFX_GetNamedConfigParm(pTrack, pID, "fx_type", #type);
+  (!strcmp("Container", #type)) ?
+  (
+    intResult = 1;
+    TrackFX_GetNamedConfigParm(pTrack, pID, "container_count", #count);
+    match("%i", #count, intContCount);
+  );
+  intResult;
+);
+
+
+function Get_ID(pTrack, arrLooper, pLevel)
+local (intBaseCount, intID, i) 
+(
+  (pLevel == 0) ?
+  (
+    intID = arrLooper[0];
+  ) :
+  (
+    intBaseCount = TrackFX_GetCount(pTrack)+1;
+    intID = 0x2000000 + arrLooper[0]+1;
+    i = 1;
+    while (i <= pLevel)
+    (
+      TrackFX_GetNamedConfigParm(pTrack, intID, "container_count", #count);
+      match("%i", #count, intCount);
+      intID = intID + intBaseCount * arrLooper[i];
+      intBaseCount = intBaseCount * (1+intCount);
+      i+=1;
+    );
+  );
+  intID
+);
+
+function Fill_Arrays(pTrack, pID, pArrLooper, pArrTopper, intLevel*)
+local(arrMyLooper, arrMyTopper, boolDone, intParent, intID, intCount, intPlace, boolFound)
+(
+  intStopper = 30;
+  intLevel = 0;
+  intID = pID;
+  (pID < 0x2000000) ? // Root element.
+  (
+    pArrLooper[0] = pID;
+    pArrTopper[0] = TrackFX_GetCount(pTrack)-1;
+  ) :
+  (
+    arrMyLooper = 10001;
+    arrMyTopper = 10101;
+    TrackFX_GetNamedConfigParm(pTrack, intID, "parent_container", #parent);
+    match("%i", #parent, intParent);
+    boolDone = 0; 
+    while (!boolDone && intLevel < intStopper)
+    (
+      (intID < 0x2000000) ?
+      (
+        boolDone = 1;
+      ) :
+      (
+        TrackFX_GetNamedConfigParm(pTrack, intParent, "container_count", #count);
+        match("%i", #count, intCount);
+        arrMyTopper[intLevel] = intCount;
+        intPlace = 0;
+        boolFound = 0;
+        while (intPlace < intCount && boolFound == 0)
+        (
+          strQuery =  sprintf(#, "%s%i", "container_item.", intPlace);
+          TrackFX_GetNamedConfigParm(pTrack, intParent, strQuery, #fxid);
+          match("%i", #fxid, intFXID);
+          (intID == intFXID) ? boolFound = 1;
+          intPlace+=1;
+        );
+        arrMyLooper[intLevel] = intPlace;
+        intLevel+=1;
+      );
+      intID = intParent;
+      TrackFX_GetNamedConfigParm(pTrack, intParent, "parent_container", #parent);
+      match("%i", #parent, intParent);
+    );
+
+    arrMyLooper[intLevel] = intParent;
+    arrMyTopper[intLevel] = TrackFX_GetCount(pTrack)-1;   
+    
+    intFill = 0;
+    while (intFill <= intLevel)
+    (
+      pArrLooper[intFill] = arrMyLooper[intLevel-intFill];
+      pArrTopper[intFill] = arrMyTopper[intLevel-intFill];
+      intFill+=1;
+    );
+  );
+);
+
+function Get_Prev_Func(pTrack, arrLooper, arrTopper, pLevel, FoundLevel*, pContainer, boolBack*)
+local (boolDone, intThisLevel, intStop, intID, intID_Next)
+(
+  intStopper = 30;
+  FoundLevel = -1;
+  boolDone = 0;
+  intThisLevel = pLevel;
+  intStop = 0;
+
+  boolBack = 0;
+  while (intThisLevel > -1 && !boolDone && intStop < intStopper)
+  (
+    intStop+=1;
+    (arrLooper[intThisLevel] > 1 || (intThisLevel == 0 && arrLooper[intThisLevel] > 0)) ?
+    (
+      // We can go down, get FX_ID
+      arrLooper[intThisLevel] = arrLooper[intThisLevel]-1;
+      intID = Get_ID(pTrack, arrLooper, intThisLevel);
+      boolIsCont = Is_Container(pTrack, intID, intCount);
+      (boolIsCont && intCount > 0) ?
+      (
+        (boolBack == 0) ?
+        ( // Going Up
+          (pContainer == 1) ? 
+          (
+            intThisLevel+=1;
+            arrLooper[intThisLevel] = intCount+2;
+            arrTopper[intThisLevel] = intCount+1;
+          ) :
+          (
+            intThisLevel+=1;
+            arrLooper[intThisLevel] = intCount+1;
+            arrTopper[intThisLevel] = intCount;
+          );
+        ) :
+        (pContainer == 1) ?
+        (
+          intID_Next = intID;
+          FoundLevel = intThisLevel;
+          boolDone = 1;
+        );
+      ) :
+      (boolIsCont) ? // MT Container
+      (
+        (pContainer == 1) ?
+        (
+          boolDone = 1; // Return This!
+          FoundLevel = intThisLevel;
+          intID_Next = intID;
+        );
+        boolBack = 0;
+      ) :
+      (
+        boolDone = 1;
+        FoundLevel = intThisLevel;
+        intID_Next = intID;
+        boolBack = 0;
+      );
+    ) :
+    (
+      intThisLevel-=1;
+      boolBack = 1;
+      arrLooper[intThisLevel] = arrLooper[intThisLevel]+1;
+    );
+  );
+  (!boolDone) ?
+  (
+    intID_Next = -1;
+  );
+  intID_Next;
+);
+
+function Get_Next_Func(pTrack, arrLooper, arrTopper, pLevel, FoundLevel*, pContainer)
+local (boolDone, intThisLevel, intStop, intID, intID_Next, boolBack)
+(
+  intStopper = 30;
+  FoundLevel = -1;
+  boolDone = 0;
+  intThisLevel = pLevel;
+  intStop = 0;
+
+  intID = Get_ID(pTrack, arrLooper, intThisLevel);
+  boolFirstIsCont = Is_Container(pTrack, intID, intCount);
+  (boolFirstIsCont && intCount > 0) ?
+  (
+    intThisLevel = intThisLevel+1;
+    arrLooper[intThisLevel] = 0;
+    arrTopper[intThisLevel] = intCount;
+  );
+ 
+  boolBack = 0;
+ 
+  while (intThisLevel > -1 && !boolDone && intStop < intStopper)
+  (
+    intStop+=1;
+    (arrLooper[intThisLevel] < arrTopper[intThisLevel]) ?
+    (
+      // We can go up, get FX_ID
+      arrLooper[intThisLevel] = arrLooper[intThisLevel]+1;
+      intID = Get_ID(pTrack, arrLooper, intThisLevel);
+      boolIsCont = Is_Container(pTrack, intID, intCount);
+      (boolIsCont && intCount > 0) ?
+      (
+        (boolBack == 0) ?
+        ( // Going Up
+          intThisLevel+=1;
+          arrLooper[intThisLevel] = 0;
+          arrTopper[intThisLevel] = intCount;
+        ) :
+        (
+          // Going Down
+          tot = 0;
+          intThisLevel+=1;
+          arrLooper[intThisLevel] = 0;
+          arrTopper[intThisLevel] = intCount;         
+        );
+      ) :
+      (boolIsCont) ? // MT Container
+      (
+        (pContainer == 1) ?
+        (
+          boolDone = 1; // Return This!
+          FoundLevel = intThisLevel;
+          intID_Next = intID;
+        );
+       ) :
+      (
+        boolDone = 1;
+        FoundLevel = intThisLevel;
+        intID_Next = intID;
+      );
+      boolBack = 0;
+    ) :
+    (
+      intThisLevel-=1;
+      boolBack = 1;
+    );
+  );
+  (!boolDone) ?
+  (
+    intID_Next = -1;
+  ) :
+  (
+    FoundLevel = intThisLevel;
+  );
+  intID_Next;
+);
+ 
+
+function Get_Next(pTrack, pCurrent)
+(
+  //NextFX
+  arrNextLooper = 10201;
+  arrNextTopper = 10301;
+  
+  mem_set_values(arrNextLooper, 0);
+  mem_set_values(arrNextTopper, TrackFX_GetCount(pTrack)-1);
+
+  (pCurrent == -2) ? (pCurrent = -1);
+  
+  Fill_Arrays(pTrack, pCurrent, arrNextLooper, arrNextTopper, intNextLevel);
+  intNext = Get_Next_Func(pTrack, arrNextLooper, arrNextTopper, intNextLevel, intFound, 0);
+  intNext;
+);
+
+
+function Get_Prev(pTrack, pCurrent)
+(
+  //PrevFX
+  arrPrevLooper = 10201;
+  arrPrevTopper = 10301;
+
+  mem_set_values(arrPrevLooper, 0);
+  mem_set_values(arrPrevTopper, TrackFX_GetCount(pTrack)-1);
+
+  Fill_Arrays(pTrack, pCurrent, arrPrevLooper, arrPrevTopper, intPrevLevel);
+  intPrev = Get_Prev_Func(pTrack, arrPrevLooper, arrPrevTopper, intPrevLevel, intFound, 0, boolBack);
+  intPrev;
+);
+
+
+function Get_FirstChild(pTrack, pID_Parent)
+(
+  intFirstChild = -1;
+  arrAuxLooper = 10801;
+  arrAuxTopper = 10901;
+  
+  mem_set_values(arrAuxLooper, 0);
+  mem_set_values(arrAuxTopper, TrackFX_GetCount(pTrack)-1);
+  Fill_Arrays(pTrack, pID_Parent, arrAuxLooper, arrAuxTopper, intAuxLevel);
+
+  arrAuxLooper[intAuxLevel+1]=1;
+  arrAuxTopper[intAuxLevel+1]=1;
+  intFirstChild = Get_ID(pTrack, arrAuxLooper, intAuxLevel+1);
+  intFirstChild;
+);
+
+function Get_Last(pTrack)
+(
+  //NextFX
+  arrNextLooper = 10201;
+  arrNextTopper = 10301;
+  
+  mem_set_values(arrNextLooper, 0);
+  mem_set_values(arrNextTopper, TrackFX_GetCount(pTrack)-1);
+
+  intCurrent = -1;
+  intLast = -1;
+
+  Fill_Arrays(pTrack, intCurrent, arrNextLooper, arrNextTopper, intNextLevel);
+  while (intNext != -1) 
+  (
+    intNext = Get_Next_Func(pTrack, arrNextLooper, arrNextTopper, intNextLevel, intFound, 0);
+    (intNext != -1) ? intLast = intNext;
+  );
+  intLast;
+);
+
+function GUID_2_ID(pTrack, pGUID)
+local(boolDone, intStop, strGUID_ID, intGUID_Next, intSearch)
+(
+  intStopper = 30;
+  // Find New ID
+  intGUID_ID = -1;
+  arrGUID_Looper = 10401;
+  arrGUID_Topper = 10501;
+
+  mem_set_values(arrGUID_Looper, 0);
+  mem_set_values(arrGUID_Topper, TrackFX_GetCount(pTrack)-1);
+
+  // Use GUID to find new ID
+  Fill_Arrays(pTrack, -1, arrGUID_Looper, arrGUID_Topper, intGUID_Level);
+  intSearch = 0;
+  boolDone = 0;
+  intStop = 0;
+  while (intSearch != -1 && !boolDone && intStop < intStopper)
+  (
+    intSearch = Get_Next_Func(pTrack, arrGUID_Looper, arrGUID_Topper, intGUID_Level, intGUID_Found, 1);
+    intGUID_Level = intGUID_Found;
+    TrackFX_GetFXGUID(#tempGUID, pTrack, intSearch);
+    (!strcmp(pGUID, #tempGUID)) ?
+    (
+      intGUID_ID = intSearch;
+      boolDone = 1;
+    );
+    intStop += 1;
+  );
+  intGUID_ID;
+);
+ 
+
+function Move_Next(pTrack, pCurrent)
+local (intSearch, boolDone, intNewID)
+(
+  //NextFX
+  intNewNext = -1;
+  arrNextLooper = 10201;
+  arrNextTopper = 10301;
+
+  mem_set_values(arrNextLooper, 0);
+  mem_set_values(arrNextTopper, TrackFX_GetCount(pTrack)-1);
+
+  Fill_Arrays(pTrack, pCurrent, arrNextLooper, arrNextTopper, intNextLevel);
+  intNext = Get_Next_Func(pTrack, arrNextLooper, arrNextTopper, intNextLevel, intFound, 1);
+  (intNext != -1) ?
+  (
+    (Is_Container(pTrack, intNext, intContCheck) && intContCheck == 0 && intNextLevel == intFound) ?
+    (
+      intNewID = Get_FirstChild(pTrack, intNext);
+      TrackFX_GetFXGUID(#myGUID, pTrack, pCurrent);
+      TrackFX_CopyToTrack(pTrack, pCurrent, pTrack, intNewID, 1);
+      // Find New ID
+      intNewNext = GUID_2_ID(pTrack, #myGUID);
+    ) :
+    (
+      // Get GUID to find new ID
+      TrackFX_GetFXGUID(#myGUID, pTrack, pCurrent);
+      // Move to Next Location
+      TrackFX_CopyToTrack(pTrack, pCurrent, pTrack, intNext, 1);
+      // Find New ID
+      intNewNext = GUID_2_ID(pTrack, #myGUID);    
+    );
+  );
+  intNewNext;
+);
+
+function Move_Prev(pTrack, pCurrent)
+local (intSearch, boolDoneMPrev, intNewPrev, intContCount)
+(
+  //PrevFX
+  intNewPrev = -1;
+  arrPrevLooper = 10601;
+  arrPrevTopper = 10701;
+  
+  mem_set_values(arrPrevLooper, 0);
+  mem_set_values(arrPrevTopper, TrackFX_GetCount(pTrack)-1);
+  Fill_Arrays(pTrack, pCurrent, arrPrevLooper, arrPrevTopper, intPrevLevel);
+  intNext = Get_Prev_Func(pTrack, arrPrevLooper, arrPrevTopper, intPrevLevel, intFound, 1, boolBack);
+  TrackFX_GetFXName(pTrack, intNext, #start);
+  (intNext != -1) ?
+  (
+    boolIsContainer = Is_Container(pTrack, intNext, intContCheck);
+    (boolIsContainer && intContCheck == 0) ?
+    (
+      intNewID = Get_FirstChild(pTrack, intNext);
+      TrackFX_GetFXGUID(#myGUID, pTrack, pCurrent);
+      TrackFX_CopyToTrack(pTrack, pCurrent, pTrack, intNewID, 1);
+      // Find New ID
+      intNewPrev = GUID_2_ID(pTrack, #myGUID);
+    ) :
+    (boolIsContainer && boolBack != 1)?
+    (
+      // In this case, find Last Child (place after last in container).
+      TrackFX_GetFXGUID(#myGUID, pTrack, pCurrent);
+      // Get container count
+      intPrevLevel +=1;
+      arrPrevLooper[intPrevLevel] = arrPrevLooper[intPrevLevel]+1;
+      intNewPrev = Get_ID(pTrack, arrPrevLooper, intPrevLevel);
+      TrackFX_CopyToTrack(pTrack, pCurrent, pTrack, intNewPrev, 1);
+      // Find New ID
+      intNewPrev = GUID_2_ID(pTrack, #myGUID);
+    ) : 
+    (
+      // Get GUID to find new ID
+      TrackFX_GetFXGUID(#myGUID, pTrack, pCurrent);
+      // Move to Next Location
+      TrackFX_CopyToTrack(pTrack, pCurrent, pTrack, intNext, 1);
+      // Find New ID
+      intNewPrev = GUID_2_ID(pTrack, #myGUID);
+    );
+  );
+  intNewPrev;
+);
+
+/* 
+// START -> TESTING
+pTrack = GetSelectedTrack(0, 0);
+intStopper = 30;
+*/
+
+/*
+pCurrent = 33554469;
+newSlot = Move_Next(pTrack, oldSlot);
+ShowMessageBox(sprintf(#, "New : %i", newSlot);, "FX Move", 0);
+*/
+
+/*pCurrent = 33554455;
+intNext = Get_Next(pTrack, pCurrent);
+ShowMessageBox(sprintf(#, "Next is : %i", intNext);, "FX Move", 0); */
+
+ /*  START -> PING-PONG MOVE TEST ****************************
+intDebug = 0;
+pCurrent = 0; //33554435
+while (intDebug < intStopper && pCurrent != -1)
+(
+  pCurrent = Move_Next(pTrack, pCurrent);
+  //TrackFX_CopyToTrack(cur_track, intSlot, cur_track, 33554453, 1);
+  ShowMessageBox(sprintf(#, "Moved to : %i", pCurrent);, "FX Move", 0); 
+  intDebug+=1;
+);
+//ShowMessageBox(sprintf(#, "Bottom: %i", pCurrent);, "FX Move", 0); 
+intDebug = 0;
+pCurrent = 6;
+while (intDebug < intStopper && pCurrent != -1)
+(
+  pCurrent = Move_Prev(pTrack, pCurrent);
+  //TrackFX_CopyToTrack(cur_track, intSlot, cur_track, 33554453, 1);
+  ShowMessageBox(sprintf(#, "Moved to : %i", pCurrent);, "FX Move", 0); 
+  intDebug+=1;
+);
+//  ShowMessageBox(sprintf(#, "Top: %i", pCurrent);, "FX Move", 0); 
+ */ // END -> PING-PONG MOVE TEST *****************************
+ 
+
+ /* START -> TESTING NEXT_PLUG-IN ************************
+
+pCurrent = -2;
+intDebug = 0;
+//TrackFX_GetFXName(pTrack, pCurrent, #namo);
+//ShowMessageBox(sprintf(#, "Starting With: %s", #namo);, "FX Name", 0);
+while (pCurrent != -1 && intDebug < intStopper)
+(
+  //Get_Next(cur_track, intNext);
+  //pCurrent = Get_Next(pTrack, pCurrent);
+  intNext = Get_Next(pTrack, pCurrent);
+  pCurrent = intNext;
+  
+  (pCurrent != -1) ?
+  (
+    TrackFX_GetFXName(pTrack, pCurrent, #namo);
+    ShowMessageBox(sprintf(#, "%s", #namo);, "Next Plug-In", 0);
+  );
+  intDebug +=1;
+);
+ */ // END -> TESTING NEXT_PLUG-IN ************************
+ 
+
+ /* START -> TESTING PREV_PLUG-IN *************************
+pCurrent = 6;
+TrackFX_GetFXName(pTrack, pCurrent, #namo);
+ShowMessageBox(sprintf(#, "Starting With: %s", #namo);, "FX Name", 0);
+while (pCurrent > -1 && intDebug < intStopper)
+(
+  pCurrent = Get_Prev(pTrack, pCurrent);
+  (pCurrent != -1) ?
+  (
+    TrackFX_GetFXName(pTrack, pCurrent, #namo);
+    ShowMessageBox(sprintf(#, "Previous: %s", #namo);, "FX Name", 0);    
+  );
+  intDebug +=1;
+);
+ */ // END -> TESTING PREV_PLUG-IN *************************
+
+
