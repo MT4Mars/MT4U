@@ -1,0 +1,34 @@
+// MT4U_FX_MENU_Prev.eel Reaper EEL2 script by MT4U.
+// Marcel Lettier Ribikauskas (mars_l@hotmail.com)
+//namespace
+//@gmem=MT4UFXSelect
+
+@import ..\MT4U_FX_List.eel
+
+function FX_Prev(pSlot)
+(
+  // Get selected track
+  cur_track = GetSelectedTrack(0, 0);
+  // Get number of plug-ins
+  intFXCount = TrackFX_GetCount(cur_track);
+  myPrev = "";
+  // Get FX Name
+  (pSlot < intFXCount) ?
+  (
+    myName =  TrackFX_GetFXName(cur_track, pSlot, #buf);
+    myCat = GetCat(myName);
+    myPrev = PrevFX(myCat, #buf);
+    (myPrev != "") ?
+    (
+      // Clean
+      strAdd = myPrev; 
+      // Set FX to Prev of Kin ;-)
+      PreventUIRefresh(2);
+      TrackFX_Delete(cur_track, pSlot);
+      // Container Support
+      (pSlot < 0x2000000) ? newSlot = -1000 - pSlot; : newSlot = pSlot;
+      TrackFX_AddByName(cur_track, strAdd, 0, newSlot);
+      PreventUIRefresh(-2);
+    );
+  ); 
+);

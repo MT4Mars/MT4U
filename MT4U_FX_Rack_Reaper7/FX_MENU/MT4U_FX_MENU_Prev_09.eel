@@ -1,0 +1,10 @@
+// MT4U_FX_MENU_Prev_09.eel Reaper EEL2 script by MT4U.
+// Marcel Lettier Ribikauskas (mars_l@hotmail.com)
+//namespace
+//@gmem=MT4UFXSelect
+
+@import MT4U_FX_MENU_Prev.eel
+
+intMySlot = 8;
+
+FX_Prev(intMySlot);

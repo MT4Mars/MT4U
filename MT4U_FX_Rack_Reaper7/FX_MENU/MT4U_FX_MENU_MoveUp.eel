@@ -1,0 +1,37 @@
+// MT4U_FX_MENU_MoveUp.eel Reaper EEL2 script by MT4U.
+// Marcel Lettier Ribikauskas (mars_l@hotmail.com)
+//namespace
+//@gmem=MT4UFXSelect
+
+@import ..\MT4U_FX_Navigator.eel
+@import MT4U_FX_MENU_Sel_LEDs.eel
+
+// Get selected FX Slot from ProjExtState
+GetProjExtState(0, "MT4U_Globals", "FX_Slot", #my_slot_str);
+// Conver to integer
+match("%i", #my_slot_str, my_slot_int);
+// Get selected track
+cur_track = GetSelectedTrack(0, 0);
+// Get number of plug-in
+intFXCount = TrackFX_GetCount(cur_track);
+(my_slot_int > 0) // If it's not the first
+?
+(
+  oldSlot = my_slot_int;
+  // Move to prev slot
+  newSlot = Move_Prev(cur_track, oldSlot);
+  (newSlot > -1) ?
+  (
+    // Save to script gmem var   
+    gmem[1]=newSlot;
+    // Focus FX if Chain is Open
+    //   (TrackFX_GetChainVisible(cur_track) != -1) ? (
+    //      TrackFX_Show(cur_track, newSlot, 1);
+    //   );   
+    // Save to ProjExtState   
+    #setTemp = sprintf(#, "%i", newSlot);
+    SetProjExtState(0, "MT4U_Globals", "FX_Slot", #setTemp);
+  );
+  // Call the LEDs function to update each slot's light.
+  LEDs(-1);
+);
