@@ -10,12 +10,17 @@ Installation:
 
 MT4U_FX_Rack (Virtual FX Rack for CSI)
 --------------------------------------
+---DEPRECATED---
+
+MT4U_FX_Rack_Reaper7 (Virtual FX Rack for CSI - Reaper 7+)
+--------------------------------------
+    
     These set of scripts allow you to configure an FX Rack with your favourite plug-ins.
 
     It can be configured however you see fit, the example uses the F1-F8 buttons on an MCU 
     like this:
     
-      F1 - EQ1 (Sustractive EQ)  
+      F1 - Channel Strip 
       F2 - Compressor   
       F3 - Chorus   
       F4 - Stereo Imaging   
@@ -25,10 +30,15 @@ MT4U_FX_Rack (Virtual FX Rack for CSI)
       F8 - Phaser  
       Shift+F1 - Tremolo  
       Shift+F2 - AutoPan  
+      Shift+F3 - Distortion  
+      Shift+F4 - Transient
+      Shift+F5 - Filter
+      Shift+F6 - Pitch
+      Shift+F7 - Other
     
-    and the MCU EQ button to manage a second EQ:
+    and the MCU EQ Button:
     
-      EQ - EQ2 (Additive EQ) 
+      EQ - EQ
     
     There is a list of plug-ins that you can edit to enter your favourites for each type.
     
@@ -53,7 +63,8 @@ MT4U_FX_Rack (Virtual FX Rack for CSI)
     it can be moved up and down in the chain, while holding RecordArm will delete it.
     
     To install, add an MT4U folder inside Reaper's root scripts directory (<resource dir>/Scripts)
-    and copy the MT4U_F_FUNCTIONS and MT4U_FX_MENU folders there, as well as the MT4U_FX_List.eel file.
+    and copy the MT4U_F_FUNCTIONS and MT4U_FX_MENU folders there, as well as the MT4U_FX_List.eel 
+    and MT4U_FX_Navigator.eel files.
     Keeping this directory structure makes sure the Command IDs assigned to the actions will match
     the ones in the provided scrips and Zone File addendums.
     The MT4U_FX_List.eel file contains the list of plug-ins for each type and is shared
@@ -62,6 +73,7 @@ MT4U_FX_Rack (Virtual FX Rack for CSI)
     
     The CSI.txt file contains the necessary mappings required inside your CSI zone files to achieve 
     this behaviour in their default configuration.
+
 
 MT4U_View (Show/Hide tracks with button feedback)
 -------------------------------------------------
