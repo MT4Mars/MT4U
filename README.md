@@ -52,7 +52,7 @@ MT4U_FX_Rack_Reaper7 (Virtual FX Rack for CSI - Reaper 7+)
     
     If the FX is not found, the first in the list will be added. Once added, the Alt modifier 
     will make the Prev/Next Channel MCU buttons go forward and backwards, replacing the current FX 
-    with the next/prev on your list for each given type.
+    with the next/prev on your list for each given category.
     
     If you press and hold the same button, a new instance of the default FX for that category
     will be added, regardless of the presence of another one in the chain.
@@ -75,7 +75,7 @@ MT4U_FX_Rack_Reaper7 (Virtual FX Rack for CSI - Reaper 7+)
     and MT4U_FX_Navigator.eel files.
     Keeping this directory structure makes sure the Command IDs assigned to the actions will match
     the ones in the provided scrips and Zone File addendums.
-    The MT4U_FX_List.eel file contains the list of plug-ins for each type and is shared
+    The MT4U_FX_List.eel file contains the list of plug-ins for each category and is shared
     by the scripts in both directories. It's been prepared for easy editing in case you don't feel 
     comfortable with EEL scripting, just open it and you will see.
     
