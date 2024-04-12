@@ -83,13 +83,6 @@ Buttons.zon
   Shift+F8                    Reaper _RS635b27b648e6951856fb6df5775548fa9d835b1d      // MT4U_F_Spectrum_Analyzer_Master.eel (Spectrum Analyzer in Master)
   Shift+F8                    ClearModifiers
 
-// To swap the focused FX with the next/prev on our list
-
-  Alt+ChannelLeft             ClearFocusedFX Feedback=No
-  InvertFB+Alt+ChannelLeft    Reaper _RS20a3b18140b5bb47c52beb9c27b387270d07a1f1 Feedback=Yes // MT4U_FX_FOCUSED_Prev.eel
-  Alt+ChannelRight            ClearFocusedFX Feedback=No
-  InvertFB+Alt+ChannelRight   Reaper _RS14225070f26ef670af7ca2ec077792ae9f389f05 Feedback=Yes // MT4U_FX_FOCUSED_Next.eel
-
 // Go to Previous/Next plug-in of the same category
 //
 // When the GUI for a plug-in is opened, these actions will open the next or previous plug-in of the same category on the 
@@ -99,6 +92,13 @@ Buttons.zon
 SomeButton                   Reaper _RSd9e59f8ff8cdc2fead386104aab20c1e6ba42077      // MT4U_FX_Focused_NextInCat.eel
 OtherButton                  Reaper _RS3a627b642d80553ce6ba41e73e163a20948e5088      // MT4U_FX_Focused_PrevInCat.eel
 
+// To swap the focused FX with the next/prev in the same category
+
+  Alt+ChannelLeft             ClearFocusedFX Feedback=No
+  InvertFB+Alt+ChannelLeft    Reaper _RS309093bc433baa2c16653dcd6dadbcf10adb254a Feedback=Yes   // MT4U_FX_Focused_Swap_Prev.eel
+  Alt+ChannelRight            ClearFocusedFX Feedback=No
+  InvertFB+Alt+ChannelRight   Reaper _RS4f294371881c4f9d078530109fc0ed9f7b47eb92 Feedback=Yes   // MT4U_FX_Focused_Swap_Next.eel
+
 // To unmap and close the focused FX returning to the previous zone. This prevents the unfocusing FX problem.
 
   Cancel                      Reaper _RSa79773b81ca82d98b618f3bc8b79e3ba8616085a     // MT4U_FX_SHOW_HIDE_CloseFocused.eel
@@ -106,7 +106,7 @@ OtherButton                  Reaper _RS3a627b642d80553ce6ba41e73e163a20948e5088 
 
 SelectedTrackFXMenu.zon
 -----------------------
-// These lines provide the Prev/Next plug-in for each slot in the chain.
+// These lines swap to the Prev/Next plug-in in the same category for each slot in the chain.
 
   Alt+Increase+Rotary1        Reaper _RSc545ff69f595f1cae309546bcdb9179f7429c0e3      // MT4U_FX_MENU_Next_01.eel
   Alt+Increase+Rotary2        Reaper _RS5439e90ffa8d42ed4c792c6b3a3ea73cf00fba3b      // MT4U_FX_MENU_Next_02.eel
@@ -157,24 +157,34 @@ SelectedTrackFXMenu.zon
 // The Chain buttons call the same scripts as the Buttons.zon, but without opening the GUI. MT4U_IN_FX_Menu_True.eel takes care of that.
 
   F1                          Reaper _RS919bc14c9c63b6a203dc83aa5c550433ae2f4f21 Feedback=No      // MT4U_IN_FX_Menu_True.eel
-  F1                          Reaper _RS8be400ce7559b34213ec01d51965e7519e77d188 Feedback=Yes     // MT4U_F_EQ1.eel
+  F1                          Reaper _RS8be400ce7559b34213ec01d51965e7519e77d188 Feedback=Yes     // MT4U_F_FX1.eel
   F2                          Reaper _RS919bc14c9c63b6a203dc83aa5c550433ae2f4f21 Feedback=No      // MT4U_IN_FX_Menu_True.eel
-  F2                          Reaper _RS4e6cbe8d54af7b17bb872a2012dccfec17e7647f Feedback=Yes     // MT4U_F_FX1.eel
+  F2                          Reaper _RS4e6cbe8d54af7b17bb872a2012dccfec17e7647f Feedback=Yes     // MT4U_F_FX2.eel
   F3                          Reaper _RS919bc14c9c63b6a203dc83aa5c550433ae2f4f21 Feedback=No      // MT4U_IN_FX_Menu_True.eel
-  F3                          Reaper _RS22fada72458a97c4ca544a226a97f86f6400e8ff Feedback=Yes     // MT4U_F_FX2.eel
+  F3                          Reaper _RS22fada72458a97c4ca544a226a97f86f6400e8ff Feedback=Yes     // MT4U_F_FX3.eel
   F4                          Reaper _RS919bc14c9c63b6a203dc83aa5c550433ae2f4f21 Feedback=No      // MT4U_IN_FX_Menu_True.eel
-  F4                          Reaper _RS11370f8deb55aa4a0c2fc11ab98bc34c296e7c35 Feedback=Yes     // MT4U_F_FX3.eel
+  F4                          Reaper _RS11370f8deb55aa4a0c2fc11ab98bc34c296e7c35 Feedback=Yes     // MT4U_F_FX4.eel
   F5                          Reaper _RS919bc14c9c63b6a203dc83aa5c550433ae2f4f21 Feedback=No      // MT4U_IN_FX_Menu_True.eel
-  F5                          Reaper _RS4a59873d8a864b25ad252cf47f7bed5a73c17cbf Feedback=Yes     // MT4U_F_FX4.eel
+  F5                          Reaper _RS4a59873d8a864b25ad252cf47f7bed5a73c17cbf Feedback=Yes     // MT4U_F_FX5.eel
   F6                          Reaper _RS919bc14c9c63b6a203dc83aa5c550433ae2f4f21 Feedback=No      // MT4U_IN_FX_Menu_True.eel
-  F6                          Reaper _RS87571b848a098b379fa88401f9884989becf701c Feedback=Yes     // MT4U_F_FX5.eel
+  F6                          Reaper _RS87571b848a098b379fa88401f9884989becf701c Feedback=Yes     // MT4U_F_FX6.eel
   F7                          Reaper _RS919bc14c9c63b6a203dc83aa5c550433ae2f4f21 Feedback=No      // MT4U_IN_FX_Menu_True.eel
-  F7                          Reaper _RS3a001acbac4ded63ca2187d0290fce88dbc713cc Feedback=Yes     // MT4U_F_FX6.eel
+  F7                          Reaper _RS3a001acbac4ded63ca2187d0290fce88dbc713cc Feedback=Yes     // MT4U_F_FX7.eel
   F8                          Reaper _RS919bc14c9c63b6a203dc83aa5c550433ae2f4f21 Feedback=No      // MT4U_IN_FX_Menu_True.eel
-  F8                          Reaper _RS81348526f4d175fa6d40bbfcb4051dea643c6ac4 Feedback=Yes     // MT4U_F_FX7.eel
+  F8                          Reaper _RS81348526f4d175fa6d40bbfcb4051dea643c6ac4 Feedback=Yes     // MT4U_F_FX8.eel
   Shift+F1                    Reaper _RS919bc14c9c63b6a203dc83aa5c550433ae2f4f21 Feedback=No      // MT4U_IN_FX_Menu_True.eel
-  Shift+F1                    Reaper _RSc761747e39961c41fe2919a6330954754c0dd28d Feedback=Yes     // MT4U_F_FX8.eel
+  Shift+F1                    Reaper _RSc761747e39961c41fe2919a6330954754c0dd28d Feedback=Yes     // MT4U_F_FX9.eel
   Shift+F2                    Reaper _RS919bc14c9c63b6a203dc83aa5c550433ae2f4f21 Feedback=No      // MT4U_IN_FX_Menu_True.eel
-  Shift+F2                    Reaper _RS3d5b56e2458a161a4e2191dc32c52f5aa9726bd6 Feedback=Yes     // MT4U_F_FX9.eel
+  Shift+F2                    Reaper _RS3d5b56e2458a161a4e2191dc32c52f5aa9726bd6 Feedback=Yes     // MT4U_F_FX10.eel
+  Shift+F3                    Reaper _RS919bc14c9c63b6a203dc83aa5c550433ae2f4f21 Feedback=No      // MT4U_IN_FX_Menu_True.eel
+  Shift+F3                    Reaper _RS3d5b56e2458a161a4e2191dc32c52f5aa9726bd6 Feedback=Yes     // MT4U_F_FX11.eel
+  Shift+F4                    Reaper _RS919bc14c9c63b6a203dc83aa5c550433ae2f4f21 Feedback=No      // MT4U_IN_FX_Menu_True.eel
+  Shift+F4                    Reaper _RS3d5b56e2458a161a4e2191dc32c52f5aa9726bd6 Feedback=Yes     // MT4U_F_FX12.eel
+  Shift+F5                    Reaper _RS919bc14c9c63b6a203dc83aa5c550433ae2f4f21 Feedback=No      // MT4U_IN_FX_Menu_True.eel
+  Shift+F5                    Reaper _RS3d5b56e2458a161a4e2191dc32c52f5aa9726bd6 Feedback=Yes     // MT4U_F_FX13.eel
+  Shift+F6                    Reaper _RS919bc14c9c63b6a203dc83aa5c550433ae2f4f21 Feedback=No      // MT4U_IN_FX_Menu_True.eel
+  Shift+F6                    Reaper _RS3d5b56e2458a161a4e2191dc32c52f5aa9726bd6 Feedback=Yes     // MT4U_F_FX14.eel
+  Shift+F7                    Reaper _RS919bc14c9c63b6a203dc83aa5c550433ae2f4f21 Feedback=No      // MT4U_IN_FX_Menu_True.eel
+  Shift+F7                    Reaper _RS3d5b56e2458a161a4e2191dc32c52f5aa9726bd6 Feedback=Yes     // MT4U_F_FX15.eel
   EQ                          Reaper _RS919bc14c9c63b6a203dc83aa5c550433ae2f4f21 Feedback=No      // MT4U_IN_FX_Menu_True.eel
-  EQ                          Reaper _RS2867ddf785f94a8139e681abc21349dd9c152b3b Feedback=Yes     // MT4U_F_EQ2.eel
+  EQ                          Reaper _RS2867ddf785f94a8139e681abc21349dd9c152b3b Feedback=Yes     // MT4U_F_EQ.eel
