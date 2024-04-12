@@ -74,6 +74,13 @@ MT4U_FX_Rack_Reaper7 (Virtual FX Rack for CSI - Reaper 7+)
     The CSI.txt file contains the necessary mappings required inside your CSI zone files to achieve 
     this behaviour in their default configuration.
 
+    ************************************************************************************************
+    Reaper 7 implements FX Containers. This versions of the scripts allow you take advantage of that
+    new feature.
+    When using the MT4U_FX_MENU_MoveUp.eel (and MoveDown) scripts, the selected plug-in will move
+    crawling in and out of those containers whenever necessary.
+    ************************************************************************************************    
+
 
 MT4U_View (Show/Hide tracks with button feedback)
 -------------------------------------------------
@@ -89,6 +96,7 @@ MT4U_View (Show/Hide tracks with button feedback)
     Holding the "Alt" modifier will provide feedback on the category associated with the 
     selected track, while pressing the View buttons will change the category for all selected 
     tracks to that associated with the button.
+
 
 MT4U_Colours (Track Colouring)
 ------------
