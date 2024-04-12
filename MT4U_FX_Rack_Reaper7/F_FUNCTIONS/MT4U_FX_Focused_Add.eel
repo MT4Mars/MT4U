@@ -1,0 +1,17 @@
+// MT4U_FX_Focused_Add.eel Reaper EEL2 script by MT4U.
+// Marcel Lettier Ribikauskas (mars_l@hotmail.com)
+//namespace
+//@gmem=MT4UF
+
+@import ..\MT4U_FX_List.eel
+
+intTrackNumber = 0;
+intFXNumber = 0;
+intResponse = GetTouchedOrFocusedFX(1, intTrackNumber, #intItem, #intTake, intFXNumber, #intParam);
+(intResponse == 1) ? 
+(
+    myTrack = GetTrack(0, intTrackNumber);
+    TrackFX_GetFXName(myTrack, intFXNumber, #buf);
+    strType = GetCat(#buf);
+    AddInstance(strType, 1); // FX Type, 1=Show UI, 0=No Show
+);

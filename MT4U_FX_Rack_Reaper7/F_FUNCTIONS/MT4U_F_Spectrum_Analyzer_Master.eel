@@ -1,0 +1,75 @@
+// MT4U_F_Spectrum_Analyzer_Master.eel Reaper EEL2 script by MT4U.
+// Marcel Lettier Ribikauskas (mars_l@hotmail.com)
+
+function ShowPlugin(pTrack, pShow)
+// Vars: pluginSlot is the fxSlot where (if) it was already in the chain.
+local(pluginSlot)
+(
+    arrFXList = 0;
+    mem_set_values(arrFXList, "VST3: apQualizr2 (apulSoft)");
+    strFX = "VST3: apQualizr2 (apulSoft)";
+    strDefault = "apQualizr2 (apulSoft)";
+
+   pluginSlot = -1;                               // Slot where some FX has been found or -1 if not found
+   intFXCount = TrackFX_GetCount(pTrack);         // Number of Plug-ins in the Chain
+   xFind = 0;                                     // AUX: FX Slot var to go through the chain
+   fxFound = 0;                                   // AUX: Flag used to exit the while loop
+   (intFXCount != 0) 
+   ?
+   (
+      while (xFind < intFXCount && fxFound == 0) 
+      (
+        // Get this slot's FX Name into #buf
+        TrackFX_GetFXName(pTrack, xFind, #buf); 
+        
+        //Look for FX in array
+        x = 0;                                    // AUX: var to go through the FX Array List
+        fxFound = 0;                              // AUX: Flag used to exit the while loop
+
+        strChain = sprintf(#, "%s", #buf);      // Name of current FX in the Chain
+        (!strcmp(strChain, strFX)) 
+        ? // strcmp returns 0 => FX Names match
+        (
+          (pShow == 0) ?
+          (
+            intCheckCount = TrackFX_GetCount(pTrack);
+            (intCheckCount != 0) ?
+            (
+              xFind2 = 0;
+              while (xFind2 < intCheckCount)
+              (
+                TrackFX_GetFXName(pTrack, xFind2, #buf2);
+                strChain2 = sprintf(#, "%s", #buf2);
+                (!strcmp(strChain2, strFX)) ? 
+                (
+                  TrackFX_Show(pTrack, xFind2, 2);
+                );
+                xFind2 +=1;
+              );
+            );
+            fxFound = 1; // FX Found
+          ) :
+          (
+            pluginSlot = xFind;
+            fxFound = 1;
+          );
+        );
+      xFind += 1;        
+    );
+  );
+  (pShow == 1) ?
+  (
+    (pluginSlot == -1) ? // No Plug-in has been found. Add the default.
+    (
+      pluginSlot = TrackFX_AddByName(pTrack, strDefault, 0, -1);
+    );
+    // Float the UI
+    TrackFX_Show(pTrack, pluginSlot, 3);
+  );
+);
+
+get_action_context(#fn, sec, cmd);
+state = GetToggleCommandStateEx(sec, cmd);
+state = state==1?0:1;
+SetToggleCommandState(sec, cmd, state);
+ShowPlugin(GetMasterTrack(), state);

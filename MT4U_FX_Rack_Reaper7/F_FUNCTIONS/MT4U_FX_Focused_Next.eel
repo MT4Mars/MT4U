@@ -1,0 +1,28 @@
+// MT4U_FX_Focused_Next.eel Reaper EEL2 script by MT4U.
+// Marcel Lettier Ribikauskas (mars_l@hotmail.com)
+//namespace
+//@gmem=MT4UFXSelect
+
+@import ..\MT4U_FX_Navigator.eel
+
+intTrackNumber = 0;
+intFXNumber = 0;
+intResponse = GetTouchedOrFocusedFX(1, intTrackNumber, #intItem, #intTake, intFXNumber, #intParam);
+(intResponse == 1) ?
+(
+  // Check if the next 8 bits are not 01 (Record FX) in case we want to disable things
+  intRec = 0;
+  intRec = (intFXNumber >> 24) & 0xFF;
+  (intRec != 1) ? 
+  (
+    myTrack = GetTrack(0, intTrackNumber);
+    myPrev = Get_Next(myTrack, intFXNumber);
+    (myPrev != -1) ?
+    (
+      // Close FX UI
+      TrackFX_Show(myTrack, intFXNumber, 2);
+      // Show Previous
+      TrackFX_Show(myTrack, myPrev, 3);
+    );
+  );
+);

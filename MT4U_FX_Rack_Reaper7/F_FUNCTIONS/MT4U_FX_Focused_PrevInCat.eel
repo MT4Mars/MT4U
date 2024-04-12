@@ -1,0 +1,70 @@
+// MT4U_FX_Focused_PrevInCat.eel Reaper EEL2 script by MT4U.
+// Marcel Lettier Ribikauskas (mars_l@hotmail.com)
+//namespace
+//@gmem=MT4UFXSelect
+
+@import ..\MT4U_FX_List.eel
+@import ..\MT4U_FX_Navigator.eel
+
+intStopper = 30;
+
+intTrackNumber = 0;
+intFXNumber = 0;
+intResponse = GetTouchedOrFocusedFX(1, intTrackNumber, #intItem, #intTake, intFXNumber, #intParam);
+(intResponse == 1) ?
+(
+  // Check if the next 8 bits are not 01 (Record FX) in case we want to disable things
+  intRec = 0;
+  intRec = (intFXNumber >> 24) & 0xFF;
+  (intRec != 1) ? 
+  (
+    myTrack = GetTrack(0, intTrackNumber);
+    TrackFX_GetFXName(myTrack, intFXNumber, #buf);
+    myName =  #buf;
+    strType = GetCat(myName);
+    arrFX = 2001;
+    intNum = 0;
+    intMemSlot = 0;
+    GetList(strType, arrFX, intNum, intMemSlot);
+    intFXCount = TrackFX_GetCount(myTrack);         // Number of Plug-ins in the Chain
+    fxFound = 0;                                   // AUX: Flag used to exit the while loop
+    intStop = 0;
+    (intFXCount != 0) ?
+    (
+      // FX Nav vars
+      arrMyLooper = 201;
+      arrMyTopper = 301;
+      mem_set_values(arrMyLooper, 0);
+      mem_set_values(arrMyTopper, intFXCount-1);
+      Fill_Arrays(myTrack, intFXNumber, arrMyLooper, arrMyTopper, intMyLevel);
+      intFX = -1;
+      boolDone = 0;
+      intStop = 0;
+      while (!boolDone && intStop < intStopper) 
+      (
+        intFX = Get_Prev_Func(myTrack, arrMyLooper, arrMyTopper, intMyLevel, intFoundLevel, 0, pBack);
+        intMyLevel = intFoundLevel;
+        (intFX == -1) ? boolDone = 1 : 
+        (
+          TrackFX_GetFXName(myTrack, intFX, #fx);
+          x=0;
+          while (arrFX[x] != nil && fxFound == 0) 
+          (
+            (!strcmp(#fx, arrFX[x])) ? 
+            (
+              TrackFX_Show(myTrack, intFXNumber, 2);
+              xFind = Get_ID(myTrack, arrMyLooper, intFoundLevel);
+              TrackFX_Show(myTrack, xFind, 3); 
+              fxFound = 1;
+              boolDone = 1;
+              // Save Last Focused per Track
+              SetLastUsed(myTrack, strType, intFX, #fx)
+            );
+            x+=1;
+          );
+        );
+        intStop+=1;
+      );
+    );
+  );
+);

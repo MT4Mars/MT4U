@@ -1,0 +1,148 @@
+// MT4U_F_AddShowHide.eel Reaper EEL2 script by MT4U.
+// Marcel Lettier Ribikauskas (mars_l@hotmail.com)
+//namespace
+//@gmem=MT4UF
+
+@import ..\MT4U_FX_Navigator.eel
+intStopper = 30;
+
+function In_List(pTrack, pFX, pArrFXList)
+local (intResult, x, boolDone)
+(
+  intResult = 0;
+  boolDone = 0;
+  x = 0;
+  while (pArrFXList[x] != nil && !boolDone) 
+  (
+    TrackFX_GetFXName(pTrack, pFX, #inlist);
+    (!strcmp(#inlist, pArrFXList[x])) ?  // Compare #buf2 with current FX in the Array List
+    (
+      intResult = 1;
+      boolDone = 1;
+    );
+    x+=1;
+  );
+  intResult;
+);
+
+function CloseForeign(pTrack, pFX, pArrFXList)
+local (intTracks, intCurTrack, intCheckCount, intFX, arrMyLooper, arrMyTopper, boolDone)
+(
+  intTracks = CountTracks();
+  intCurTrack = 0;
+  TrackFX_GetFXName(pTrack, pFX, #namo);
+  while (intCurTrack < intTracks)
+  (
+    CurTrack = GetTrack(0, intCurTrack);
+    (CurTrack != pTrack) ? 
+    (
+      intCheckCount = TrackFX_GetCount(CurTrack);
+      (intCheckCount != 0) ?
+      (
+        // FX Nav vars
+        arrMyLooper = 701;
+        arrMyTopper = 801;
+        mem_set_values(arrMyLooper, 0);
+        mem_set_values(arrMyTopper, intCheckCount-1);
+        Fill_Arrays(CurTrack, -1, arrMyLooper, arrMyTopper, intMyLevel);
+        intFX = -1;
+        boolDone = 0;
+        while (!boolDone) 
+        (
+          intFX = Get_Next_Func(CurTrack, arrMyLooper, arrMyTopper, intMyLevel, intFoundLevel, 0);
+          intMyLevel = intFoundLevel;
+          (intFX == -1) ? boolDone = 1 : 
+          (
+            TrackFX_GetFXName(CurTrack, intFX, #fx);
+            (!strcmp(#namo, #fx)) ?
+            (
+              (TrackFX_GetOpen(CurTrack, intFX)) ?
+              (  // Close FX Window
+                TrackFX_Show(CurTrack, intFX, 2);
+              );
+            );
+          );
+        );
+      );  
+    );
+    intCurTrack +=1;
+  );
+);
+
+function AddShowHide(pTrack, pMemSlot, arrFXList, strDefault, pShow, pPlace, pCloseForeign, pluginSlot*)
+//Vars: pluginSlot is the fxSlot where (if) it was already in the chain.
+local (boolDone, fxFound, intTracks, intCurTrack, CurTrack, arrShowLooper, arrShowTopper, pCurrent, intCount)
+(
+  pluginSlot = -1;                               // Slot where some FX has been found or -1 if not found
+  intFXCount = TrackFX_GetCount(pTrack);         // Number of Plug-ins in the Chain
+  
+  // FX Nav vars
+  arrShowLooper = 501;
+  arrShowTopper = 601;
+  mem_set_values(arrShowLooper, 0);
+  mem_set_values(arrShowTopper, intFXCount-1);
+  Fill_Arrays(pTrack, -1, arrShowLooper, arrNextTopper, intShowLevel);
+
+  intCount = 0;
+  fxFound = 0;                                   // AUX: Flag used to exit the while loop
+  (intFXCount != 0) ?
+  (
+    pCurrent = -1;
+    intStop = 0;
+    boolDone = 0;
+    intStopper = 30;
+    while (!boolDone && intStop < intStopper)
+    (
+      pCurrent = Get_Next_Func(pTrack, arrShowLooper, arrShowTopper, intShowLevel, intFoundLevel, 0);
+      TrackFX_GetFXName(pTrack, pCurrent, #namo);
+      intShowLevel = intFoundLevel;
+      (pCurrent == -1) ? boolDone = 1 :
+      (
+        (In_List(pTrack, pCurrent, arrFXList)) ? 
+        (
+          intCount += 1;
+          ((pPlace == 0) || (pPlace == intCount)) ?
+          (
+            boolOpen = TrackFX_GetOpen(pTrack, xFind);
+            gmem[pMemSlot] = 1;                  // FX Found. LED is ON
+            (boolOpen == 1) ? 
+            ( // FX Was Open. Close Window
+              pluginSlot = pCurrent;
+              TrackFX_Show(pTrack, pCurrent, 2);
+              fxFound = 1;
+              boolDone = 1;
+            ):
+            (
+              pluginSlot = pCurrent;
+              fxFound = 1;
+              boolDone = 1;
+            );
+          );
+
+          //Close foreign
+          (fxFound && pCloseForeign) ?
+          (
+            CloseForeign(pTrack, pluginSlot, arrFXList);
+          );
+        );
+      );
+      intStop +=1;
+    );    
+  );  
+  (pluginSlot == -1) ? // No Plug-in has been found. Add the default.
+  (
+    gmem[pMemSlot] = 1;
+    (pFirst == 1) ?
+    (
+      pluginSlot = TrackFX_AddByName(pTrack, strDefault, 0, -1000);
+    ) :
+    (
+      pluginSlot = TrackFX_AddByName(pTrack, strDefault, 0, -1);
+    );
+  );
+  // Float the UI
+  (pShow == 1) ? 
+  (
+    TrackFX_Show(pTrack, pluginSlot, 3);
+  );
+);

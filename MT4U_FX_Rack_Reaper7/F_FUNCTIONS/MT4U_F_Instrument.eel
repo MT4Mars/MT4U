@@ -1,0 +1,10 @@
+// MT4U_F_Instrument.eel Reaper EEL2 script by MT4U.
+// Marcel Lettier Ribikauskas (mars_l@hotmail.com)
+
+cur_track = GetSelectedTrack(0, 0);
+
+myInstr = TrackFX_GetInstrument(cur_track);
+(myInstr > -1) ?
+(
+  TrackFX_Show(cur_track, myInstr, 3);
+);

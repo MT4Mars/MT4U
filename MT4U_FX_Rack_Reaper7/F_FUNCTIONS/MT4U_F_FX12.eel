@@ -1,0 +1,12 @@
+// MT4U_F_FX12.eel Reaper EEL2 script by MT4U.
+// Marcel Lettier Ribikauskas (mars_l@hotmail.com)
+//namespace
+//@gmem=MT4UF
+
+@import MT4U_F_FX_Base.eel
+
+get_action_context(#fn, sec, cmd);
+state = 0;
+FX_Base("FX12", state, 0);
+
+SetToggleCommandState(sec, cmd, state);

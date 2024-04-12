@@ -1,0 +1,41 @@
+// MT4U_FX_Focused_Swap_Prev.eel Reaper EEL2 script by MT4U.
+// Marcel Lettier Ribikauskas (mars_l@hotmail.com)
+//namespace
+//@gmem=MT4UFXSelect
+
+@import ..\MT4U_FX_List.eel
+
+intTrackNumber = 0;
+intFXNumber = 0;
+intResponse = GetTouchedOrFocusedFX(1, intTrackNumber, #intItem, #intTake, intFXNumber, #intParam);
+(intResponse == 1) ?
+(
+  // Check if the next 8 bits are not 01 (Record FX) in case we want to disable things
+  intRec = 0;
+  intRec = (intFXNumber >> 24) & 0xFF;
+  (intRec != 1) ? 
+  (
+    myPrev = "";
+    myTrack = GetTrack(0, intTrackNumber);
+    TrackFX_GetFXName(myTrack, intFXNumber, #buf);
+    strType = GetCat(#buf);
+    (strType != "") ?
+    (
+      myPrev = PrevFX(strType, #buf);
+    );
+
+    (myPrev != "") ?
+    (
+      // Clean
+      strAddName = myPrev;
+      // Set FX to Prev ;-)
+      PreventUIRefresh(2);
+      TrackFX_Delete(myTrack, intFXNumber);
+      newSlot = 0;
+      (intFXNumber < 0x2000000) ? newSlot = -1000 - intFXNumber : newSlot = intFXNumber;
+      PreventUIRefresh(-2);
+      TrackFX_AddByName(myTrack, strAddName, 0, newSlot);
+      TrackFX_Show(myTrack, intFXNumber, 3);
+    );
+  );
+);

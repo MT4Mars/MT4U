@@ -1,0 +1,92 @@
+// MT4U_F_Load.eel Reaper EEL2 script by MT4U.
+// Marcel Lettier Ribikauskas (mars_l@hotmail.com)
+//namespace
+//@gmem=MT4UF
+
+@import ..\MT4U_FX_List.eel
+@import ..\MT4U_FX_Navigator.eel
+@import MT4U_F_LEDs.eel
+
+intStop = 0;
+intStopper = 100;
+
+function CountCat(pTrack, pTypeName, pCountAll)
+local (pCurrent, intNext, boolDone, boolDoneAll, pCurrent, intCountCat, intStop) 
+(
+  intCountCat = 0;
+  intFXCount = TrackFX_GetCount(pTrack);         // Number of Plug-ins in the Chain
+  (intFXCount != 0) ?
+  (
+    arrFX = 101;
+    GetList(pTypeName, arrFX, intArrCount, intMemSlot);
+    (intArrCount != 0) ? 
+    (
+      pCurrent = -1;
+      intStopper = 50;
+      intStop = 0;
+      boolDoneAll = 0;
+      while (!boolDoneAll && intStop < intStopper)
+      (
+        pCurrent = Get_Next(pTrack, pCurrent);
+        (pCurrent == -1) ?
+        (
+          boolDoneAll = 1;
+        ):
+        (
+          TrackFX_GetFXName(pTrack, pCurrent, #buf);
+          x = 0;
+          boolDone = 0;
+          while (x < intArrCount && !boolDone)
+          (
+            (!strcmp(arrFX[x], #buf)) ?
+            (
+              intCountCat+=1;
+              (pCountAll == 0) ? (boolDoneAll = 1);
+              boolDone = 1;
+            );
+            x+=1;
+          );
+        );
+        intStop +=1;
+      );    
+    );
+  );
+  intCountCat;
+);
+
+cur_track = GetSelectedTrack(0, 0);
+
+intCount = CountCat(cur_track, "EQ1", 1);
+gmem[1] = (intCount > 0); // EQ1
+gmem[2] = (intCount > 1); // EQ2
+intCount = CountCat(cur_track, "FX1", 0);
+gmem[3] = (intCount > 0); // FX1
+intCount = CountCat(cur_track, "FX2", 0);
+gmem[4] = (intCount > 0); // FX2
+intCount = CountCat(cur_track, "FX3", 0);
+gmem[5] = (intCount > 0); // FX3
+intCount = CountCat(cur_track, "FX4", 0);
+gmem[6] = (intCount > 0); // FX4
+intCount = CountCat(cur_track, "FX5", 0);
+gmem[7] = (intCount > 0); // FX5
+intCount = CountCat(cur_track, "FX6", 0);
+gmem[8] = (intCount > 0); // FX6
+intCount = CountCat(cur_track, "FX7", 0);
+gmem[9] = (intCount > 0); // FX7
+intCount = CountCat(cur_track, "FX8", 0);
+gmem[10] = (intCount > 0); // FX8
+intCount = CountCat(cur_track, "FX9", 0);
+gmem[11] = (intCount > 0); // FX9
+intCount = CountCat(cur_track, "FX10", 0);
+gmem[12] = (intCount > 0); // FX10
+intCount = CountCat(cur_track, "FX11", 0);
+gmem[13] = (intCount > 0); // FX11
+intCount = CountCat(cur_track, "FX12", 0);
+gmem[14] = (intCount > 0); // FX12
+intCount = CountCat(cur_track, "FX13", 0);
+gmem[15] = (intCount > 0); // FX13
+intCount = CountCat(cur_track, "FX14", 0);
+gmem[16] = (intCount > 0); // FX14
+intCount = CountCat(cur_track, "FX15", 0);
+gmem[17] = (intCount > 0); // FX5
+LEDs();    

@@ -1,0 +1,21 @@
+// MT4U_FX_CloseFocused.eel Reaper EEL2 script by MT4U.
+// Marcel Lettier Ribikauskas (mars_l@hotmail.com)
+
+intTrack = -1;
+intSlot = -1;
+intResponse = GetTouchedOrFocusedFX(1, intTrack, #intItem, #intTake, intSlot, #intParam);
+(intResponse) ? 
+(
+  (intTrack >-1) ? 
+  (
+    fx_track = GetTrack(0, intTrack);
+  ) :
+  (
+    fx_track = GetMasterTrack(0);
+  );
+  (intSlot != -1) ?
+  (
+    TrackFX_Show(fx_track, intSlot, 0);
+    TrackFX_Show(fx_track, intSlot, 2);
+  );
+);
