@@ -2,7 +2,7 @@ Copy/add the included scripts to Reaper and make the following modifications to 
 
 Home.zon
 --------
-// On activation, we call the Load script that will turn the LEDs on for the already existing plug-in types in the chain.
+// On activation, we call the Load script that will turn the LEDs on for the already existing plug-in categories in the chain.
 
   OnZoneActivation           Reaper _RS8a2f2f022ffebde85f32fa3643a3bad6b10588bc    // MT4U_F_Load.eel
 
