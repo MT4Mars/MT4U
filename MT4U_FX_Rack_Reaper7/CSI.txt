@@ -18,6 +18,8 @@ Buttons.zon
 // The FX Rack
   EQ                          Reaper _RSaf64797924604bbe143b610b88a813a9578036bf      // MT4U_F_EQ.eel
   EQ                          ClearModifiers
+  Hold+EQ                     Reaper _RS1775f56c7275cc4bc288ebc4b269ac7a03d51b97      // MT4U_F_EQ_Add.eel
+  Hold+EQ                     ClearModifiers
   F1                          Reaper _RS4e6cbe8d54af7b17bb872a2012dccfec17e7647f      // MT4U_F_FX1.eel (Channel Strip)
   F1                          ClearModifiers
   Hold+F1                     Reaper _RS8e8526d3b5953ac25b2dcdb01142dee228438331      // MT4U_F_FX1_Add.eel (Channel Strip)
@@ -62,16 +64,22 @@ Buttons.zon
   Shift+F3                    ClearModifiers
   Hold+Shift+F3               Reaper _RSdf35b4848af3dc6d07971386f976fffb023c98ca      // MT4U_F_FX11_Add.eel (Distortion)
   Hold+Shift+F3               ClearModifiers
-  Shift+F4                    Reaper _RSf02f06c5e53c559212827536654c9a647be5918d      // MT4U_F_FX12.eel (Other)
+  Shift+F4                    Reaper _RSf02f06c5e53c559212827536654c9a647be5918d      // MT4U_F_FX12.eel (Transient)
   Shift+F4                    ClearModifiers
-  Hold+Shift+F4               Reaper _RScced01159f3f34f308aa81146a9bf3c8928f3888      // MT4U_F_FX12_Add.eel (Other)
+  Hold+Shift+F4               Reaper _RScced01159f3f34f308aa81146a9bf3c8928f3888      // MT4U_F_FX12_Add.eel (Transient)
   Hold+Shift+F4               ClearModifiers
-  Shift+F5                    NoAction
-  Shift+F5                    NoAction
-  Shift+F6                    NoAction
-  Shift+F6                    NoAction
-  Shift+F7                    NoAction
-  Shift+F7                    NoAction
+  Shift+F5                    Reaper _RS017efea9c3bf4dd68b2abb4e39d580398dd23dbe      // MT4U_F_FX13.eel (Transient)
+  Shift+F5                    ClearModifiers
+  Hold+Shift+F5               Reaper _RS92891d989e0c946111a06d1765308d4f7e936b00      // MT4U_F_FX13_Add.eel (Transient)
+  Hold+Shift+F5               ClearModifiers
+  Shift+F6                    Reaper _RSdc10f85e9926e8d3bdd0dcdbf4595365c86cd63c      // MT4U_F_FX14.eel (Transient)
+  Shift+F6                    ClearModifiers
+  Hold+Shift+F6               Reaper _RS68baace21a92bbf13fe1b20f00d916edcae84655      // MT4U_F_FX14_Add.eel (Transient)
+  Hold+Shift+F6               ClearModifiers
+  Shift+F7                    Reaper _RS070b25f58e46a2c1e8e07b0e69c5517f5b402191      // MT4U_F_FX15.eel (Transient)
+  Shift+F7                    ClearModifiers
+  Hold+Shift+F7               Reaper _RS779fc4551282a6d488b3d1b844f2e929192db70b      // MT4U_F_FX15_Add.eel (Transient)
+  Hold+Shift+F7               ClearModifiers
   Shift+F8                    Reaper _RS635b27b648e6951856fb6df5775548fa9d835b1d      // MT4U_F_Spectrum_Analyzer_Master.eel (Spectrum Analyzer in Master)
   Shift+F8                    ClearModifiers
 
