@@ -40,19 +40,22 @@ MT4U_FX_Rack_Reaper7 (Virtual FX Rack for CSI - Reaper 7+)
     
       EQ - EQ
     
-    There is a list of plug-ins that you can edit to enter your favourites for each type.
+    There is a list of plug-ins that you can edit to enter your favourites for each category.
     
-    If an FX of the type is found in the track's chain, the LED will turn on, and pressing the
-    button will bring the FX GUI on screen. With FocusedFXMapping enabled in CSI, your surface 
-    will map the plugin. The Cancel button on the MCU will unmap and close the plug-in, 
+    If an FX of the category is found in the track's chain, the LED will turn on, and pressing 
+    the button will bring the FX GUI on screen. With FocusedFXMapping enabled in CSI, your 
+    surface will map the plugin. The Cancel button on the MCU will unmap and close the plug-in, 
     returning to the previous zone.
-    
-    Selecting a different track, the LEDs will show what plug-in types are already in the 
+
+    Selecting a different track, the LEDs will show what plug-in categories are already in the 
     track's FX chain, giving you a swift overview.
     
     If the FX is not found, the first in the list will be added. Once added, the Alt modifier 
     will make the Prev/Next Channel MCU buttons go forward and backwards, replacing the current FX 
     with the next/prev on your list for each given type.
+    
+    If you press and hold the same button, a new instance of the default FX for that category
+    will be added, regardless of the presence of another one in the chain.
     
     If, on the other hand, you are inside CSI's FX Menu, the plug-in will be added but not 
     displayed, since it's not necessary to take advantage of FocusedFXMapping. In this case 
@@ -60,7 +63,12 @@ MT4U_FX_Rack_Reaper7 (Virtual FX Rack for CSI - Reaper 7+)
     encoders.
     
     In the example configuration, the RecordArm button selects an FX. With the Alt modifier, 
-    it can be moved up and down in the chain, while holding RecordArm will delete it.
+    it can be moved up and down in the chain, while holding RecordArm will delete it.    
+    ************************************************************************************************
+    Reaper 7 implements FX Containers. This versions of the scripts allow you take advantage of that
+    new feature. When using the MT4U_FX_MENU_MoveUp.eel (and MoveDown) scripts, the selected plug-in 
+    will move crawling in and out of those containers whenever necessary.
+    ************************************************************************************************    
     
     To install, add an MT4U folder inside Reaper's root scripts directory (<resource dir>/Scripts)
     and copy the MT4U_F_FUNCTIONS and MT4U_FX_MENU folders there, as well as the MT4U_FX_List.eel 
@@ -74,12 +82,6 @@ MT4U_FX_Rack_Reaper7 (Virtual FX Rack for CSI - Reaper 7+)
     The CSI.txt file contains the necessary mappings required inside your CSI zone files to achieve 
     this behaviour in their default configuration.
 
-    ************************************************************************************************
-    Reaper 7 implements FX Containers. This versions of the scripts allow you take advantage of that
-    new feature.
-    When using the MT4U_FX_MENU_MoveUp.eel (and MoveDown) scripts, the selected plug-in will move
-    crawling in and out of those containers whenever necessary.
-    ************************************************************************************************    
 
 
 MT4U_View (Show/Hide tracks with button feedback)
