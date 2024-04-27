@@ -2,6 +2,8 @@
 // Marcel Lettier Ribikauskas (mars_l@hotmail.com)
 // Plug-In Navigator (Supports Containers)
 
+@import MT4U_FX_List.eel
+
 function Is_Container(pTrack, pID, intContCount*)
 (
   intContCount = 0;
@@ -432,6 +434,165 @@ local (intSearch, boolDoneMPrev, intNewPrev, intContCount)
   intNewPrev;
 );
 
+function NextFX(pTypeName, strThisName)
+(
+  arrFX = 1000;
+  intNum = 0;
+  intSlot = 0;
+  GetList(pTypeName, arrFX, intNum, intSlot);
+  x = 0;
+  boolDone =  0;
+  strNext = "";
+
+  while (arrFX[x] != nil && x < intNum && boolDone == 0)
+  (
+    (!strcmp(arrFX[x], strThisName)) ?
+    (
+      (x == intNum-1) ? strNext = arrFX[0] : strNext = arrFX[x+1];
+      boolDone = 1;
+    );
+    x+=1;
+  );
+  strNext;
+);
+
+function PrevFX(pTypeName, strThisName)
+(
+  arrFX = 1000;
+  intNum = 0;
+  intSlot = 0;
+  GetList(pTypeName, arrFX, intNum, intSlot);
+  x = intNum-1;
+  boolDone = 0;
+  strPrev = "";
+
+  while (arrFX[x] != nil && x >= 0  && boolDone == 0)
+  (
+    (!strcmp(arrFX[x], strThisName)) ?
+    (
+      (x == 0) ? strPrev = arrFX[intNum-1] : strPrev = arrFX[x-1];
+       boolDone = 1;
+    );
+    x-=1;
+  );
+  strPrev;
+);
+
+function GetLastUsed(pTrack, pType, pSlot*)
+(
+  boolDone = 0;
+  pSlot = -1;
+  intFXCount = TrackFX_GetCount(pTrack);         // Number of Plug-ins in the Chain
+  (intFXCount != 0) ?
+  (
+    strLastName = sprintf(#, "%s%s", "P_EXT:MT4U_LastName_", pType);
+    strLastSlot = sprintf(#, "%s%s", "P_EXT:MT4U_LastSlot_", pType);
+    GetSetMediaTrackInfo_String(pTrack, strLastName, #last_name, 0);
+    GetSetMediaTrackInfo_String(pTrack, strLastSlot, #last_slot, 0);
+    (#last_name != nil)  ? 
+    (
+      (#last_slot != nil) ?
+      (
+        // Get integer
+        match("%i", #last_slot, intSlot);
+        // Check if both Name/Slot match
+        (intSlot < intFXCount) ?
+        (
+          // Get this slot's FX Name into #buf
+          TrackFX_GetFXName(pTrack, intSlot, #buf); 
+          (!strcmp(#last_name, #buf)) ?
+          (
+            pSlot = intSlot;
+            boolDone = 1;
+          );
+        );
+      );
+    );
+    (boolDone == 0) ?
+    (
+      x=intFXCount-1;
+      while ((x > -1) && (boolDone == 0)) ?
+      (
+        TrackFX_GetFXName(pTrack, x, #buf); 
+        (!strcmp(strLastName, #buf)) ? 
+        (
+          pSlot = x;
+          boolDone = 1;
+        );
+        x-=1;
+      );
+    );
+  );
+);
+
+function SetLastUsed(pTrack, pType, pSlot, pName) 
+(
+  strLastName = sprintf(#, "%s%s", "P_EXT:MT4U_LastName_", pType);
+  strLastSlot = sprintf(#, "%s%s", "P_EXT:MT4U_LastSlot_", pType);
+  #last_slot = sprintf(#, "%i", pSlot);
+  #last_name = pName;
+  GetSetMediaTrackInfo_String(pTrack, strLastName, #last_name, 1);
+  GetSetMediaTrackInfo_String(pTrack, strLastSlot, #last_slot, 1);
+);
+
+function AddInstance(pType, pShow)
+(
+  cur_track = GetSelectedTrack(0, 0);
+  (pType != "") ?
+  (
+    arrFX = 0;
+    intNum = 0;
+    intMemSlot = 0;
+    GetList(pType, arrFX, intNum, intMemSlot);
+    pluginSlot = TrackFX_AddByName(cur_track, arrFX[0], 0, -1);
+    gmem[intMemSlot] = 1;
+    // Float the UI
+    (pShow == 1) ? 
+    (
+      intTrackNumber = 0;
+      intFXNumber = 0;
+      intResponse = GetTouchedOrFocusedFX(1, intTrackNumber, #intItem, #intTake, intFXNumber, #intParam);
+      (intResponse == 1) ?
+      (
+        TrackFX_Show(cur_track, intFXNumber, 2);    
+      );
+      TrackFX_Show(cur_track, pluginSlot, 3);
+      // Save Last Focused per Track
+      TrackFX_GetFXName(cur_track, pluginSlot, #buf);
+      SetLastUsed(cur_track, pType, pluginSlot, #buf);
+    );    
+  );
+);
+
+function GetCat(pFX)
+local (strType, x, y, boolDone, arrTypes, arrFX)
+(
+  strType = "";
+  boolDone = 0;
+  x = 0;
+  arrTypes = 3001;
+  arrFX = 3101;
+  mem_set_values(arrTypes, "EQ1", "FX1", "FX2", "FX3", "FX4", "FX5", "FX6", "FX7", "FX8", "FX9", "FX10", "FX11", "FX12", "FX13", "FX14", "FX15", nil);
+  while (arrTypes[x] != nil && !boolDone) 
+  (
+    intTypeNum = 0;
+    intTypeSlot = 0;
+    strDef = GetList(arrTypes[x], arrFX, intTypeNum, intTypeSlot);    
+    y = 0;
+    while (arrFX[y] != nil && !boolDone) 
+    (
+      (!strcmp(arrFX[y], pFX)) ? 
+      (
+        strType = arrTypes[x];
+        boolDone = 1;
+      );
+      y+=1;
+    );
+    x+=1;
+  );
+  strType;
+);
+
 /* 
 // START -> TESTING
 pTrack = GetSelectedTrack(0, 0);
@@ -510,5 +671,3 @@ while (pCurrent > -1 && intDebug < intStopper)
   intDebug +=1;
 );
  */ // END -> TESTING PREV_PLUG-IN *************************
-
-
