@@ -3,6 +3,6 @@
 //namespace
 //@gmem=MT4UF
 
-@import ..\MT4U_FX_List.eel
+@import ..\MT4U_FX_Navigator.eel
 
 AddInstance("FX10", 1); // FX Type, 1=Show UI, 0=No Show
