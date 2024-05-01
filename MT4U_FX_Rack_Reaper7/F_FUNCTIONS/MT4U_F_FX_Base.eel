@@ -3,9 +3,8 @@
 //namespace
 //@gmem=MT4UF
 
-@import ..\MT4U_FX_List.eel
-@import MT4U_F_AddShowHide.eel
 @import ..\MT4U_FX_Navigator.eel
+@import MT4U_F_AddShowHide.eel
 
 function FX_Base(pCat, pState*, pPlace)
 local (boolDone, strDef)
