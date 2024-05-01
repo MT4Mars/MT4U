@@ -3,7 +3,7 @@
 //namespace
 //@gmem=MT4UFXSelect
 
-@import ..\MT4U_FX_List.eel
+@import ..\MT4U_FX_Navigator.eel
 
 function FX_Prev(pSlot)
 (
