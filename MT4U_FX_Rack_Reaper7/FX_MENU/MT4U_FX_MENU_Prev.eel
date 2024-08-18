@@ -15,8 +15,9 @@ function FX_Prev(pSlot)
   // Get FX Name
   (pSlot < intFXCount) ?
   (
-    myName =  TrackFX_GetFXName(cur_track, pSlot, #buf);
-    myCat = GetCat(myName);
+    TrackFX_GetFXName(cur_track, pSlot, #buf);
+    myName = #buf;
+    myCat = GetCat(#buf);
     myPrev = PrevFX(myCat, #buf);
     (myPrev != "") ?
     (
@@ -26,7 +27,7 @@ function FX_Prev(pSlot)
       PreventUIRefresh(2);
       TrackFX_Delete(cur_track, pSlot);
       // Container Support
-      (pSlot < 0x2000000) ? newSlot = -1000 - pSlot; : newSlot = pSlot;
+      (pSlot < 0x2000000) ? newSlot = -1000 - pSlot : newSlot = pSlot;
       TrackFX_AddByName(cur_track, strAdd, 0, newSlot);
       PreventUIRefresh(-2);
     );
