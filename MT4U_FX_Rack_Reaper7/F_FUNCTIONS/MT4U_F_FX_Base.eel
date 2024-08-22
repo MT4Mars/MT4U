@@ -29,7 +29,7 @@ local (boolDone, strDef)
     ) :
     ( 
       GetLastUsed(cur_track, pCat, pSlot);
-      pSlot = -1;
+      //pSlot = -1;
       (pSlot == -1 && pPlace == 0) ? 
       (
         // No info on last used, open last of the Cat on the chain if any, else Add default.
