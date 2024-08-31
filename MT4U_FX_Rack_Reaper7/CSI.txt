@@ -9,7 +9,7 @@ Home.zon
 Track.zon
 ---------
 // When selecting another track, we call the Load script again to update our status LEDs according to the newly selected track.
-
+  OnTrackSelection            Reaper _RS033ffff68994996ad05b1d856ef3cd86ec540314    // MT4U_FX_Remember.eel
   OnTrackSelection            Reaper _RS8a2f2f022ffebde85f32fa3643a3bad6b10588bc    // MT4U_F_Load.eel
 
 Buttons.zon
