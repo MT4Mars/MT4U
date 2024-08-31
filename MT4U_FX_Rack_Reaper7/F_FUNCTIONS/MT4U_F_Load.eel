@@ -9,9 +9,17 @@
 intStop = 0;
 intStopper = 100;
 
+// Check
+GetProjExtState(0, "MT4U_Globals", "FX_Last", #my_last);
+GetProjExtState(0, "MT4U_Globals", "FX_Last_Cat", #my_last_cat);
+
 function CountCat(pTrack, pTypeName, pCountAll)
 local (pCurrent, intNext, boolDone, boolDoneAll, pCurrent, intCountCat, intStop) 
 (
+  // For reopening UI
+  intOpenFXSlot = -1;
+  intOpenCatSlot = -1;
+  
   intCountCat = 0;
   intFXCount = TrackFX_GetCount(pTrack);         // Number of Plug-ins in the Chain
   (intFXCount != 0) ?
@@ -33,12 +41,24 @@ local (pCurrent, intNext, boolDone, boolDoneAll, pCurrent, intCountCat, intStop)
         ):
         (
           TrackFX_GetFXName(pTrack, pCurrent, #buf);
+          // Capture FX for Reopen
+          (intOpenFXSlot == -1) ?
+          ( 
+            (!strcmp(#buf, #my_last)) ? 
+            ( // Same as Previously Opened FX
+              intOpenFXSlot = pCurrent;
+            );
+          );
           x = 0;
           boolDone = 0;
           while (x < intArrCount && !boolDone)
           (
             (!strcmp(arrFX[x], #buf)) ?
             (
+              ((intOpenCatSlot == -1) && !strcmp(pTypeName, #my_last_cat)) ? 
+              (
+                intOpenCatSlot = pCurrent;
+              );
               intCountCat+=1;
               (pCountAll == 0) ? (boolDoneAll = 1);
               boolDone = 1;
@@ -50,6 +70,15 @@ local (pCurrent, intNext, boolDone, boolDoneAll, pCurrent, intCountCat, intStop)
       );    
     );
   );
+  (intOpenFXSlot != -1) ?
+  (
+    TrackFX_Show(pTrack, intOpenFXSlot, 3);
+  ) :
+  (intOpenCatSlot != -1) ?
+  (
+    TrackFX_Show(pTrack, intOpenCatSlot, 3);
+  );
+  
   intCountCat;
 );
 
