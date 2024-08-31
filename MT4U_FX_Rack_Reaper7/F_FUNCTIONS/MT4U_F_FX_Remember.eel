@@ -1,0 +1,35 @@
+// MT4U_F_FX_Remember.eel Reaper EEL2 script by MT4U.
+// Marcel Lettier Ribikauskas (mars_l@hotmail.com)
+
+@import ..\MT4U_FX_Navigator.eel
+
+// Get Last Touched or Opened FX
+intTrack = -1;
+intSlot = -1;
+boolDone = 0;
+intResponse = GetTouchedOrFocusedFX(1, intTrack, #intItem, #intTake, intSlot, #intParam);
+strFXName = "";
+strFXCat = "";
+(intResponse) ? 
+(
+  (intTrack >-1 && intSlot != -1) ? 
+  (
+    fx_track = GetTrack(0, intTrack);
+    // Get Name of Selected Track
+    TrackFX_GetFXName(fx_track, intSlot, #fx_name);
+    strFXName = sprintf(#, "%s", #fx_name);
+    // Get Cat of Selected Track
+    strFXCat = sprintf(#, "%s", GetCat(strFXName));
+    // Close FX Window
+    TrackFX_Show(fx_track, intSlot, 0);
+    TrackFX_Show(fx_track, intSlot, 2);
+    // Save Vars
+    SetProjExtState(0, "MT4U_Globals", "FX_Last", strFXName);
+    SetProjExtState(0, "MT4U_Globals", "FX_Last_Cat", strFXCat);
+  );
+):
+(
+    // Clean Vars
+    SetProjExtState(0, "MT4U_Globals", "FX_Last", "");
+    SetProjExtState(0, "MT4U_Globals", "FX_Last_Cat", "");
+);
