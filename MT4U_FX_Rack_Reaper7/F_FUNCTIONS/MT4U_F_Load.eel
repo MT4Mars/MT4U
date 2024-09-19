@@ -6,6 +6,7 @@
 @import ..\MT4U_FX_Navigator.eel
 @import MT4U_F_LEDs.eel
 
+
 intStop = 0;
 intStopper = 100;
 
@@ -14,10 +15,10 @@ intPrevOpenedSlot = -1;
 
 cur_track = GetSelectedTrack(0, 0);
 
+
 // Check
 GetProjExtState(0, "MT4U_Globals", "FX_Last", #my_last);
 GetProjExtState(0, "MT4U_Globals", "FX_Last_Cat", #my_last_cat);
-
 (strcmp(#my_last, "")) ?
 (
   // If there is an FX of the kind as the last opened, show it
@@ -34,114 +35,58 @@ GetProjExtState(0, "MT4U_Globals", "FX_Last_Cat", #my_last_cat);
   );
 );
 
-function CountCat(pTrack, pTypeName, pCountAll)
-local (pCurrent, intNext, boolDone, boolDoneAll, pCurrent, intCountCat, intStop) 
+// Go through the chain
+arrNextLooper = 10201;
+arrNextTopper = 10301;
+mem_set_values(arrNextLooper, 0);
+mem_set_values(arrNextTopper, TrackFX_GetCount(pTrack)-1);
+intCurrent = -1;
+Fill_Arrays(cur_track, intCurrent, arrNextLooper, arrNextTopper, intNextLevel);
+intNext = Get_Next_Func(cur_track, arrNextLooper, arrNextTopper, intNextLevel, intFound, 0);
+intNextLevel = intFound;
+intOpenFXSlot = -1;
+while (intNext != -1)
 (
-  // For reopening UI
-  intOpenCatSlot = -1;
-  (!strcmp(strPrevOpenedCat, pTypeName)) ?
+  TrackFX_GetFXName(cur_track, intNext, #buf);
+  strFXName = sprintf(#, "%s", #buf);
+  strFXCat = GetCat(#buf);
+  (intPrevOpenedSlot == -1 && strcmp(#my_last_cat,"")) ? 
   (
-    intOpenFXSlot = intPrevOpenedSlot;
-  );
-
-  intCountCat = 0;
-  intFXCount = TrackFX_GetCount(pTrack);         // Number of Plug-ins in the Chain
-  (intFXCount != 0) ?
-  (
-    arrFX = 101;
-    GetList(pTypeName, arrFX, intArrCount, intMemSlot);
-    (intArrCount != 0) ? 
+    (intOpenFXSlot == -1) ? 
     (
-      pCurrent = -1;
-      intStopper = 50;
-      intStop = 0;
-      boolDoneAll = 0;
-      while (!boolDoneAll && intStop < intStopper)
+      (!strcmp(#my_last_cat, strFXCat)) ? // Previously opened in new track is of same category than this
       (
-        pCurrent = Get_Next(pTrack, pCurrent);
-        (pCurrent == -1) ?
-        (
-          boolDoneAll = 1;
-        ):
-        (
-          TrackFX_GetFXName(pTrack, pCurrent, #buf);
-          // Capture FX for Reopen
-          (intOpenFXSlot == -1) ?
-          ( 
-            (!strcmp(#buf, #my_last)) ? 
-            ( // Same as Previously Opened FX
-              intOpenFXSlot = pCurrent;
-            );
-          );
-          x = 0;
-          boolDone = 0;
-          while (x < intArrCount && !boolDone)
-          (
-            (!strcmp(arrFX[x], #buf)) ?
-            (
-              ((intOpenCatSlot == -1) && !strcmp(pTypeName, #my_last_cat)) ? 
-              (
-                intOpenCatSlot = pCurrent;
-              );
-              intCountCat+=1;
-              (pCountAll == 0) ? (boolDoneAll = 1);
-              boolDone = 1;
-            );
-            x+=1;
-          );
-        );
-        intStop +=1;
-      );    
+        intOpenFXSlot = intNext;
+      );
     );
   );
-  (intPrevOpenedSlot != -1) ?
-  (
-    TrackFX_Show(pTrack, intPrevOpenedSlot, 3);
-  ) :  
-  (intOpenFXSlot != -1) ?
-  (
-    TrackFX_Show(pTrack, intOpenFXSlot, 3);
-  ) :
-  (intOpenCatSlot != -1) ?
-  (
-    TrackFX_Show(pTrack, intOpenCatSlot, 3);
-  );
-  
-  intOpenFXSlot = -1;
-  intCountCat;
+  (gmem[1] != 1 && strFXCat == "EQ1") ? ( gmem[1] = 1; ) : 
+  (gmem[2] != 1 && strFXCat == "EQ1" && gmem[1] == 1) ? ( gmem[2] = 1; ) : 
+  (gmem[3] != 1 && strFXCat == "FX1") ? ( gmem[3] = 1; ) : 
+  (gmem[4] != 1 && strFXCat == "FX2") ? ( gmem[4] = 1; ) : 
+  (gmem[5] != 1 && strFXCat == "FX3") ? ( gmem[5] = 1; ) : 
+  (gmem[6] != 1 && strFXCat == "FX4") ? ( gmem[6] = 1; ) : 
+  (gmem[7] != 1 && strFXCat == "FX5") ? ( gmem[7] = 1; ) : 
+  (gmem[8] != 1 && strFXCat == "FX6") ? ( gmem[8] = 1; ) : 
+  (gmem[9] != 1 && strFXCat == "FX7") ? ( gmem[9] = 1; ) : 
+  (gmem[10] != 1 && strFXCat == "FX8") ? ( gmem[10] = 1; ) : 
+  (gmem[11] != 1 && strFXCat == "FX9") ? ( gmem[11] = 1; ) : 
+  (gmem[12] != 1 && strFXCat == "FX10") ? ( gmem[12] = 1; ) : 
+  (gmem[13] != 1 && strFXCat == "FX11") ? ( gmem[13] = 1; ) : 
+  (gmem[14] != 1 && strFXCat == "FX12") ? ( gmem[14] = 1; ) : 
+  (gmem[15] != 1 && strFXCat == "FX13") ? ( gmem[15] = 1; ) : 
+  (gmem[16] != 1 && strFXCat == "FX14") ? ( gmem[16] = 1; ) : 
+  (gmem[17] != 1 && strFXCat == "FX15") ? ( gmem[17] = 1; )
+  ;
+  intNext = Get_Next_Func(cur_track, arrNextLooper, arrNextTopper, intNextLevel, intFound, 0);
+  intNextLevel = intFound;
 );
-
-intCount = CountCat(cur_track, "EQ1", 1);
-gmem[1] = (intCount > 0); // EQ1
-gmem[2] = (intCount > 1); // EQ2
-intCount = CountCat(cur_track, "FX1", 0);
-gmem[3] = (intCount > 0); // FX1
-intCount = CountCat(cur_track, "FX2", 0);
-gmem[4] = (intCount > 0); // FX2
-intCount = CountCat(cur_track, "FX3", 0);
-gmem[5] = (intCount > 0); // FX3
-intCount = CountCat(cur_track, "FX4", 0);
-gmem[6] = (intCount > 0); // FX4
-intCount = CountCat(cur_track, "FX5", 0);
-gmem[7] = (intCount > 0); // FX5
-intCount = CountCat(cur_track, "FX6", 0);
-gmem[8] = (intCount > 0); // FX6
-intCount = CountCat(cur_track, "FX7", 0);
-gmem[9] = (intCount > 0); // FX7
-intCount = CountCat(cur_track, "FX8", 0);
-gmem[10] = (intCount > 0); // FX8
-intCount = CountCat(cur_track, "FX9", 0);
-gmem[11] = (intCount > 0); // FX9
-intCount = CountCat(cur_track, "FX10", 0);
-gmem[12] = (intCount > 0); // FX10
-intCount = CountCat(cur_track, "FX11", 0);
-gmem[13] = (intCount > 0); // FX11
-intCount = CountCat(cur_track, "FX12", 0);
-gmem[14] = (intCount > 0); // FX12
-intCount = CountCat(cur_track, "FX13", 0);
-gmem[15] = (intCount > 0); // FX13
-intCount = CountCat(cur_track, "FX14", 0);
-gmem[16] = (intCount > 0); // FX14
-intCount = CountCat(cur_track, "FX15", 0);
-gmem[17] = (intCount > 0); // FX5
-LEDs();    
+(intPrevOpenedSlot != -1) ?
+(
+  TrackFX_Show(cur_track, intPrevOpenedSlot, 3);
+) :  
+(intOpenFXSlot != -1) ?
+(
+  TrackFX_Show(cur_track, intOpenFXSlot, 3);
+);
+LEDs();
