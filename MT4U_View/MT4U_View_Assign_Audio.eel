@@ -2,6 +2,7 @@
 // Coded by Marcel Lettier Ribikauskas <mars_l@hotmail.com>
 // Assigns the selected track to a Named Category in order to be hidden/shown 
 // using the VIEW buttons on an MCU like surface, or any chosen buttons on any surface.
+// test
 
 @import MT4U_View_Update.eel
 
@@ -52,3 +53,4 @@ strBut = "1";
 //(
   SetToggleCommandState(sec, cmd, newstate);
 //);
+
