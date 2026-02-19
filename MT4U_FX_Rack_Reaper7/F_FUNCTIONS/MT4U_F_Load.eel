@@ -15,7 +15,7 @@ intPrevOpenedSlot = -1;
 
 cur_track = GetSelectedTrack(0, 0);
 
-
+/*
 // Check
 GetProjExtState(0, "MT4U_Globals", "FX_Last", #my_last);
 GetProjExtState(0, "MT4U_Globals", "FX_Last_Cat", #my_last_cat);
@@ -34,6 +34,7 @@ GetProjExtState(0, "MT4U_Globals", "FX_Last_Cat", #my_last_cat);
     );
   );
 );
+*/
 
 // Go through the chain
 arrNextLooper = 10201;
